@@ -7,26 +7,6 @@ import javax.swing.JTextField;
 
 import com.dam.control.ConcesionarioControlador;
 
-/*
-CREATE TABLE Marca (
-nombre_marca varchar(50) PRIMARY KEY
-);
-
-CREATE TABLE Modelo (
-id_modelo INT PRIMARY KEY,
-nombre_modelo varchar(80),
-nombre_marca varchar(50),
-foreign key (nombre_marca) references Marca(nombre_marca)
-);
-
-CREATE TABLE Vehiculo (
-id_vehiculo INT PRIMARY KEY,
-modelo int,
-foreign key (modelo) references Modelo(id_modelo),
-precio int
-);
-*/
-
 public class PNuevoModelo extends JPanel implements IPanel{
     private static final int ANCHO=600;
     private static final int ALTO=400;
