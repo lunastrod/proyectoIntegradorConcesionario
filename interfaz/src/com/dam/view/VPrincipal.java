@@ -11,17 +11,19 @@ import com.dam.control.ConcesionarioControlador;
 
 public class VPrincipal extends JFrame implements IVentana{
 
-    private static final String TITULO="E N C U E S T A S";
+    private static final String TITULO="CONCESIONARIO";
     private static final int ANCHO=1000;
     private static final int ALTO=1000;
-    public static final String NUEVO_VEHICULO_MENU="Nuevo Vehículo";
-    public static final String VER_CATALOGO_MENU="Ver Catálogo";
+    public static final String NUEVO_VEHICULO_MENU="Nuevo Vehiculo";
+    public static final String VER_CATALOGO_MENU="Ver Catalogo";
     public static final String NUEVO_MODELO_MENU="Nuevo Modelo";
+    public static final String LOGIN_MENU="Login";
 
 
     private JMenuItem itemNuevoVeh;
     private JMenuItem itemVer;
     private JMenuItem itemNuevoMod;
+    private JMenuItem itemLogin;
 
     public VPrincipal() {
         configurarVentana();
@@ -63,13 +65,27 @@ public class VPrincipal extends JFrame implements IVentana{
         itemNuevoMod.setActionCommand(NUEVO_MODELO_MENU);
         menuEncuestas.add(itemNuevoMod);
 
+        itemLogin = new JMenuItem(LOGIN_MENU);
+        itemLogin.setActionCommand(LOGIN_MENU);
+        menuEncuestas.add(itemLogin);
+    }
 
+    public void actualizarMenu(boolean empleado) {
+        if(empleado){
+            itemNuevoVeh.setVisible(true);
+            itemNuevoMod.setVisible(true);
+        }
+        else{
+            itemNuevoVeh.setVisible(false);
+            itemNuevoMod.setVisible(false);
+        }
     }
 
     public void setControlador(ConcesionarioControlador c) {
         itemNuevoVeh.addActionListener(c);
         itemVer.addActionListener(c);
         itemNuevoMod.addActionListener(c);
+        itemLogin.addActionListener(c);
     }
 
     public void hacerVisible() {

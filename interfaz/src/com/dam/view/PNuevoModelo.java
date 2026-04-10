@@ -6,12 +6,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.dam.control.ConcesionarioControlador;
+import com.dam.model.ModeloVehiculo;
 
 public class PNuevoModelo extends JPanel implements IPanel{
     private static final int ANCHO=600;
     private static final int ALTO=400;
     public static final String GUARDAR_MODELO_BTN="Guardar Modelo";
     JButton btnGuardar;
+    JTextField tfNombreModelo;
+    JTextField tfNombreMarca;
 
     public PNuevoModelo(){
         setLayout(null);
@@ -19,8 +22,14 @@ public class PNuevoModelo extends JPanel implements IPanel{
         crearComponentes();
     }
 
+    public ModeloVehiculo getModeloVehiculo(){
+        String nombreModelo=tfNombreModelo.getText();
+        String nombreMarca=tfNombreMarca.getText();
+        return new ModeloVehiculo(1,nombreModelo,nombreMarca);
+    }
+
     public void crearComponentes(){
-        JLabel lblTitulo = new JLabel("Nuevo Vehículo");
+        JLabel lblTitulo = new JLabel("Nuevo Vehiculo");
         lblTitulo.setBounds(25, 20, 160, 20);
         add(lblTitulo);
 
@@ -28,7 +37,7 @@ public class PNuevoModelo extends JPanel implements IPanel{
         JLabel lblNombreModelo = new JLabel("Modelo:");
         lblNombreModelo.setBounds(25, 60, 160, 20);
         add(lblNombreModelo);
-        JTextField tfNombreModelo = new JTextField();
+        tfNombreModelo = new JTextField();
         tfNombreModelo.setBounds(130, 60, 150, 25);
         add(tfNombreModelo);
 
@@ -36,7 +45,7 @@ public class PNuevoModelo extends JPanel implements IPanel{
         JLabel lblNombreMarca = new JLabel("Marca:");
         lblNombreMarca.setBounds(25, 100, 160, 20);
         add(lblNombreMarca);
-        JTextField tfNombreMarca = new JTextField();
+        tfNombreMarca = new JTextField();
         tfNombreMarca.setBounds(130, 100, 150, 25);
         add(tfNombreMarca);
 
