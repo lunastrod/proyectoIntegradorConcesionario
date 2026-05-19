@@ -1,4 +1,4 @@
-package com.dam.model;
+package com.dam.model.db;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

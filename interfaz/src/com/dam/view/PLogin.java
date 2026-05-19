@@ -7,7 +7,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.dam.control.ConcesionarioControlador;
-import com.dam.model.Login;
+import com.dam.model.data.Login;
 
 public class PLogin extends JPanel implements IPanel{
     private static final int ANCHO=600;
