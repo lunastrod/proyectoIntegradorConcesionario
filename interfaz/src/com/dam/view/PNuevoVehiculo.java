@@ -3,8 +3,8 @@ package com.dam.view;
 import javax.swing.*;
 
 import com.dam.control.ConcesionarioControlador;
-import com.dam.model.ModeloVehiculo;
-import com.dam.model.Vehiculo;
+import com.dam.model.data.ModeloVehiculo;
+import com.dam.model.data.Vehiculo;
 
 /*
 CREATE TABLE Marca (
