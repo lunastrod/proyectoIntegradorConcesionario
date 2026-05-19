@@ -2,6 +2,11 @@ import java.awt.EventQueue;
 
 import com.dam.control.*;
 import com.dam.model.*;
+import com.dam.model.data.Cliente;
+import com.dam.model.data.ModeloVehiculo;
+import com.dam.model.data.Trabajador;
+import com.dam.model.data.Vehiculo;
+import com.dam.model.data.Venta;
 import com.dam.view.*;
 
 public class Inicio {

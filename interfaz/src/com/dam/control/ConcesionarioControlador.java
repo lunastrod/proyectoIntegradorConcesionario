@@ -1,6 +1,9 @@
 package com.dam.control;
 
 import com.dam.model.*;
+import com.dam.model.data.Login;
+import com.dam.model.data.ModeloVehiculo;
+import com.dam.model.data.Vehiculo;
 import com.dam.view.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

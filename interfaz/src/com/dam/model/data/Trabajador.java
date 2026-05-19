@@ -1,4 +1,4 @@
-package com.dam.model;
+package com.dam.model.data;
 
 public class Trabajador {
     private int idTrabajador;
