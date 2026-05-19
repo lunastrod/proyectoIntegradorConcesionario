@@ -27,7 +27,6 @@ public class PLogin extends JPanel implements IPanel{
     public void configurarPanel() {
         setLayout(null);
         setSize(ANCHO,ALTO);
-        crearComponentes();
     }
 
     public Login getLogin() {
