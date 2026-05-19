@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.dam.control.ConcesionarioControlador;
-import com.dam.model.ModeloVehiculo;
+import com.dam.model.data.ModeloVehiculo;
 
 public class PNuevoModelo extends JPanel implements IPanel{
     private static final int ANCHO=600;
