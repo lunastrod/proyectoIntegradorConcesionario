@@ -22,9 +22,9 @@ public class VehiculoDAO {
     private AccesoBD bd;
     private static final String NOM_TABLA="Vehiculo";
 
-    private static final String COL_ID_VEHICULO = "id_vehiculo";
-    private static final String COL_MODELO = "modelo";
-    private static final String COL_PRECIO = "precio";
+    public static final String COL_ID_VEHICULO = "id_vehiculo";
+    public static final String COL_MODELO = "modelo";
+    public static final String COL_PRECIO = "precio";
     
     public VehiculoDAO(AccesoBD bd) {
         this.bd = bd;
@@ -51,5 +51,58 @@ public class VehiculoDAO {
             } catch (Exception e) {e.printStackTrace();}
         }
         return resultado;
+    }
+
+    public int delete(int idVehiculo) {
+        String sentencia="DELETE FROM "+NOM_TABLA+" WHERE "+COL_ID_VEHICULO+" = ?";
+        Connection con= null;
+        PreparedStatement stmt = null;
+        int resultado = -1;
+        try{
+            con = bd.getConexion();
+            stmt = con.prepareStatement(sentencia);
+            stmt.setInt(1, idVehiculo);
+            resultado=stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {if (stmt != null) {stmt.close();}
+            } catch (Exception e) {e.printStackTrace();}
+            try {if (con != null) {con.close();}
+            } catch (Exception e) {e.printStackTrace();}
+        }
+        return resultado;
+    }
+
+    public ArrayList<Vehiculo> selectTodos(){
+        String sentencia="SELECT "+NOM_TABLA+"."+COL_ID_VEHICULO+", "+
+        NOM_TABLA+"."+COL_MODELO+", "+
+        NOM_TABLA+"."+COL_PRECIO+ ", "+
+        ModeloVehiculoDAO.COL_NOMBRE_MODELO+", "+
+        ModeloVehiculoDAO.COL_NOMBRE_MARCA+
+        " FROM "+NOM_TABLA+" JOIN "+ModeloVehiculoDAO.NOM_TABLA+" ON "+NOM_TABLA+"."+COL_MODELO+" = "+ModeloVehiculoDAO.NOM_TABLA+"."+ModeloVehiculoDAO.COL_ID_MODELO;
+        System.out.println(sentencia);
+
+        Connection con= null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
+        try{
+            con = bd.getConexion();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(sentencia);
+            while(rs.next()){
+                vehiculos.add(new Vehiculo(rs.getInt(COL_ID_VEHICULO), new ModeloVehiculo(rs.getInt(COL_MODELO), null, null), rs.getInt(COL_PRECIO)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {if (rs != null) {rs.close();}
+            } catch (Exception e) {e.printStackTrace();}
+            try {if (stmt != null) {stmt.close();}
+            } catch (Exception e) {e.printStackTrace();}
+            try {if (con != null) {con.close();}
+            } catch (Exception e) {e.printStackTrace();}
+    
     }
 }
