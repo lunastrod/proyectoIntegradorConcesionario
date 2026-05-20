@@ -3,11 +3,18 @@ package com.dam.control;
 import com.dam.model.data.Login;
 import com.dam.model.data.ModeloVehiculo;
 import com.dam.model.data.Vehiculo;
-import com.dam.view.*;
+import com.dam.view.VPrincipal;
+import com.dam.view.PNuevoVehiculo;
+import com.dam.view.PVerCatalogo;
+import com.dam.view.PNuevoModelo;
+import com.dam.view.PLogin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import com.dam.model.db.LoginDAO;
+import com.dam.model.db.ModeloVehiculoDAO;
+import com.dam.model.db.VehiculoDAO;
 
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -18,14 +25,20 @@ public class ConcesionarioControlador implements ActionListener{
     private PVerCatalogo pVerCatalogo;
     private PNuevoModelo pNuevoModelo;
     private PLogin pLogin;
-    private final List<Vehiculo> vehiculos = new ArrayList<>();
+    private LoginDAO loginDAO;
+    private ModeloVehiculoDAO modeloVehiculoDAO;
+    private VehiculoDAO vehiculoDAO;
 
-    public ConcesionarioControlador(VPrincipal v, PNuevoVehiculo pNuevoVehiculo, PVerCatalogo pVerCatalogo, PNuevoModelo pNuevoModelo, PLogin pLogin) {
+    public ConcesionarioControlador(VPrincipal v,PNuevoVehiculo pNuevoVehiculo,PVerCatalogo pVerCatalogo,PNuevoModelo pNuevoModelo,PLogin pLogin,LoginDAO loginDAO,ModeloVehiculoDAO modeloVehiculoDAO,VehiculoDAO vehiculoDAO) {
         this.pNuevoVehiculo = pNuevoVehiculo;
         this.pVerCatalogo = pVerCatalogo;
         this.pNuevoModelo = pNuevoModelo;
         this.pLogin = pLogin;
         this.v = v;
+        this.loginDAO=loginDAO;
+        this.modeloVehiculoDAO=modeloVehiculoDAO;
+        this.vehiculoDAO=vehiculoDAO;
+        crearUsuario(new Login("admin","admin"));
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -86,7 +99,7 @@ public class ConcesionarioControlador implements ActionListener{
 
     private void guardarVehiculo() {
         Vehiculo v=pNuevoVehiculo.getVehiculo();
-        vehiculos.add(v);
+        
         System.out.println("Vehiculo guardado: " + v);
     }
 
@@ -97,8 +110,21 @@ public class ConcesionarioControlador implements ActionListener{
     }
 
     private void login() {
-        // TODO: Implementar lógica para guardar un nuevo modelo
+        // TODO: Implementar lógica
         Login l=pLogin.getLogin();
+        boolean loginCorrecto=loginDAO.iniciarSesion(l);
+        if(loginCorrecto){
+            System.out.println("Login correcto");
+        }else{
+            System.out.println("Login incorrecto");
+        }
+        System.out.println(l);
+    }
+
+    private void crearUsuario(Login l) {
+        // TODO: Implementar lógica
+        //Login l=pLogin.getLogin();
+        loginDAO.crearUsuario(l);
         System.out.println(l);
     }
 }
