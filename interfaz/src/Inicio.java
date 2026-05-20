@@ -1,12 +1,20 @@
 import java.awt.EventQueue;
 
-import com.dam.control.*;
+import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.Cliente;
 import com.dam.model.data.ModeloVehiculo;
 import com.dam.model.data.Trabajador;
 import com.dam.model.data.Vehiculo;
 import com.dam.model.data.Venta;
-import com.dam.view.*;
+import com.dam.model.db.AccesoBD;
+import com.dam.model.db.LoginDAO;
+import com.dam.model.db.ModeloVehiculoDAO;
+import com.dam.model.db.VehiculoDAO;
+import com.dam.view.PLogin;
+import com.dam.view.PNuevoModelo;
+import com.dam.view.PNuevoVehiculo;
+import com.dam.view.PVerCatalogo;
+import com.dam.view.VPrincipal;
 
 public class Inicio {
     public static void main(String[] args) {
@@ -18,7 +26,20 @@ public class Inicio {
                 PVerCatalogo pVerCatalogo=new PVerCatalogo();
                 PNuevoModelo pNuevoModelo=new PNuevoModelo();
                 PLogin pLogin=new PLogin();
-                ConcesionarioControlador controlador=new ConcesionarioControlador(ventanaPrincipal,pNuevoVehiculo,pVerCatalogo,pNuevoModelo,pLogin);
+                AccesoBD bd=new AccesoBD();
+                LoginDAO loginDAO=new LoginDAO(bd);
+                ModeloVehiculoDAO modeloVehiculoDAO=new ModeloVehiculoDAO(bd);
+                VehiculoDAO vehiculoDAO=new VehiculoDAO(bd);
+                ConcesionarioControlador controlador=new ConcesionarioControlador(
+                    ventanaPrincipal,
+                    pNuevoVehiculo,
+                    pVerCatalogo,
+                    pNuevoModelo,
+                    pLogin,
+                    loginDAO,
+                    modeloVehiculoDAO,
+                    vehiculoDAO
+                );
                 ventanaPrincipal.setControlador(controlador);
                 pNuevoVehiculo.setControlador(controlador);
                 pVerCatalogo.setControlador(controlador);

@@ -1,6 +1,13 @@
 package com.dam.view;
 
-import javax.swing.*;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.ModeloVehiculo;

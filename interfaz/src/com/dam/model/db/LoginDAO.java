@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 import com.dam.model.data.Login;
 
-public class LoginDAO {
+public class LoginDAO{
 	
 	private static final String NOM_TABLA = "Trabajador";
 	private static final String COL_NOMBRE = "nombre_apellidos";
@@ -18,8 +18,10 @@ public class LoginDAO {
 		this.bd = bd;
 	}
 	
-	public boolean iniciarSesion(String nombre, String passwd) {
+	public boolean iniciarSesion(Login login) {
 		boolean resultado = false;
+		String nombre=login.getUsuario();
+		String passwd=login.getPasswd();
 		
 		String query = "SELECT * FROM " + NOM_TABLA + " WHERE "
 		+ COL_NOMBRE + " = ? AND " + COL_PASSWORD + " = ?";

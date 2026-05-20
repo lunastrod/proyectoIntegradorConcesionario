@@ -30,7 +30,7 @@ public class PLogin extends JPanel implements IPanel{
     }
 
     public Login getLogin() {
-        return new Login(tfEmpleado.getText(), String.valueOf(tfPasswd.getPassword()));
+        return new Login(tfEmpleado.getText(), tfPasswd.getText());
     }
 
     public void crearComponentes() {
