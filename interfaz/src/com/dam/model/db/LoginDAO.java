@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.dam.model.data.Login;
+
 public class LoginDAO {
 	
 	private static final String NOM_TABLA = "Trabajador";

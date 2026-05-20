@@ -19,19 +19,18 @@ public class PLogin extends JPanel implements IPanel{
     JPasswordField tfPasswd;
     JButton btnLogin;
 
-     public PLogin() {
-         configurarPanel();
-         crearComponentes();
-     }
+    public PLogin() {
+        configurarPanel();
+        crearComponentes();
+    }
 
     public void configurarPanel() {
         setLayout(null);
         setSize(ANCHO,ALTO);
-        crearComponentes();
     }
 
     public Login getLogin() {
-        return new Login(tfEmpleado.getText(), tfPasswd.getPassword().toString());
+        return new Login(tfEmpleado.getText(), String.valueOf(tfPasswd.getPassword()));
     }
 
     public void crearComponentes() {

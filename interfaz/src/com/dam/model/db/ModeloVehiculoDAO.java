@@ -24,9 +24,9 @@ public class ModeloVehiculoDAO {
     private AccesoBD bd;
     private static final String NOM_TABLA="Modelo";
 
-    private static final String COL_ID_MODELO = "id_modelo";
-    private static final String COL_NOMBRE_MODELO = "nombre_modelo";
-    private static final String COL_NOMBRE_MARCA = "nombre_marca";
+    public static final String COL_ID_MODELO = "id_modelo";
+    public static final String COL_NOMBRE_MODELO = "nombre_modelo";
+    public static final String COL_NOMBRE_MARCA = "nombre_marca";
     
     public ModeloVehiculoDAO(AccesoBD bd) {
         this.bd = bd;
