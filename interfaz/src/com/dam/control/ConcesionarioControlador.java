@@ -1,6 +1,5 @@
 package com.dam.control;
 
-import com.dam.model.*;
 import com.dam.model.data.Login;
 import com.dam.model.data.ModeloVehiculo;
 import com.dam.model.data.Vehiculo;

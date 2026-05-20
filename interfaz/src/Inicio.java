@@ -1,13 +1,16 @@
 import java.awt.EventQueue;
 
-import com.dam.control.*;
-import com.dam.model.*;
+import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.Cliente;
 import com.dam.model.data.ModeloVehiculo;
 import com.dam.model.data.Trabajador;
 import com.dam.model.data.Vehiculo;
 import com.dam.model.data.Venta;
-import com.dam.view.*;
+import com.dam.view.PLogin;
+import com.dam.view.PNuevoModelo;
+import com.dam.view.PNuevoVehiculo;
+import com.dam.view.PVerCatalogo;
+import com.dam.view.VPrincipal;
 
 public class Inicio {
     public static void main(String[] args) {
