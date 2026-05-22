@@ -2,6 +2,7 @@ BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "Cliente" (
 	"id_cliente"	INTEGER,
 	"nombre_apellidos"	varchar(100),
+	"metodo de pago"	varchar(100),
 	CONSTRAINT "pk_id_cli" PRIMARY KEY("id_cliente" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "Marca" (
