@@ -25,7 +25,9 @@ CREATE TABLE IF NOT EXISTS "Vehiculo" (
 	"id_vehiculo"	INTEGER,
 	"modelo"	int,
 	"precio"	int,
+	"id_trabajador"	int,
 	CONSTRAINT "pk_id_car" PRIMARY KEY("id_vehiculo" AUTOINCREMENT),
+	CONSTRAINT "fk_id_trabajo" FOREIGN KEY("id_trabajador") REFERENCES "Trabajador"("id_trabajador"),
 	CONSTRAINT "fk_model" FOREIGN KEY("modelo") REFERENCES "Modelo"("id_modelo")
 );
 CREATE TABLE IF NOT EXISTS "Venta" (
