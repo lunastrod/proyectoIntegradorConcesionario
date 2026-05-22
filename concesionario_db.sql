@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS "Modelo" (
 CREATE TABLE IF NOT EXISTS "Trabajador" (
 	"id_trabajador"	INTEGER,
 	"nombre_apellidos"	varchar(100),
+	"es_admin"	int,
 	"password_trabajador"	varchar(100),
 	CONSTRAINT "pk_id_trabajo" PRIMARY KEY("id_trabajador" AUTOINCREMENT)
 );
