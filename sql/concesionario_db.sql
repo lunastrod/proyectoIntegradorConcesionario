@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS "Venta" (
 	"id_cliente"	INTEGER,
 	"id_trabajador"	INTEGER,
 	"id_vehiculo"	INTEGER,
+	"fecha"	DATETIME DEFAULT CURRENT_TIMESTAMP,
 	CONSTRAINT "pk_id_venta" PRIMARY KEY("id_venta" AUTOINCREMENT),
 	CONSTRAINT "fk_id_cli" FOREIGN KEY("id_cliente") REFERENCES "Cliente"("id_cliente"),
 	CONSTRAINT "fk_id_trabajo" FOREIGN KEY("id_trabajador") REFERENCES "Trabajador"("id_trabajador"),
@@ -55,5 +56,4 @@ INSERT INTO "Trabajador" VALUES (3,'admin','admin');
 INSERT INTO "Trabajador" VALUES (4,'admin','admin');
 INSERT INTO "Trabajador" VALUES (5,'admin','admin');
 INSERT INTO "Vehiculo" VALUES (1,1,600000,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "Venta" VALUES (1,1,1,1);
 COMMIT;
