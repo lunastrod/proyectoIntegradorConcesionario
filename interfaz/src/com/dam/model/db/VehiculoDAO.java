@@ -5,16 +5,23 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.dam.model.data.ModeloVehiculo;
 import com.dam.model.data.Vehiculo;
 
 import java.sql.ResultSet;
 
 /*
-CREATE TABLE Vehiculo (
-id_vehiculo INT PRIMARY KEY,
-modelo int,
-foreign key (modelo) references Modelo(id_modelo),
-precio int
+CREATE TABLE IF NOT EXISTS "Modelo" (
+	"id_modelo"	INTEGER,
+	"nombre_modelo"	varchar(80),
+	"numero_plazas"	INTEGER,
+	"numero_puertas"	INTEGER,
+	"tipo_vehiculo"	varchar(100),
+	"tipo_propulsion"	varchar(100),
+	"traccion"	varchar(20),
+	"marca"	varchar(70),
+	"tipo_transmision"	varchar(30),
+	CONSTRAINT "pk_id" PRIMARY KEY("id_modelo" AUTOINCREMENT)
 );
 */
 
@@ -103,6 +110,7 @@ public class VehiculoDAO {
             } catch (Exception e) {e.printStackTrace();}
             try {if (con != null) {con.close();}
             } catch (Exception e) {e.printStackTrace();}
-    
+        }
+        return vehiculos;
     }
 }

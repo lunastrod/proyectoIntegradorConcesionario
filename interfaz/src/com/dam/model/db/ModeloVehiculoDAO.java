@@ -10,23 +10,36 @@ import com.dam.model.data.ModeloVehiculo;
 import java.sql.ResultSet;
 
 /*
-    CREATE TABLE Modelo (
-    id_modelo INT PRIMARY KEY,
-    nombre_modelo varchar(80),
-    nombre_marca varchar(50),
-    foreign key (nombre_marca) references Marca(nombre_marca)
-    );
+CREATE TABLE IF NOT EXISTS "Modelo" (
+    "id_modelo" INTEGER,
+    "nombre_modelo" varchar(80),
+    "numero_plazas" INTEGER,
+    "numero_puertas" INTEGER,
+    "tipo_vehiculo" varchar(100),
+    "tipo_propulsion" varchar(100),
+    "traccion" varchar(20),
+    "marca" varchar(70),
+    "tipo_transmision" varchar(30),
+    CONSTRAINT "pk_id" PRIMARY KEY("id_modelo" AUTOINCREMENT)
+);
 */
 
 //TODO nombre_modelo unique
 
 public class ModeloVehiculoDAO {
     private AccesoBD bd;
-    private static final String NOM_TABLA="Modelo";
+    public static final String NOM_TABLA="Modelo";
 
     public static final String COL_ID_MODELO = "id_modelo";
     public static final String COL_NOMBRE_MODELO = "nombre_modelo";
-    public static final String COL_NOMBRE_MARCA = "nombre_marca";
+    public static final String COL_NUMERO_PLAZAS = "numero_plazas";
+    public static final String COL_NUMERO_PUERTAS = "numero_puertas";
+    public static final String COL_TIPO_VEHICULO = "tipo_vehiculo";
+    public static final String COL_TIPO_PROPULSION = "tipo_propulsion";
+    public static final String COL_TRACCION = "traccion";
+    public static final String COL_MARCA = "marca";
+    public static final String COL_TIPO_TRANSMISION = "tipo_transmision";
+    public static final String COL_NOMBRE_MARCA = COL_MARCA;
     
     public ModeloVehiculoDAO(AccesoBD bd) {
         this.bd = bd;
@@ -34,10 +47,9 @@ public class ModeloVehiculoDAO {
 
     public int insert(ModeloVehiculo m) {
         String sentencia="INSERT INTO "+NOM_TABLA+" ("+
-        COL_ID_MODELO+", "+
         COL_NOMBRE_MODELO+", "+
-        COL_NOMBRE_MARCA+
-        ") VALUES (?,?,?)";
+        COL_MARCA+
+        ") VALUES (?,?)";
 
         Connection con= null;
         PreparedStatement stmt = null;
@@ -45,9 +57,8 @@ public class ModeloVehiculoDAO {
         try{
             con = bd.getConexion();
             stmt = con.prepareStatement(sentencia);
-            stmt.setInt(1, m.getIdModelo());
-            stmt.setString(2, m.getNombreModelo());
-            stmt.setString(3, m.getNombreMarca());
+            stmt.setString(1, m.getNombreModelo());
+            stmt.setString(2, m.getNombreMarca());
             resultado=stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +93,7 @@ public class ModeloVehiculoDAO {
     }
 
     public int update(ModeloVehiculo m) {
-        String sentencia="UPDATE "+NOM_TABLA+" SET "+COL_NOMBRE_MODELO+" = ?, "+COL_NOMBRE_MARCA+" = ? WHERE "+COL_NOMBRE_MODELO+" = ?";
+        String sentencia="UPDATE "+NOM_TABLA+" SET "+COL_NOMBRE_MODELO+" = ?, "+COL_MARCA+" = ? WHERE "+COL_ID_MODELO+" = ?";
         Connection con= null;
         PreparedStatement stmt = null;
         int resultado = -1;
@@ -105,7 +116,7 @@ public class ModeloVehiculoDAO {
     }
 
     public ArrayList<ModeloVehiculo> selectTodos(){
-        String sentencia="SELECT * FROM "+NOM_TABLA+"ORDER BY "+COL_NOMBRE_MARCA+", "+COL_NOMBRE_MODELO;
+        String sentencia="SELECT * FROM "+NOM_TABLA+" ORDER BY "+COL_MARCA+", "+COL_NOMBRE_MODELO;
         Connection con= null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -117,7 +128,7 @@ public class ModeloVehiculoDAO {
             while(rs.next()){
                 int idModelo = rs.getInt(COL_ID_MODELO);
                 String nombreModelo = rs.getString(COL_NOMBRE_MODELO);
-                String nombreMarca = rs.getString(COL_NOMBRE_MARCA);
+                String nombreMarca = rs.getString(COL_MARCA);
                 modelos.add(new ModeloVehiculo(idModelo,nombreModelo,nombreMarca));
             }
         } catch (Exception e) {
