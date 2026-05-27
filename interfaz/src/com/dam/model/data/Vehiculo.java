@@ -1,42 +1,19 @@
 package com.dam.model.data;
 
 /*
-CREATE TABLE Cliente (
-id_cliente INT PRIMARY KEY,
-nombre_apellidos varchar(100)
-);
-
-CREATE TABLE Trabajador (
-id_trabajador INT PRIMARY KEY,
-nombre_apellidos varchar(100)
-);
-
-CREATE TABLE Marca (
-nombre_marca varchar(50) PRIMARY KEY
-);
-
-CREATE TABLE ModeloVehiculo (
-id_modelo INT PRIMARY KEY,
-nombre_modelo varchar(80),
-nombre_marca varchar(50),
-foreign key (nombre_marca) references Marca(nombre_marca)
-);
-
-CREATE TABLE Vehiculo (
-id_vehiculo INT PRIMARY KEY,
-modelo int,
-foreign key (modelo) references ModeloVehiculo(id_modelo),
-precio int
-);
-
-CREATE TABLE Venta (
-id_venta INT PRIMARY KEY,
-id_cliente int,
-foreign key (id_cliente) references Cliente(id_cliente),
-id_trabajador int,
-foreign key (id_trabajador) references Trabajador(id_trabajador),
-id_vehiculo int,
-foreign key (id_vehiculo) references Vehiculo(id_vehiculo)
+CREATE TABLE IF NOT EXISTS "Vehiculo" (
+	"id_vehiculo"	INTEGER,
+	"modelo"	INTEGER,
+	"precio"	INTEGER,
+	"matricula"	varchar(40) UNIQUE,
+	"color"	varchar(40),
+	"year"	INTEGER,
+	"kilometraje"	INTEGER,
+	"potencia_cv"	INTEGER,
+	"cilindrada"	INTEGER,
+	"peso_kg"	INTEGER,
+	CONSTRAINT "pk_id_car" PRIMARY KEY("id_vehiculo" AUTOINCREMENT),
+	CONSTRAINT "fk_model" FOREIGN KEY("modelo") REFERENCES "Modelo"("id_modelo")
 );
 */
 
@@ -44,27 +21,76 @@ public class Vehiculo {
     private int idVehiculo;
     private ModeloVehiculo modelo;
     private int precio;
+    private String matricula;
+    private String color;
+    private int year;
+    private int kilometraje;
+    private int potenciaCV;
+    private int cilindrada;
+    private int pesoKG;
 
-    public Vehiculo(int idVehiculo, ModeloVehiculo modelo, int precio) {
-        this.idVehiculo = idVehiculo;
-        this.modelo = modelo;
-        this.precio = precio;
-    }
-    public int getIdVehiculo() {
-        return idVehiculo;
-    }
-    public ModeloVehiculo getModeloVehiculo() {
-        return modelo;
-    }
-    public int getPrecio() {
-        return precio;
-    }
+    public Vehiculo(int idVehiculo, ModeloVehiculo modelo, int precio, String matricula, String color, int year,
+			int kilometraje, int potenciaCV, int cilindrada, int pesoKG) {
+		this.idVehiculo = idVehiculo;
+		this.modelo = modelo;
+		this.precio = precio;
+		this.matricula = matricula;
+		this.color = color;
+		this.year = year;
+		this.kilometraje = kilometraje;
+		this.potenciaCV = potenciaCV;
+		this.cilindrada = cilindrada;
+		this.pesoKG = pesoKG;
+	}
 
-    @Override
+	public int getIdVehiculo() {
+		return idVehiculo;
+	}
+
+	public ModeloVehiculo getModelo() {
+		return modelo;
+	}
+
+	public int getPrecio() {
+		return precio;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public int getKilometraje() {
+		return kilometraje;
+	}
+
+	public int getPotenciaCV() {
+		return potenciaCV;
+	}
+
+	public int getCilindrada() {
+		return cilindrada;
+	}
+
+	public int getPesoKG() {
+		return pesoKG;
+	}
+	
+	@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Vehiculo ").append(idVehiculo).append(" ").append(modelo);
-        sb.append(" - Precio: ").append(precio).append(" euros");
+        sb.append(" - Precio: ").append(precio).append(" euros").append(" - Matrícula: ").append(matricula)
+        .append(" - Color: ").append(color).append(" - Año: ").append(year).append(" - Kilometraje: ").append(kilometraje)
+        .append(" - Potencia (CV): ").append(potenciaCV).append(" - Cilindros: ").append(cilindrada).append(" - Peso (KG): ")
+        .append(pesoKG);
 
         return sb.toString();
     }
