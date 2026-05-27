@@ -10,6 +10,7 @@ import com.dam.model.db.AccesoBD;
 import com.dam.model.db.LoginDAO;
 import com.dam.model.db.ModeloVehiculoDAO;
 import com.dam.model.db.VehiculoDAO;
+import com.dam.view.PInformacionVehiculo;
 import com.dam.view.PLogin;
 import com.dam.view.PNuevoModelo;
 import com.dam.view.PNuevoVehiculo;
@@ -30,12 +31,14 @@ public class Inicio {
                 LoginDAO loginDAO=new LoginDAO(bd);
                 ModeloVehiculoDAO modeloVehiculoDAO=new ModeloVehiculoDAO(bd);
                 VehiculoDAO vehiculoDAO=new VehiculoDAO(bd);
+                PInformacionVehiculo pInformacionVehiculo=new PInformacionVehiculo();
                 ConcesionarioControlador controlador=new ConcesionarioControlador(
                     ventanaPrincipal,
                     pNuevoVehiculo,
                     pVerCatalogo,
                     pNuevoModelo,
                     pLogin,
+                    pInformacionVehiculo,
                     loginDAO,
                     modeloVehiculoDAO,
                     vehiculoDAO
@@ -54,6 +57,7 @@ public class Inicio {
     }
 
     public static void pruebaModelo() {
+    	/*
         Cliente c=new Cliente(1,"Pepe");
         System.out.println(c);
         Trabajador t=new Trabajador(1,"Juan");
@@ -65,5 +69,6 @@ public class Inicio {
         System.out.println("-----------------");
         Venta venta=new Venta(1,c,t,v);
         System.out.println(venta);
+        */
     }
 }

@@ -7,6 +7,7 @@ import com.dam.view.VPrincipal;
 import com.dam.view.PNuevoVehiculo;
 import com.dam.view.PVerCatalogo;
 import com.dam.view.PNuevoModelo;
+import com.dam.view.PInformacionVehiculo;
 import com.dam.view.PLogin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,14 +27,17 @@ public class ConcesionarioControlador implements ActionListener{
     private PNuevoModelo pNuevoModelo;
     private PLogin pLogin;
     private LoginDAO loginDAO;
+    private PInformacionVehiculo pInformacionVehiculo;
+    
     private ModeloVehiculoDAO modeloVehiculoDAO;
     private VehiculoDAO vehiculoDAO;
 
-    public ConcesionarioControlador(VPrincipal v,PNuevoVehiculo pNuevoVehiculo,PVerCatalogo pVerCatalogo,PNuevoModelo pNuevoModelo,PLogin pLogin,LoginDAO loginDAO,ModeloVehiculoDAO modeloVehiculoDAO,VehiculoDAO vehiculoDAO) {
+    public ConcesionarioControlador(VPrincipal v,PNuevoVehiculo pNuevoVehiculo,PVerCatalogo pVerCatalogo,PNuevoModelo pNuevoModelo,PLogin pLogin,PInformacionVehiculo pInformacionVehiculo,LoginDAO loginDAO,ModeloVehiculoDAO modeloVehiculoDAO,VehiculoDAO vehiculoDAO) {
         this.pNuevoVehiculo = pNuevoVehiculo;
         this.pVerCatalogo = pVerCatalogo;
         this.pNuevoModelo = pNuevoModelo;
         this.pLogin = pLogin;
+        this.pInformacionVehiculo=pInformacionVehiculo;
         this.v = v;
         this.loginDAO=loginDAO;
         this.modeloVehiculoDAO=modeloVehiculoDAO;
@@ -81,20 +85,32 @@ public class ConcesionarioControlador implements ActionListener{
     }
 
     private void controlBotones(ActionEvent e) {
-        switch (e.getActionCommand()) {
-            case PNuevoVehiculo.GUARDAR_VEHICULO_BTN:
-                guardarVehiculo();
-                break;
-            case PNuevoModelo.GUARDAR_MODELO_BTN:
-                guardarModelo();
-                break;
-            case PLogin.LOGIN_BTN:
-                login();
-                break;
-            default:
-                System.out.println("Boton no reconocido: " + e.getActionCommand());
-                break;
+        if(e.getActionCommand().startsWith("masinfo")){
+            System.out.println("boton masinfo");
+            v.cargarPanel(pInformacionVehiculo);
+            //TODO temporal
+            ModeloVehiculo mPrueba=new ModeloVehiculo(1,"laferrari",2,3,"gasolina","trasera","Ferrari","manual");
+            Vehiculo vPrueba=new Vehiculo(1,mPrueba,100000,"matricula","rojo",2014,0,0,0,0);
+            pInformacionVehiculo.mostrarInfoVehiculo(vPrueba);
         }
+        else{
+            switch (e.getActionCommand()) {
+                case PNuevoVehiculo.GUARDAR_VEHICULO_BTN:
+                    guardarVehiculo();
+                    break;
+                case PNuevoModelo.GUARDAR_MODELO_BTN:
+                    guardarModelo();
+                    break;
+                case PLogin.LOGIN_BTN:
+                    login();
+                    break;
+                default:
+                    System.out.println("Boton no reconocido: " + e.getActionCommand());
+                    break;
+            }
+        }
+
+
     }
 
     private void guardarVehiculo() {
