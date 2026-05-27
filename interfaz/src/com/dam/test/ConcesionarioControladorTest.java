@@ -12,8 +12,8 @@ import com.dam.control.ConcesionarioControlador;
 import com.dam.view.PLogin;
 
 public class ConcesionarioControladorTest {
-	ConcesionarioControlador c;
-	PLogin pLogin=new PLogin();
+	private ConcesionarioControlador c;
+	private PLogin pLogin=new PLogin();
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
