@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.dam.model.data.ModeloVehiculo;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /*
 CREATE TABLE IF NOT EXISTS "Modelo" (
@@ -123,9 +124,80 @@ public class ModeloVehiculoDAO {
         }
         return resultado;
     }
+    
+    public ArrayList<String> selectMarcas() {
+    	
+        String sentencia = "SELECT DISTINCT " + COL_MARCA + " FROM " + NOM_TABLA;
+        Connection con= null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        ArrayList<String> marcas = new ArrayList<String>();
+        try{
+            con = bd.getConexion();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(sentencia);
+            while(rs.next()) {
+            	
+            	marcas.add(rs.getString(1));
+            }
+        } catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (stmt != null) stmt.close();
+				if (con != null) con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+        return marcas;
+    }
+    
+    public ArrayList<ModeloVehiculo> selectModeloPorMarca(String marca) {
+        String sentencia = "SELECT * FROM " + NOM_TABLA + " ORDER BY " + COL_MARCA + ", " + COL_NOMBRE_MODELO
+        		+ " WHERE " + COL_MARCA + " = ?";
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<ModeloVehiculo> modelos = new ArrayList<ModeloVehiculo>();
+        
+        try {
+        	con = bd.getConexion();
+        	stmt = con.prepareStatement(sentencia);
+        	stmt.setString(1, marca);
+        	rs = stmt.executeQuery();
+        	while (rs.next()) {
+                int idModelo = rs.getInt(1);
+                String nombreModelo = rs.getString(COL_NOMBRE_MODELO);
+                int numeroPlazas = rs.getInt(COL_NUMERO_PLAZAS);
+                int numeroPuertas = rs.getInt(COL_NUMERO_PUERTAS);
+                String tipoPropulsion = rs.getString(COL_TIPO_PROPULSION);
+                String traccion = rs.getString(COL_TRACCION);
+                String nombreMarca = rs.getString(marca);
+                String tipoTransmision = rs.getString(COL_TIPO_TRANSMISION);
+                modelos.add(new ModeloVehiculo(idModelo, nombreModelo, numeroPlazas, numeroPuertas,
+                		tipoPropulsion, traccion, nombreMarca, tipoTransmision));
+        	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {if (rs != null) {rs.close();}
+            } catch (Exception e) {e.printStackTrace();}
+            try {if (stmt != null) {stmt.close();}
+            } catch (Exception e) {e.printStackTrace();}
+            try {if (con != null) {con.close();}}
+            catch (Exception e) {e.printStackTrace();}
+        }
+        return modelos;
+    	
+    }
 
     public ArrayList<ModeloVehiculo> selectTodos(){
-        String sentencia="SELECT * FROM " + NOM_TABLA + " ORDER BY " + COL_MARCA + ", " + COL_NOMBRE_MODELO;
+        String sentencia = "SELECT * FROM " + NOM_TABLA + " ORDER BY " + COL_MARCA + ", " + COL_NOMBRE_MODELO;
         Connection con= null;
         Statement stmt = null;
         ResultSet rs = null;
