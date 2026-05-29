@@ -18,16 +18,20 @@ public class VPrincipal extends JFrame implements IVentana{
     public static final String VER_CATALOGO_MENU="Ver Catalogo";
     public static final String NUEVO_MODELO_MENU="Nuevo Modelo";
     public static final String LOGIN_MENU="Login";
+    public static final String MODO_CLARO_OSCURO_MENU="Modo claro-oscuro";
 
 
     private JMenuItem itemNuevoVeh;
     private JMenuItem itemVer;
     private JMenuItem itemNuevoMod;
     private JMenuItem itemLogin;
+    private JMenuItem mntmNewMenuItem;
+    
 
     public VPrincipal() {
         configurarVentana();
         crearComponentes();
+        
     }
 
     public void cargarPanel(JPanel panel) {
@@ -68,6 +72,9 @@ public class VPrincipal extends JFrame implements IVentana{
         itemLogin = new JMenuItem(LOGIN_MENU);
         itemLogin.setActionCommand(LOGIN_MENU);
         menuEncuestas.add(itemLogin);
+        
+        mntmNewMenuItem = new JMenuItem(MODO_CLARO_OSCURO_MENU);
+        menuBar.add(mntmNewMenuItem);
     }
 
     public void actualizarMenu(boolean empleado) {
@@ -86,6 +93,7 @@ public class VPrincipal extends JFrame implements IVentana{
         itemVer.addActionListener(c);
         itemNuevoMod.addActionListener(c);
         itemLogin.addActionListener(c);
+        mntmNewMenuItem.addActionListener(c);
     }
 
     public void hacerVisible() {
