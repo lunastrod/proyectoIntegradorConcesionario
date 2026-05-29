@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
 import com.dam.control.ConcesionarioControlador;
 
 //quizas podria ser un scrollpane
@@ -72,4 +73,6 @@ public class PVerCatalogo extends JPanel implements IPanel{
             }  
         }
     }
+
+
 }

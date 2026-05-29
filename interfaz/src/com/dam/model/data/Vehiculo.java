@@ -18,6 +18,8 @@ CREATE TABLE IF NOT EXISTS "Vehiculo" (
 */
 
 public class Vehiculo {
+
+
     private int idVehiculo;
     private ModeloVehiculo modelo;
     private int precio;

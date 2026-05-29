@@ -6,6 +6,7 @@ import com.dam.control.ConcesionarioControlador;
 
 import java.awt.Color;
 
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -40,4 +41,5 @@ public class PVehiculo extends JPanel implements IPanel{
 	public void setControlador(ConcesionarioControlador c){
         btnInfo.addActionListener(c);
     }
+
 }

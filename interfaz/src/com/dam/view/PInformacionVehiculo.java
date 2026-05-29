@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
+
 public class PInformacionVehiculo extends JPanel implements IPanel{
     private static final int ANCHO=1000;
     private static final int ALTO=1000;
@@ -22,9 +23,8 @@ public class PInformacionVehiculo extends JPanel implements IPanel{
     public PInformacionVehiculo() {
         crearComponentes();
         setSize(ANCHO,ALTO);
-        
-
     }
+
     public void crearComponentes() {
         setLayout(null);
         lblModelo = new JLabel("Modelo");
@@ -54,4 +54,6 @@ public class PInformacionVehiculo extends JPanel implements IPanel{
         // TODO Auto-generated method stub
         
     }
+
+
 }

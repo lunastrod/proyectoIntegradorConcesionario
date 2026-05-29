@@ -23,8 +23,9 @@ public class Inicio {
             public void run(){
                 pruebaModelo();
                 VPrincipal ventanaPrincipal=new VPrincipal();
-                PNuevoVehiculo pNuevoVehiculo=new PNuevoVehiculo();
                 PVerCatalogo pVerCatalogo=new PVerCatalogo();
+                ventanaPrincipal.cargarPanel(pVerCatalogo);
+                PNuevoVehiculo pNuevoVehiculo=new PNuevoVehiculo();
                 PNuevoModelo pNuevoModelo=new PNuevoModelo();
                 PLogin pLogin=new PLogin();
                 AccesoBD bd=new AccesoBD();
@@ -49,7 +50,7 @@ public class Inicio {
                 pNuevoModelo.setControlador(controlador);
                 pLogin.setControlador(controlador);
 
-                ventanaPrincipal.cargarPanel(pVerCatalogo);
+                
                 ventanaPrincipal.hacerVisible();
                 ventanaPrincipal.actualizarMenu(true);
             }
