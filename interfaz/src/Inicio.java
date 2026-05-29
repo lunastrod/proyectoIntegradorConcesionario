@@ -9,7 +9,9 @@ import com.dam.model.data.Venta;
 import com.dam.model.db.AccesoBD;
 import com.dam.model.db.LoginDAO;
 import com.dam.model.db.ModeloVehiculoDAO;
+import com.dam.model.db.TrabajadorDAO;
 import com.dam.model.db.VehiculoDAO;
+import com.dam.model.db.VentaDAO;
 import com.dam.view.PInformacionVehiculo;
 import com.dam.view.PLogin;
 import com.dam.view.PNuevoModelo;
@@ -17,11 +19,13 @@ import com.dam.view.PNuevoVehiculo;
 import com.dam.view.PVerCatalogo;
 import com.dam.view.VPrincipal;
 
+/*TODO que hacemos con LoginDAO, eliminar? reemplazada por TrabajadorDAO */
+
 public class Inicio {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable(){
             public void run(){
-                pruebaModelo();
+                pruebas();
                 VPrincipal ventanaPrincipal=new VPrincipal();
                 PVerCatalogo pVerCatalogo=new PVerCatalogo();
                 ventanaPrincipal.cargarPanel(pVerCatalogo);
@@ -57,19 +61,18 @@ public class Inicio {
         });
     }
 
-    public static void pruebaModelo() {
-    	/*
-        Cliente c=new Cliente(1,"Pepe");
-        System.out.println(c);
-        Trabajador t=new Trabajador(1,"Juan");
-        System.out.println(t);
-        ModeloVehiculo m=new ModeloVehiculo(1,"Corolla","Toyota");
-        System.out.println(m);
-        Vehiculo v=new Vehiculo(1,m,30000);
-        System.out.println(v);
-        System.out.println("-----------------");
-        Venta venta=new Venta(1,c,t,v);
-        System.out.println(venta);
-        */
+    public static void pruebas() {
+        AccesoBD bd=new AccesoBD();
+        LoginDAO loginDAO=new LoginDAO(bd);
+        ModeloVehiculoDAO modeloVehiculoDAO=new ModeloVehiculoDAO(bd);
+        VehiculoDAO vehiculoDAO=new VehiculoDAO(bd);
+        TrabajadorDAO trabajadorDAO=new TrabajadorDAO(bd);
+        VentaDAO ventaDAO=new VentaDAO(bd);
+
+        System.out.println(modeloVehiculoDAO.selectMarcas());
+        System.out.println(modeloVehiculoDAO.selectModeloPorMarca("Mercedes"));
+        System.out.println(vehiculoDAO.selectTodos());
+        System.out.println(trabajadorDAO.selectAllTrabajadores());
+        System.out.println(ventaDAO.selectVentas());        
     }
 }
