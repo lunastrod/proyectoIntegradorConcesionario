@@ -32,6 +32,8 @@ public class PNuevoModelo extends JPanel implements IPanel{
     private DefaultComboBoxModel<String> modelTraccion;
     private DefaultComboBoxModel<String> modelTransmision;
     private DefaultComboBoxModel<String> modelVehiculo;
+    private JSpinner spinnerPlazas;
+    private JSpinner spinnerPuertas;
 
     public PNuevoModelo(){
         setLayout(null);
@@ -64,11 +66,12 @@ public class PNuevoModelo extends JPanel implements IPanel{
         String transmision=comboBoxTransmision.getSelectedItem().toString();
         String vehiculo=comboBoxVehiculo.getSelectedItem().toString();
 
-
+        int plazas=(int)spinnerPlazas.getValue();
+        int puertas=(int)spinnerPuertas.getValue();
 
         //ModeloVehiculo mPrueba=new ModeloVehiculo(1,"laferrari",2,3,"gasolina","trasera","Ferrari","manual");
-        ModeloVehiculo m=new ModeloVehiculo(1,nombreModelo,2,3,vehiculo,propulsion,traccion,nombreMarca,transmision);
-        return mPrueba;
+        ModeloVehiculo m=new ModeloVehiculo(-1,nombreModelo,plazas,puertas,vehiculo,propulsion,traccion,nombreMarca,transmision);
+        return m;
     }
 
     public void crearComponentes(){
@@ -142,11 +145,11 @@ public class PNuevoModelo extends JPanel implements IPanel{
         comboBoxVehiculo.setBounds(195, 238, 150, 22);
         add(comboBoxVehiculo);
         
-        JSpinner spinnerPlazas = new JSpinner();
+        spinnerPlazas = new JSpinner();
         spinnerPlazas.setBounds(195, 282, 150, 20);
         add(spinnerPlazas);
         
-        JSpinner spinnerPuertas = new JSpinner();
+        spinnerPuertas = new JSpinner();
         spinnerPuertas.setBounds(195, 320, 150, 20);
         add(spinnerPuertas);
         

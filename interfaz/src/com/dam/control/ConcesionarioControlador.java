@@ -32,6 +32,7 @@ public class ConcesionarioControlador implements ActionListener{
     private ModeloVehiculoDAO modeloVehiculoDAO;
     private VehiculoDAO vehiculoDAO;
     private boolean modoClaro=true;
+    private boolean sesionIniciada=true;//TODO: temporal deberia estar a false en la version final
 
     public ConcesionarioControlador(VPrincipal v,PNuevoVehiculo pNuevoVehiculo,PVerCatalogo pVerCatalogo,PNuevoModelo pNuevoModelo,PLogin pLogin,PInformacionVehiculo pInformacionVehiculo,LoginDAO loginDAO,ModeloVehiculoDAO modeloVehiculoDAO,VehiculoDAO vehiculoDAO) {
         this.pNuevoVehiculo = pNuevoVehiculo;
@@ -44,6 +45,7 @@ public class ConcesionarioControlador implements ActionListener{
         this.modeloVehiculoDAO=modeloVehiculoDAO;
         this.vehiculoDAO=vehiculoDAO;
         actualizarModoClaroOscuro(modoClaro);
+        v.actualizarMenu(sesionIniciada);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -93,9 +95,6 @@ public class ConcesionarioControlador implements ActionListener{
         if(e.getActionCommand().startsWith("masinfo")){
             System.out.println("boton masinfo");
             v.cargarPanel(pInformacionVehiculo);
-            //TODO temporal
-            //ModeloVehiculo mPrueba=new ModeloVehiculo(1,"laferrari",2,3,"gasolina","trasera","Ferrari","manual");
-            //Vehiculo vPrueba=new Vehiculo(1,mPrueba,100000,"matricula","rojo",2014,0,0,0,0);
             int id=Integer.parseInt(e.getActionCommand().substring("masinfo".length()));
             System.out.println("id: "+id);
             Vehiculo vehiculo=vehiculoDAO.selectVehiculoPorId(id).get(0);
@@ -156,19 +155,22 @@ public class ConcesionarioControlador implements ActionListener{
     }
 
     private void guardarModelo() {
-        // TODO: Implementar lógica para guardar un nuevo modelo
         ModeloVehiculo m=pNuevoModelo.getModeloVehiculo();
+        System.out.println(modeloVehiculoDAO.insert(m));
         System.out.println(m);
     }
 
     private void login() {
-        // TODO: Implementar lógica
         Login l=pLogin.getLogin();
         boolean loginCorrecto=loginDAO.iniciarSesion(l);
         if(loginCorrecto){
             System.out.println("Login correcto");
+            sesionIniciada=true;
+            v.actualizarMenu(sesionIniciada);
         }else{
             System.out.println("Login incorrecto");
+            sesionIniciada=false;
+            v.actualizarMenu(sesionIniciada);
         }
         System.out.println(l);
     }

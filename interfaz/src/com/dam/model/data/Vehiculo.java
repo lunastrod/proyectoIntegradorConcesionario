@@ -95,7 +95,7 @@ public class Vehiculo {
         sb.append("Color de pintura: ").append(color).append("\n");
 		sb.append("Peso (Kg): ").append(pesoKG).append("\n");
         sb.append("Potencia (cv): ").append(potenciaCV).append("\n");
-        sb.append("Número de Cilindros: ").append(cilindrada).append("\n");
+        sb.append("Cilindrada (cc): ").append(cilindrada).append("\n");
 		sb.append("Tipo de propulsión: ").append(modelo.getTipoPropulsion()).append("\n");
 		sb.append("Tipo de tracción: ").append(modelo.getTraccion()).append("\n");
 		sb.append("Tipo de transmisión: ").append(modelo.getTipoTransmision()).append("\n");

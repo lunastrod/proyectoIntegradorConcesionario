@@ -38,6 +38,10 @@ precio int
 );
 */
 
+/*
+TODO: bloquear los campos si no se ha pulsado el boton de buscar marca
+*/
+
 public class PNuevoVehiculo extends JPanel implements IPanel{
     private static final int ANCHO=1000;
     private static final int ALTO=1000;

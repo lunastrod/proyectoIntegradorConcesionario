@@ -12,7 +12,7 @@ public class LoginDAO{
 	private static final String COL_NOMBRE = "nombre_apellidos";
 	private static final String COL_PASSWORD = "password_trabajador";
 	
-	private AccesoBD bd = new AccesoBD();
+	private AccesoBD bd;
 	
 	public LoginDAO(AccesoBD bd) {
 		this.bd = bd;

@@ -58,19 +58,15 @@ public class VPrincipal extends JFrame implements IVentana{
         menuBar.add(menuEncuestas);
 
         itemVer = new JMenuItem(VER_CATALOGO_MENU);
-        itemVer.setActionCommand(VER_CATALOGO_MENU);
         menuEncuestas.add(itemVer);
 
         itemNuevoVeh = new JMenuItem(NUEVO_VEHICULO_MENU);
-        itemNuevoVeh.setActionCommand(NUEVO_VEHICULO_MENU);
         menuEncuestas.add(itemNuevoVeh);
         
         itemNuevoMod = new JMenuItem(NUEVO_MODELO_MENU);
-        itemNuevoMod.setActionCommand(NUEVO_MODELO_MENU);
         menuEncuestas.add(itemNuevoMod);
 
         itemLogin = new JMenuItem(LOGIN_MENU);
-        itemLogin.setActionCommand(LOGIN_MENU);
         menuEncuestas.add(itemLogin);
         
         mntmNewMenuItem = new JMenuItem(MODO_CLARO_OSCURO_MENU);
