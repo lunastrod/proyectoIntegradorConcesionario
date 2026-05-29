@@ -118,6 +118,7 @@ public class VentaDAO {
                 String nombreModelo = rs.getString(ModeloVehiculoDAO.COL_NOMBRE_MODELO);
                 int numeroPlazas = rs.getInt(ModeloVehiculoDAO.COL_NUMERO_PLAZAS);
                 int numeroPuertas = rs.getInt(ModeloVehiculoDAO.COL_NUMERO_PUERTAS);
+                String tipoVehiculo = rs.getString(ModeloVehiculoDAO.COL_TIPO_VEHICULO);
                 String tipoPropulsion = rs.getString(ModeloVehiculoDAO.COL_TIPO_PROPULSION);
                 String traccion = rs.getString(ModeloVehiculoDAO.COL_TRACCION);
                 String nombreMarca = rs.getString(ModeloVehiculoDAO.COL_MARCA);
@@ -128,7 +129,7 @@ public class VentaDAO {
                 Cliente cliente = new Cliente(idCliente, nombreCliente, metodoPago);
                 
                 ModeloVehiculo modelo = new ModeloVehiculo(idModelo, nombreModelo, numeroPlazas,
-                		numeroPuertas, tipoPropulsion, traccion, nombreMarca, tipoTransmision);
+                		numeroPuertas, tipoVehiculo, tipoPropulsion, traccion, nombreMarca, tipoTransmision);
                 
                 Vehiculo vehiculo = new Vehiculo(idVehiculo, modelo, precio, matricula, color,
                 		year, kilometraje, potenciaCv, cilindrada, pesoKG);
