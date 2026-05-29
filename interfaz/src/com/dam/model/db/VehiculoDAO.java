@@ -99,7 +99,7 @@ public class VehiculoDAO {
     }
     
     public ArrayList<Vehiculo> selectVehiculoPorId(int id) {
-    	String sentencia = "SELECT * FROM" + NOM_TABLA + " JOIN " + ModeloVehiculoDAO.NOM_TABLA
+    	String sentencia = "SELECT * FROM " + NOM_TABLA + " JOIN " + ModeloVehiculoDAO.NOM_TABLA
     			+ " ON " + NOM_TABLA + "." + COL_MODELO + " = " + ModeloVehiculoDAO.NOM_TABLA
     			+ "." + ModeloVehiculoDAO.COL_ID_MODELO + " WHERE " + COL_ID_VEHICULO + " = ?";
     	
@@ -154,11 +154,11 @@ public class VehiculoDAO {
     	
     }
 
+
     public ArrayList<Vehiculo> selectTodos(){
         String sentencia="SELECT * FROM " + NOM_TABLA + " JOIN " + ModeloVehiculoDAO.NOM_TABLA 
         		+ " ON " + NOM_TABLA + "." + COL_MODELO + " = " 
         		+ ModeloVehiculoDAO.NOM_TABLA + "." + ModeloVehiculoDAO.COL_ID_MODELO;
-        System.out.println(sentencia);
 
         Connection con= null;
         Statement stmt = null;

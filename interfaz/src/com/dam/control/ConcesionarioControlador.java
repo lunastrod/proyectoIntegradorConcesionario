@@ -63,13 +63,13 @@ public class ConcesionarioControlador implements ActionListener{
     private void controlMenus(ActionEvent e) {
         switch (e.getActionCommand()) {
             case VPrincipal.NUEVO_VEHICULO_MENU:
+                
                 pNuevoVehiculo.actualizarMarcas(modeloVehiculoDAO.selectMarcas());
                 v.cargarPanel(pNuevoVehiculo);
                 actualizarModoClaroOscuro(modoClaro);
                 break;
             case VPrincipal.VER_CATALOGO_MENU:
-                v.cargarPanel(pVerCatalogo);
-                actualizarModoClaroOscuro(modoClaro);
+                cargarPanelCatalogo();
                 break;
             case VPrincipal.NUEVO_MODELO_MENU:
                 v.cargarPanel(pNuevoModelo);
@@ -96,7 +96,10 @@ public class ConcesionarioControlador implements ActionListener{
             //TODO temporal
             //ModeloVehiculo mPrueba=new ModeloVehiculo(1,"laferrari",2,3,"gasolina","trasera","Ferrari","manual");
             //Vehiculo vPrueba=new Vehiculo(1,mPrueba,100000,"matricula","rojo",2014,0,0,0,0);
-            //pInformacionVehiculo.mostrarInfoVehiculo(vPrueba);
+            int id=Integer.parseInt(e.getActionCommand().substring("masinfo".length()));
+            System.out.println("id: "+id);
+            Vehiculo vehiculo=vehiculoDAO.selectVehiculoPorId(id).get(0);
+            pInformacionVehiculo.mostrarInfoVehiculo(vehiculo);
         }
         else{
             switch (e.getActionCommand()) {
@@ -122,8 +125,13 @@ public class ConcesionarioControlador implements ActionListener{
         }
     }
 
+    public void cargarPanelCatalogo() {
+        pVerCatalogo.actualizarPanelesVehiculo(vehiculoDAO.selectTodos());
+        v.cargarPanel(pVerCatalogo);
+        actualizarModoClaroOscuro(modoClaro);
+    }
+
     private void actualizarModoClaroOscuro(boolean modoClaro) {
-        System.out.println("Cambiando modo claro/oscuro");
         try{
             if (modoClaro) {
                 javax.swing.UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
