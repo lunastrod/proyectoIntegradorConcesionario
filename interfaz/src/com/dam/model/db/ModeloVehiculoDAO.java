@@ -174,11 +174,12 @@ public class ModeloVehiculoDAO {
                 String nombreModelo = rs.getString(COL_NOMBRE_MODELO);
                 int numeroPlazas = rs.getInt(COL_NUMERO_PLAZAS);
                 int numeroPuertas = rs.getInt(COL_NUMERO_PUERTAS);
+                String tipoVehiculo = rs.getString(COL_TIPO_VEHICULO);
                 String tipoPropulsion = rs.getString(COL_TIPO_PROPULSION);
                 String traccion = rs.getString(COL_TRACCION);
                 String nombreMarca = rs.getString(marca);
                 String tipoTransmision = rs.getString(COL_TIPO_TRANSMISION);
-                modelos.add(new ModeloVehiculo(idModelo, nombreModelo, numeroPlazas, numeroPuertas,
+                modelos.add(new ModeloVehiculo(idModelo, nombreModelo, numeroPlazas, numeroPuertas, tipoVehiculo, 
                 		tipoPropulsion, traccion, nombreMarca, tipoTransmision));
         	}
         } catch (Exception e) {
@@ -210,11 +211,12 @@ public class ModeloVehiculoDAO {
                 String nombreModelo = rs.getString(COL_NOMBRE_MODELO);
                 int numeroPlazas = rs.getInt(COL_NUMERO_PLAZAS);
                 int numeroPuertas = rs.getInt(COL_NUMERO_PUERTAS);
+                String tipoVehiculo = rs.getString(COL_TIPO_VEHICULO);
                 String tipoPropulsion = rs.getString(COL_TIPO_PROPULSION);
                 String traccion = rs.getString(COL_TRACCION);
                 String nombreMarca = rs.getString(COL_MARCA);
                 String tipoTransmision = rs.getString(COL_TIPO_TRANSMISION);
-                modelos.add(new ModeloVehiculo(idModelo, nombreModelo, numeroPlazas, numeroPuertas, tipoPropulsion, traccion, nombreMarca, tipoTransmision));
+                modelos.add(new ModeloVehiculo(idModelo, nombreModelo, numeroPlazas, numeroPuertas, tipoVehiculo, tipoPropulsion, traccion, nombreMarca, tipoTransmision));
             }
         } catch (Exception e) {
             e.printStackTrace();
