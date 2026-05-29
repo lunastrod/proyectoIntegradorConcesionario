@@ -158,8 +158,7 @@ public class ModeloVehiculoDAO {
     }
     
     public ArrayList<ModeloVehiculo> selectModeloPorMarca(String marca) {
-        String sentencia = "SELECT * FROM " + NOM_TABLA + " ORDER BY " + COL_MARCA + ", " + COL_NOMBRE_MODELO
-        		+ " WHERE " + COL_MARCA + " = ?";
+        String sentencia = "SELECT * FROM " + NOM_TABLA + " WHERE " + COL_MARCA + " = ? ORDER BY " + COL_MARCA + ", " + COL_NOMBRE_MODELO;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;

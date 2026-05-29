@@ -179,7 +179,7 @@ public class ConcesionarioControlador implements ActionListener{
     private void buscarMarca() {
         // TODO: Implementar lógica
         String marca=pNuevoVehiculo.getMarca();
-        ArrayList<ModeloVehiculo> modelos=modeloVehiculoDAO.getModelos(marca);
+        ArrayList<ModeloVehiculo> modelos=modeloVehiculoDAO.selectModeloPorMarca(marca);
         pNuevoVehiculo.actualizarModelos(modelos);
     }
 }
