@@ -63,10 +63,10 @@ public class ConcesionarioControlador implements ActionListener{
         switch (e.getActionCommand()) {
             case VPrincipal.NUEVO_VEHICULO_MENU:
                 //TODO: temporal (implementar DAO)
-                String [] marcas={"Toyota","Honda","Ford"};
-                String [] modelos={"Corolla","RAV4","Yaris"};
-                pNuevoVehiculo.actualizarMarcas(marcas);
-                pNuevoVehiculo.actualizarModelos(modelos);
+                //String [] marcas={"Toyota","Honda","Ford"};
+                //String [] modelos={"Corolla","RAV4","Yaris"};
+                //pNuevoVehiculo.actualizarMarcas(marcas);
+                //pNuevoVehiculo.actualizarModelos(modelos);
                 v.cargarPanel(pNuevoVehiculo);
                 break;
             case VPrincipal.VER_CATALOGO_MENU:
@@ -103,6 +103,9 @@ public class ConcesionarioControlador implements ActionListener{
                     break;
                 case PLogin.LOGIN_BTN:
                     login();
+                    break;
+                case PNuevoVehiculo.BUSCAR_MARCA_BTN:
+                    buscarMarca();
                     break;
                 case PNuevoVehiculo.VER_COLOR_BTN:
                     pNuevoVehiculo.actualizarColor();
@@ -145,5 +148,13 @@ public class ConcesionarioControlador implements ActionListener{
         //Login l=pLogin.getLogin();
         loginDAO.crearUsuario(l);
         System.out.println(l);
+    }
+
+    private void buscarMarca() {
+        // TODO: Implementar lógica
+        String marca=pNuevoVehiculo.getMarca();
+        ArrayList<ModeloVehiculo> modelos=modeloVehiculoDAO.getModelos(marca);
+        pNuevoVehiculo.actualizarModelos(modelos);
+
     }
 }

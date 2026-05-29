@@ -2,6 +2,7 @@ package com.dam.view;
 
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -41,6 +42,7 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
     private static final int ALTO=1000;
     public static final String GUARDAR_VEHICULO_BTN="Guardar Vehiculo";
     public static final String VER_COLOR_BTN="Ver color";
+    public static final String BUSCAR_MARCA_BTN="Buscar Marca";
 
     JButton btnGuardar;
     DefaultComboBoxModel<String> modelMarcas;
@@ -61,6 +63,8 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
     private JLabel lblModelo;
     private JLabel lblMarca;
     private JLabel lblPrecio;
+    private JButton btnBuscarMarca;
+    private ArrayList<ModeloVehiculo> modelos;
     
 
     public PNuevoVehiculo(){
@@ -69,28 +73,42 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
         crearComponentes();
     }
 
+    public void actualizarMarcas(ArrayList<String> marcas){
+        modelMarcas.removeAllElements();
+        for(String m:marcas){
+            modelMarcas.addElement(m);
+        }
+    }
+
+    public void actualizarModelos(ArrayList<ModeloVehiculo> modelos){
+        this.modelos=modelos;
+        modelModelos.removeAllElements();
+        for(ModeloVehiculo m:modelos){
+            modelModelos.addElement(m.getNombreModelo());
+        }
+    }
+
+    public String getMarca(){
+        int indexMarca=cbMarca.getSelectedIndex();
+        String marca=modelMarcas.getElementAt(indexMarca);
+        return marca;
+    }
+
     public Vehiculo getVehiculo(){
-        String marca=(String)cbMarca.getSelectedItem();
-        String modelo=(String)cbModelo.getSelectedItem();
         int precio=(int)spPrecio.getValue();
 
-        ModeloVehiculo m=new ModeloVehiculo(1,modelo,marca);
+        int indexModelo=cbModelo.getSelectedIndex();
+        ModeloVehiculo m=modelos.get(indexModelo);
+        
+        String matricula=txtMatricula.getText();
+        String color="R"+spRojo.getValue()+"G"+spVerde.getValue()+"B"+spAzul.getValue();
+        int year=(int)spYear.getValue();
+        int kilometraje=(int)spKilometraje.getValue();
+        int potencia=(int)spPotencia.getValue();
+        int cilindrada=(int)spCilindrada.getValue();
+        int peso=(int)spPeso.getValue();
 
-        return new Vehiculo(1,m,precio);
-    }
-
-    public void actualizarMarcas(String [] marcas){
-        modelMarcas.removeAllElements();
-        for(String marca:marcas){
-            modelMarcas.addElement(marca);
-        }
-    }
-
-    public void actualizarModelos(String [] modelos){
-        modelModelos.removeAllElements();
-        for(String modelo:modelos){
-            modelModelos.addElement(modelo);
-        }
+        return new Vehiculo(-1,m,precio,matricula,color,year,kilometraje,potencia,cilindrada,peso);
     }
 
     public void crearComponentes(){
@@ -99,7 +117,7 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
         add(lblTitulo);
 
         //seleccionar la marca con una lista desplegable
-        modelMarcas=new DefaultComboBoxModel<>();
+        modelMarcas=new DefaultComboBoxModel<String>();
         cbMarca=new JComboBox<String>(modelMarcas);
         cbMarca.setBounds(185, 103, 150, 25);
         add(cbMarca);
@@ -126,11 +144,11 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
         add(txtMatricula);
         txtMatricula.setColumns(10);
         
-        spYear = new JSpinner();
+        spYear = new JSpinner(new SpinnerNumberModel(2000, 1800, 2200, 1));
         spYear.setBounds(185, 281, 86, 20);
         add(spYear);
         
-        spKilometraje = new JSpinner();
+        spKilometraje = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         spKilometraje.setBounds(185, 312, 86, 20);
         add(spKilometraje);
         
@@ -202,6 +220,10 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
         lblPrecio = new JLabel("Precio");
         lblPrecio.setBounds(80, 188, 95, 14);
         add(lblPrecio);
+        
+        btnBuscarMarca = new JButton(BUSCAR_MARCA_BTN);
+        btnBuscarMarca.setBounds(345, 104, 150, 25);
+        add(btnBuscarMarca);
 
         actualizarColor();
     }
@@ -216,7 +238,6 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
     public void setControlador(ConcesionarioControlador c){
         btnGuardar.addActionListener(c);
         btnVerColor.addActionListener(c);
+        btnBuscarMarca.addActionListener(c);
     }
-
-
 }

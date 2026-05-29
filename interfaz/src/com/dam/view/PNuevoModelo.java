@@ -10,6 +10,7 @@ import com.dam.model.data.ModeloVehiculo;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class PNuevoModelo extends JPanel implements IPanel{
     private static final int ANCHO=1000;
@@ -19,7 +20,6 @@ public class PNuevoModelo extends JPanel implements IPanel{
     JTextField tfNombreModelo;
     JTextField tfNombreMarca;
     private JLabel lblNombreMarca_1;
-    private JTextField textField_1;
     private JLabel lblNombreMarca_2;
     private JLabel lblNombreMarca_3;
 
@@ -70,10 +70,6 @@ public class PNuevoModelo extends JPanel implements IPanel{
         lblNombreMarca_1.setBounds(25, 136, 160, 20);
         add(lblNombreMarca_1);
         
-        textField_1 = new JTextField();
-        textField_1.setBounds(195, 172, 150, 25);
-        add(textField_1);
-        
         lblNombreMarca_2 = new JLabel("Tracción");
         lblNombreMarca_2.setBounds(25, 172, 160, 20);
         add(lblNombreMarca_2);
@@ -82,13 +78,33 @@ public class PNuevoModelo extends JPanel implements IPanel{
         lblNombreMarca_3.setBounds(25, 208, 160, 20);
         add(lblNombreMarca_3);
         
-        JComboBox comboBox = new JComboBox();
-        comboBox.setBounds(195, 135, 150, 22);
-        add(comboBox);
+        JComboBox<String> comboBoxPropulsion = new JComboBox<String>();
+        DefaultComboBoxModel<String> modelPropulsion= new DefaultComboBoxModel<String>(ModeloVehiculo.TIPOS_PROPULSION);
+        comboBoxPropulsion.setModel(modelPropulsion);
+        comboBoxPropulsion.setBounds(195, 135, 150, 22);
+        add(comboBoxPropulsion);
         
-        JComboBox comboBox_1 = new JComboBox();
-        comboBox_1.setBounds(195, 207, 150, 22);
-        add(comboBox_1);
+        JComboBox<String> comboBoxTransmision = new JComboBox<String>();
+        DefaultComboBoxModel<String> modelTransmision= new DefaultComboBoxModel<String>(ModeloVehiculo.TIPOS_TRANSMISION);
+        comboBoxTransmision.setModel(modelTransmision);
+        comboBoxTransmision.setBounds(195, 207, 150, 22);
+        add(comboBoxTransmision);
+        
+        JComboBox<String> comboBoxTraccion = new JComboBox<String>();
+        DefaultComboBoxModel<String> modelTraccion= new DefaultComboBoxModel<String>(ModeloVehiculo.TIPOS_TRACCION);
+        comboBoxTraccion.setModel(modelTraccion);
+        comboBoxTraccion.setBounds(195, 171, 150, 22);
+        add(comboBoxTraccion);
+        
+        JLabel lblNombreMarca_3_1 = new JLabel("Tipo de vehículo");
+        lblNombreMarca_3_1.setBounds(25, 239, 160, 20);
+        add(lblNombreMarca_3_1);
+        
+        JComboBox<String> comboBoxVehiculo = new JComboBox<String>();
+        DefaultComboBoxModel<String> modelVehiculo= new DefaultComboBoxModel<String>(ModeloVehiculo.TIPOS_VEHICULOS);
+        comboBoxVehiculo.setModel(modelVehiculo);
+        comboBoxVehiculo.setBounds(195, 238, 150, 22);
+        add(comboBoxVehiculo);
     }
 
     public void setControlador(ConcesionarioControlador c){

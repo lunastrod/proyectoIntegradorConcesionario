@@ -22,9 +22,8 @@ public class PInformacionVehiculo extends JPanel implements IPanel{
     public PInformacionVehiculo() {
         crearComponentes();
         setSize(ANCHO,ALTO);
-        
-
     }
+    
     public void crearComponentes() {
         setLayout(null);
         lblModelo = new JLabel("Modelo");
