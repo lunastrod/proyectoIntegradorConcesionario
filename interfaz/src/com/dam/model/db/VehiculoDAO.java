@@ -97,6 +97,62 @@ public class VehiculoDAO {
         }
         return resultado;
     }
+    
+    public ArrayList<Vehiculo> selectVehiculoPorId(int id) {
+    	String sentencia = "SELECT * FROM" + NOM_TABLA + " JOIN " + ModeloVehiculoDAO.NOM_TABLA
+    			+ " ON " + NOM_TABLA + "." + COL_MODELO + " = " + ModeloVehiculoDAO.NOM_TABLA
+    			+ "." + ModeloVehiculoDAO.COL_ID_MODELO + " WHERE " + COL_ID_VEHICULO + " = ?";
+    	
+    	Connection con = null;
+    	PreparedStatement stmt = null;
+    	ResultSet rs = null;
+    	ArrayList<Vehiculo> vehiculo = new ArrayList<Vehiculo>();
+    	
+    	try {
+    		con = bd.getConexion();
+    		stmt = con.prepareStatement(sentencia);
+    		stmt.setInt(1, id);
+    		rs = stmt.executeQuery();
+    		while (rs.next()) {
+    			int idVehiculo = rs.getInt(1);
+            	int precio = rs.getInt(COL_PRECIO);
+            	String matricula = rs.getString(COL_MATRICULA);
+            	String color = rs.getString(COL_COLOR);
+            	int year = rs.getInt(COL_YEAR);
+            	int kilometraje = rs.getInt(COL_KILOMETRAJE);
+            	int potenciaCv = rs.getInt(COL_POTENCIA_CV);
+            	int cilindrada = rs.getInt(COL_CILINDRADA);
+            	int pesoKG = rs.getInt(COL_PESO_KG);
+            	
+                int idModelo = rs.getInt(ModeloVehiculoDAO.COL_ID_MODELO);
+                String nombreModelo = rs.getString(ModeloVehiculoDAO.COL_NOMBRE_MODELO);
+                int numeroPlazas = rs.getInt(ModeloVehiculoDAO.COL_NUMERO_PLAZAS);
+                int numeroPuertas = rs.getInt(ModeloVehiculoDAO.COL_NUMERO_PUERTAS);
+                String tipoVehiculo = rs.getString(ModeloVehiculoDAO.COL_TIPO_VEHICULO);
+                String tipoPropulsion = rs.getString(ModeloVehiculoDAO.COL_TIPO_PROPULSION);
+                String traccion = rs.getString(ModeloVehiculoDAO.COL_TRACCION);
+                String nombreMarca = rs.getString(ModeloVehiculoDAO.COL_MARCA);
+                String tipoTransmision = rs.getString(ModeloVehiculoDAO.COL_TIPO_TRANSMISION);
+                
+                ModeloVehiculo modelo = new ModeloVehiculo(idModelo, nombreModelo, numeroPlazas,
+                		numeroPuertas, tipoVehiculo, tipoPropulsion, traccion, nombreMarca, tipoTransmision);
+                
+                vehiculo.add(new Vehiculo(idVehiculo, modelo, precio, matricula, color, 
+                		year, kilometraje, potenciaCv, cilindrada, pesoKG));
+    		}
+    	} catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {if (rs != null) {rs.close();}
+            } catch (Exception e) {e.printStackTrace();}
+            try {if (stmt != null) {stmt.close();}
+            } catch (Exception e) {e.printStackTrace();}
+            try {if (con != null) {con.close();}
+            } catch (Exception e) {e.printStackTrace();}
+        }
+        return vehiculo;
+    	
+    }
 
     public ArrayList<Vehiculo> selectTodos(){
         String sentencia="SELECT * FROM " + NOM_TABLA + " JOIN " + ModeloVehiculoDAO.NOM_TABLA 
