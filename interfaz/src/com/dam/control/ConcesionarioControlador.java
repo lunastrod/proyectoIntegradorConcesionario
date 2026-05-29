@@ -104,6 +104,9 @@ public class ConcesionarioControlador implements ActionListener{
                 case PLogin.LOGIN_BTN:
                     login();
                     break;
+                case PNuevoVehiculo.VER_COLOR_BTN:
+                    pNuevoVehiculo.actualizarColor();
+                    break;
                 default:
                     System.out.println("Boton no reconocido: " + e.getActionCommand());
                     break;
