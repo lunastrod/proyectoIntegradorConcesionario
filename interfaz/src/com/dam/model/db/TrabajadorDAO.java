@@ -134,7 +134,7 @@ public class TrabajadorDAO {
 	}
 	*/
 	public ArrayList<Trabajador> selectAllTrabajadores() {
-		String sentencia = "SELECT * FROM " + NOM_TABLA + " ORDER BY " + COL_NOMBRE_TRABAJADOR;
+		String sentencia = "SELECT * FROM " + NOM_TABLA + " ORDER BY " + COL_ID_TRABAJADOR;
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
