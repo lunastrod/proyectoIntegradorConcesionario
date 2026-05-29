@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS "Vehiculo" (
 
 public class VehiculoDAO {
     private AccesoBD bd;
-    private static final String NOM_TABLA = "Vehiculo";
+    public static final String NOM_TABLA = "Vehiculo";
     public static final String COL_ID_VEHICULO = "id_vehiculo";
     public static final String COL_MODELO = "modelo";
     public static final String COL_PRECIO = "precio";
