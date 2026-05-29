@@ -28,7 +28,7 @@ public class PVehiculo extends JPanel implements IPanel{
 
 	public void setVehiculo(Vehiculo vehiculo){
 		lblPrecio.setText(vehiculo.getPrecio()+" €");
-		lblModelo.setText(vehiculo.getModelo().getNombreModelo());
+		lblModelo.setText(vehiculo.getModelo().getMarca()+" "+vehiculo.getModelo().getNombreModelo());
 		btnInfo.setActionCommand("masinfo"+vehiculo.getIdVehiculo());
 	}
 

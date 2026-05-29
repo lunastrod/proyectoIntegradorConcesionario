@@ -28,7 +28,7 @@ public class PInformacionVehiculo extends JPanel implements IPanel{
     public void crearComponentes() {
         setLayout(null);
         lblModelo = new JLabel("Modelo");
-        lblModelo.setBounds(54, 58, 116, 14);
+        lblModelo.setBounds(54, 58, 280, 14);
         add(lblModelo);
         
         lblPrecio = new JLabel("Precio");

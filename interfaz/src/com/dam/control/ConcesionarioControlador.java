@@ -98,8 +98,8 @@ public class ConcesionarioControlador implements ActionListener{
             //Vehiculo vPrueba=new Vehiculo(1,mPrueba,100000,"matricula","rojo",2014,0,0,0,0);
             int id=Integer.parseInt(e.getActionCommand().substring("masinfo".length()));
             System.out.println("id: "+id);
-            //Vehiculo vehiculo=vehiculoDAO.selectVehiculo(id);
-            //pInformacionVehiculo.mostrarInfoVehiculo(vehiculo);
+            Vehiculo vehiculo=vehiculoDAO.selectVehiculoPorId(id).get(0);
+            pInformacionVehiculo.mostrarInfoVehiculo(vehiculo);
         }
         else{
             switch (e.getActionCommand()) {
