@@ -158,8 +158,8 @@ public class ModeloVehiculoDAO {
     }
     
     public ArrayList<ModeloVehiculo> selectModeloPorMarca(String marca) {
-        String sentencia = "SELECT * FROM " + NOM_TABLA + " ORDER BY " + COL_MARCA + ", " + COL_NOMBRE_MODELO
-        		+ " WHERE " + COL_MARCA + " = ?";
+        String sentencia = "SELECT * FROM " + NOM_TABLA + " WHERE " + COL_MARCA + " = ? ORDER BY " + COL_MARCA + ", " + COL_NOMBRE_MODELO;
+        System.out.println(sentencia);
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -177,7 +177,7 @@ public class ModeloVehiculoDAO {
                 int numeroPuertas = rs.getInt(COL_NUMERO_PUERTAS);
                 String tipoPropulsion = rs.getString(COL_TIPO_PROPULSION);
                 String traccion = rs.getString(COL_TRACCION);
-                String nombreMarca = rs.getString(marca);
+                String nombreMarca = rs.getString(COL_MARCA);
                 String tipoTransmision = rs.getString(COL_TIPO_TRANSMISION);
                 modelos.add(new ModeloVehiculo(idModelo, nombreModelo, numeroPlazas, numeroPuertas,
                 		tipoPropulsion, traccion, nombreMarca, tipoTransmision));
