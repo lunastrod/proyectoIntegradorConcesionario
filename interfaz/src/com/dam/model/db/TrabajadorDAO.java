@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS "Trabajador" (
 	"id_trabajador"	INTEGER,
 	"nombre_apellidos"	varchar(100),
 	"password_trabajador"	varchar(100),
+	"es_admin"	INTEGER,
 	CONSTRAINT "pk_id_trabajo" PRIMARY KEY("id_trabajador" AUTOINCREMENT)
 );
  */
@@ -22,6 +23,7 @@ public class TrabajadorDAO {
 	public static final String COL_ID_TRABAJADOR = "id_trabajador";
 	public static final String COL_NOMBRE_TRABAJADOR = "nombre_apellidos";
 	public static final String COL_PASSWORD_TRABAJADOR = "password_trabajador";
+	public static final String COL_ES_ADMIN = "es_admin";
 	
 	public TrabajadorDAO(AccesoBD bd) {
 		this.bd = bd;
@@ -29,7 +31,7 @@ public class TrabajadorDAO {
 	
 	public int insert(Trabajador t) {
 		String sentencia = "INSERT INTO " + NOM_TABLA + " (" + COL_NOMBRE_TRABAJADOR
-				+ ", " + COL_PASSWORD_TRABAJADOR + ") VALUES (?, ?)";
+				+ ", " + COL_PASSWORD_TRABAJADOR + ", " + COL_ES_ADMIN + ") VALUES (?, ?, ?)";
 		
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -40,6 +42,7 @@ public class TrabajadorDAO {
 			stmt = con.prepareStatement(sentencia);
 			stmt.setString(1, t.getNombreApellidos());
 			stmt.setString(2, t.getPasswordTrabajador());
+			stmt.setInt(3, t.getEsAdmin());
 			res = stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,7 +147,8 @@ public class TrabajadorDAO {
 				int idTrabajador = rs.getInt(COL_ID_TRABAJADOR);
 				String nombreTrabajador = rs.getString(COL_NOMBRE_TRABAJADOR);
 				String passwordTrabajador = rs.getString(COL_PASSWORD_TRABAJADOR);
-				trabajadores.add(new Trabajador(idTrabajador, nombreTrabajador, passwordTrabajador));
+				int esAdmin = rs.getInt(COL_ES_ADMIN);
+				trabajadores.add(new Trabajador(idTrabajador, nombreTrabajador, passwordTrabajador, esAdmin));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
