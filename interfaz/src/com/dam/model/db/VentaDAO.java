@@ -39,7 +39,7 @@ public class VentaDAO {
 	}
 	
 	public int insert(Venta v) {
-		String sentencia = "INSERT INTO " + NOM_TABLA + " (" + COL_ID_VENTA + ", "
+		String sentencia = "INSERT INTO " + NOM_TABLA + " ("
 				+ COL_ID_TRABAJADOR + ", " + COL_ID_VEHICULO + ", " + COL_FECHA 
 				+ ") VALUES (?, ?, ?, ?)";
 		
@@ -49,10 +49,9 @@ public class VentaDAO {
 		try {
 			con = bd.getConexion();
 			stmt = con.prepareStatement(sentencia);
-			stmt.setInt(1, v.getIdVenta());
-			stmt.setInt(2, v.getCliente().getIdCliente());
-			stmt.setInt(3, v.getTrabajador().getIdTrabajador());
-			stmt.setInt(4, v.getVehiculo().getIdVehiculo());
+			stmt.setInt(1, v.getCliente().getIdCliente());
+			stmt.setInt(2, v.getTrabajador().getIdTrabajador());
+			stmt.setInt(3, v.getVehiculo().getIdVehiculo());
 			res = stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,13 +75,14 @@ public class VentaDAO {
 	}
 	
 	public ArrayList<Venta> selectVentas() {
-		String sentencia = "SELECT * FROM " + NOM_TABLA + " JOIN " + ClienteDAO.NOM_TABLA 
-				+ " ON " + NOM_TABLA + "." + COL_ID_CLIENTE + " = " + ClienteDAO.NOM_TABLA 
-				+ "." + ClienteDAO.COL_ID_CLIENTE + " JOIN " + TrabajadorDAO.NOM_TABLA 
-				+ " ON " + NOM_TABLA + "." + COL_ID_TRABAJADOR + " = " + TrabajadorDAO.NOM_TABLA
-				+ "." + TrabajadorDAO.COL_ID_TRABAJADOR + " JOIN " + VehiculoDAO.NOM_TABLA
-				+ " ON " + NOM_TABLA + "." + COL_ID_VEHICULO + " = " + VehiculoDAO.NOM_TABLA + "." 
-				+ VehiculoDAO.COL_ID_VEHICULO;
+		//TODO: hacer join con modelo
+		String sentencia = "SELECT * FROM " + NOM_TABLA + 
+				" JOIN " + ClienteDAO.NOM_TABLA + 
+				" ON " + NOM_TABLA + "." + COL_ID_CLIENTE + " = " + ClienteDAO.NOM_TABLA + "." + ClienteDAO.COL_ID_CLIENTE + 
+				" JOIN " + TrabajadorDAO.NOM_TABLA 
+				+ " ON " + NOM_TABLA + "." + COL_ID_TRABAJADOR + " = " + TrabajadorDAO.NOM_TABLA + "." + TrabajadorDAO.COL_ID_TRABAJADOR + 
+				" JOIN " + VehiculoDAO.NOM_TABLA
+				+ " ON " + NOM_TABLA + "." + COL_ID_VEHICULO + " = " + VehiculoDAO.NOM_TABLA + "." + VehiculoDAO.COL_ID_VEHICULO;
 		
 		Connection con = null;
 		Statement stmt = null;
@@ -93,7 +93,7 @@ public class VentaDAO {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sentencia);
 			while (rs.next()) {
-				int idVenta = rs.getInt(COL_ID_CLIENTE);
+				int idVenta = rs.getInt(COL_ID_VENTA);
 				
 				int idCliente = rs.getInt(ClienteDAO.COL_ID_CLIENTE);
 				String nombreCliente = rs.getString(ClienteDAO.COL_NOMBRE_APELLIDOS);
@@ -150,7 +150,7 @@ public class VentaDAO {
             try {if (con != null) {con.close();}
             } catch (Exception e) {e.printStackTrace();}
         }
-		return null;
+		return ventas;
 		
 	}
 }

@@ -19,7 +19,9 @@ import com.dam.view.PNuevoVehiculo;
 import com.dam.view.PVerCatalogo;
 import com.dam.view.VPrincipal;
 
-/*TODO que hacemos con LoginDAO, eliminar? reemplazada por TrabajadorDAO */
+/*TODO que hacemos con LoginDAO, eliminar? reemplazada por TrabajadorDAO 
+eliminar modelos necesitamos un panel con una lista de modelos
+*/
 
 public class Inicio {
     public static void main(String[] args) {
@@ -56,9 +58,8 @@ public class Inicio {
                 pLogin.setControlador(controlador);
 
                 controlador.cargarPanelCatalogo();
-                
+
                 ventanaPrincipal.hacerVisible();
-                ventanaPrincipal.actualizarMenu(true);
             }
         });
     }
