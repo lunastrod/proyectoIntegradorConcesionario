@@ -64,4 +64,6 @@ public class PLogin extends JPanel implements IPanel{
         btnLogin.addActionListener(c);
     }
 
+
+
 }

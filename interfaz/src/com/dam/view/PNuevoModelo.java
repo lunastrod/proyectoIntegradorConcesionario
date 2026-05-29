@@ -110,4 +110,7 @@ public class PNuevoModelo extends JPanel implements IPanel{
     public void setControlador(ConcesionarioControlador c){
         btnGuardar.addActionListener(c);
     }
+
+
+
 }

@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+
 import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.Login;
 
@@ -63,5 +64,7 @@ public class PLogin extends JPanel implements IPanel{
     public void setControlador(ConcesionarioControlador c) {
         btnLogin.addActionListener(c);
     }
+
+
 
 }

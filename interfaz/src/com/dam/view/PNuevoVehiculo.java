@@ -17,6 +17,7 @@ import com.dam.model.data.ModeloVehiculo;
 import com.dam.model.data.Vehiculo;
 import javax.swing.JTextField;
 
+
 /*
 CREATE TABLE Marca (
 nombre_marca varchar(50) PRIMARY KEY
@@ -240,4 +241,6 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
         btnVerColor.addActionListener(c);
         btnBuscarMarca.addActionListener(c);
     }
+
+
 }
