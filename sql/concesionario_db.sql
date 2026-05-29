@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS "Trabajador" (
 	"id_trabajador"	INTEGER,
 	"nombre_apellidos"	varchar(100),
 	"password_trabajador"	varchar(100),
+	"es_admin"	INTEGER,
 	CONSTRAINT "pk_id_trabajo" PRIMARY KEY("id_trabajador" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "Vehiculo" (
@@ -50,10 +51,48 @@ CREATE TABLE IF NOT EXISTS "Venta" (
 );
 INSERT INTO "Cliente" VALUES (1,'John',NULL);
 INSERT INTO "Modelo" VALUES (1,'Aventador',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "Trabajador" VALUES (1,'Pedro',NULL);
-INSERT INTO "Trabajador" VALUES (2,'admin','admin');
-INSERT INTO "Trabajador" VALUES (3,'admin','admin');
-INSERT INTO "Trabajador" VALUES (4,'admin','admin');
-INSERT INTO "Trabajador" VALUES (5,'admin','admin');
+INSERT INTO "Trabajador" VALUES (1,'Pedro',NULL,NULL);
+INSERT INTO "Trabajador" VALUES (2,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (3,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (4,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (5,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (6,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (7,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (8,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (9,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (10,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (11,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (12,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (13,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (14,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (15,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (16,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (17,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (18,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (19,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (20,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (21,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (22,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (23,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (24,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (25,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (26,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (27,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (28,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (29,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (30,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (31,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (32,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (33,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (34,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (35,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (36,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (37,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (38,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (39,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (40,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (41,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (42,'admin','admin',NULL);
+INSERT INTO "Trabajador" VALUES (43,'admin','admin',NULL);
 INSERT INTO "Vehiculo" VALUES (1,1,600000,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 COMMIT;
