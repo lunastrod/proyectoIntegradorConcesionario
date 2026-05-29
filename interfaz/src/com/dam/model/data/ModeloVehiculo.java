@@ -25,17 +25,19 @@ public class ModeloVehiculo {
     private String nombreModelo;
     private int numeroPlazas;
     private int numeroPuertas;
+    private String tipoModelo;
     private String tipoPropulsion;
     private String traccion;
     private String marca;
     private String tipoTransmision;
 
-    public ModeloVehiculo(int idModelo, String nombreModelo, int numeroPlazas, int numeroPuertas, String tipoPropulsion,
+    public ModeloVehiculo(int idModelo, String nombreModelo, int numeroPlazas, int numeroPuertas, String tipoModelo, String tipoPropulsion,
 			String traccion, String marca, String tipoTransmision) {
 		this.idModelo = idModelo;
 		this.nombreModelo = nombreModelo;
 		this.numeroPlazas = numeroPlazas;
 		this.numeroPuertas = numeroPuertas;
+		this.tipoModelo = tipoModelo;
 		this.tipoPropulsion = tipoPropulsion;
 		this.traccion = traccion;
 		this.marca = marca;
@@ -56,6 +58,10 @@ public class ModeloVehiculo {
 
 	public int getNumeroPuertas() {
 		return numeroPuertas;
+	}
+	
+	public String getTipoModelo() {
+		return tipoModelo;
 	}
 
 	public String getTipoPropulsion() {
