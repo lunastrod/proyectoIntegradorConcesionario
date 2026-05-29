@@ -64,11 +64,7 @@ public class ConcesionarioControlador implements ActionListener{
     private void controlMenus(ActionEvent e) {
         switch (e.getActionCommand()) {
             case VPrincipal.NUEVO_VEHICULO_MENU:
-                //TODO: temporal (implementar DAO)
-                //String [] marcas={"Toyota","Honda","Ford"};
-                //String [] modelos={"Corolla","RAV4","Yaris"};
-                //pNuevoVehiculo.actualizarMarcas(marcas);
-                //pNuevoVehiculo.actualizarModelos(modelos);
+                pNuevoVehiculo.actualizarMarcas(modeloVehiculoDAO.selectMarcas());
                 v.cargarPanel(pNuevoVehiculo);
                 actualizarModoClaroOscuro(modoClaro);
                 break;
@@ -177,7 +173,6 @@ public class ConcesionarioControlador implements ActionListener{
     }
 
     private void buscarMarca() {
-        // TODO: Implementar lógica
         String marca=pNuevoVehiculo.getMarca();
         ArrayList<ModeloVehiculo> modelos=modeloVehiculoDAO.selectModeloPorMarca(marca);
         pNuevoVehiculo.actualizarModelos(modelos);
