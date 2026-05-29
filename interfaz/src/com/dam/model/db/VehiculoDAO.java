@@ -128,13 +128,14 @@ public class VehiculoDAO {
                 String nombreModelo = rs.getString(ModeloVehiculoDAO.COL_NOMBRE_MODELO);
                 int numeroPlazas = rs.getInt(ModeloVehiculoDAO.COL_NUMERO_PLAZAS);
                 int numeroPuertas = rs.getInt(ModeloVehiculoDAO.COL_NUMERO_PUERTAS);
+                String tipoVehiculo = rs.getString(ModeloVehiculoDAO.COL_TIPO_VEHICULO);
                 String tipoPropulsion = rs.getString(ModeloVehiculoDAO.COL_TIPO_PROPULSION);
                 String traccion = rs.getString(ModeloVehiculoDAO.COL_TRACCION);
                 String nombreMarca = rs.getString(ModeloVehiculoDAO.COL_MARCA);
                 String tipoTransmision = rs.getString(ModeloVehiculoDAO.COL_TIPO_TRANSMISION);
                 
                 ModeloVehiculo modelo = new ModeloVehiculo(idModelo, nombreModelo, numeroPlazas,
-                		numeroPuertas, tipoPropulsion, traccion, nombreMarca, tipoTransmision);
+                		numeroPuertas, tipoVehiculo, tipoPropulsion, traccion, nombreMarca, tipoTransmision);
                 
                 vehiculos.add(new Vehiculo(idVehiculo, modelo, precio, matricula, color, 
                 		year, kilometraje, potenciaCv, cilindrada, pesoKG));
