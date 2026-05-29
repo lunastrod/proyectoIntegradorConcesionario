@@ -90,10 +90,15 @@ public class Vehiculo {
         sb.append("Año: ").append(year).append("\n");
         sb.append("Kilometraje: ").append(kilometraje).append("\n");
         sb.append("Matrícula: ").append(matricula).append("\n");
+		sb.append("Número de plazas: ").append(modelo.getNumeroPlazas()).append("\n");
+		sb.append("Número de puertas: ").append(modelo.getNumeroPuertas()).append("\n");
         sb.append("Color de pintura: ").append(color).append("\n");
+		sb.append("Peso (Kg): ").append(pesoKG).append("\n");
         sb.append("Potencia (cv): ").append(potenciaCV).append("\n");
         sb.append("Número de Cilindros: ").append(cilindrada).append("\n");
-        sb.append("Peso (Kg): ").append(pesoKG).append("\n");
+		sb.append("Tipo de propulsión: ").append(modelo.getTipoPropulsion()).append("\n");
+		sb.append("Tipo de tracción: ").append(modelo.getTraccion()).append("\n");
+		sb.append("Tipo de transmisión: ").append(modelo.getTipoTransmision()).append("\n");
         return sb.toString();
     }
 	

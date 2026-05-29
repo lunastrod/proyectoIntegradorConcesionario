@@ -28,7 +28,7 @@ public class Inicio {
                 pruebas();
                 VPrincipal ventanaPrincipal=new VPrincipal();
                 PVerCatalogo pVerCatalogo=new PVerCatalogo();
-                ventanaPrincipal.cargarPanel(pVerCatalogo);
+                
                 PNuevoVehiculo pNuevoVehiculo=new PNuevoVehiculo();
                 PNuevoModelo pNuevoModelo=new PNuevoModelo();
                 PLogin pLogin=new PLogin();
@@ -48,12 +48,14 @@ public class Inicio {
                     modeloVehiculoDAO,
                     vehiculoDAO
                 );
+                
                 ventanaPrincipal.setControlador(controlador);
                 pNuevoVehiculo.setControlador(controlador);
                 pVerCatalogo.setControlador(controlador);
                 pNuevoModelo.setControlador(controlador);
                 pLogin.setControlador(controlador);
 
+                controlador.cargarPanelCatalogo();
                 
                 ventanaPrincipal.hacerVisible();
                 ventanaPrincipal.actualizarMenu(true);
@@ -62,6 +64,7 @@ public class Inicio {
     }
 
     public static void pruebas() {
+        /*
         AccesoBD bd=new AccesoBD();
         LoginDAO loginDAO=new LoginDAO(bd);
         ModeloVehiculoDAO modeloVehiculoDAO=new ModeloVehiculoDAO(bd);
@@ -74,5 +77,6 @@ public class Inicio {
         System.out.println(vehiculoDAO.selectTodos());
         System.out.println(trabajadorDAO.selectAllTrabajadores());
         System.out.println(ventaDAO.selectVentas());        
+        */
     }
 }

@@ -45,6 +45,7 @@ public class PInformacionVehiculo extends JPanel implements IPanel{
     }
 
     public void mostrarInfoVehiculo(Vehiculo v) {
+        System.out.println("mostrarInfoVehiculo");
         lblModelo.setText(v.getModelo().getMarca()+" "+v.getModelo().getNombreModelo());
         lblPrecio.setText(v.getPrecio()+"€");
         textAreaEspecificaciones.setText(v.getEspecificacionesTecnicas());

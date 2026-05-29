@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 
 import com.dam.control.ConcesionarioControlador;
+import com.dam.model.data.Vehiculo;
 
 //quizas podria ser un scrollpane
 
@@ -43,8 +44,7 @@ public class PVerCatalogo extends JPanel implements IPanel{
         for (int i = 0; i < panelesVehiculo.length; i++) {
             for (int j = 0; j < panelesVehiculo[i].length; j++) {
                     comando="masinfo"+(i*panelesVehiculo[i].length+j);
-                    System.out.println(comando);
-                    panelesVehiculo[i][j] = new PVehiculo(comando);
+                    panelesVehiculo[i][j] = new PVehiculo();
                     panelesVehiculo[i][j].setBounds(
                         MARGEN_PANEL_VEHICULO_X+(DISTANCIA_PANEL_VEHICULO_X+ANCHO_PANEL_VEHICULO)*j,
                         MARGEN_PANEL_VEHICULO_Y+(DISTANCIA_PANEL_VEHICULO_Y+ALTO_PANEL_VEHICULO)*i,
@@ -57,10 +57,15 @@ public class PVerCatalogo extends JPanel implements IPanel{
         //actualizarPanelesVehiculo();
     }
 
-    public void actualizarPanelesVehiculo(){
+    public void actualizarPanelesVehiculo(ArrayList<Vehiculo> vehiculos){
         for (int i = 0; i < panelesVehiculo.length; i++) {
             for (int j = 0; j < panelesVehiculo[i].length; j++) {
-                //panelesVehiculo[i][j];
+                try{
+                    //TODO: HAY QUE HACER ESTA LISTA EXTENSIBLE CON UN JSCROLLPANE
+                    panelesVehiculo[i][j].setVehiculo(vehiculos.get(i*panelesVehiculo[i].length+j));
+                }catch(Exception e){
+                    System.out.println("ERROR NO HAY MAS ESPACIO DE VEHICULOS EN EL PANEL");
+                }
             }  
         }
     }
