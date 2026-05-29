@@ -29,10 +29,19 @@ public class PNuevoModelo extends JPanel implements IPanel{
         crearComponentes();
     }
 
+    /*    public ModeloVehiculo(int idModelo, String nombreModelo, int numeroPlazas, int numeroPuertas, String tipoModelo, String tipoPropulsion,
+			String traccion, String marca, String tipoTransmision) { */
+
     public ModeloVehiculo getModeloVehiculo(){
         String nombreModelo=tfNombreModelo.getText();
         String nombreMarca=tfNombreMarca.getText();
-        return new ModeloVehiculo(1,nombreModelo,nombreMarca);
+        int plazas=(int)spPlazas.getValue();
+        int puertas=(int)spPuertas.getValue();
+        String propulsion=cbPropulsion.getSelectedItem().toString();
+        String traccion=cbTraccion.getSelectedItem().toString();
+        //ModeloVehiculo mPrueba=new ModeloVehiculo(1,"laferrari",2,3,"gasolina","trasera","Ferrari","manual");
+        ModeloVehiculo mPrueba=
+        return mPrueba;
     }
 
     public void crearComponentes(){

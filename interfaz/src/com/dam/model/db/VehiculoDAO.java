@@ -46,26 +46,25 @@ public class VehiculoDAO {
     }
 
     public int insert(Vehiculo v) {
-        String sentencia="INSERT INTO " + NOM_TABLA + " (" + COL_ID_VEHICULO + ", " + COL_MODELO
+        String sentencia="INSERT INTO " + NOM_TABLA + " (" + COL_MODELO
         		+ ", " + COL_PRECIO + ", " + COL_MATRICULA + ", " + COL_COLOR + ", " + COL_YEAR + ", " + COL_KILOMETRAJE 
         		+ ", " + COL_POTENCIA_CV + ", " + COL_CILINDRADA + ", " + COL_PESO_KG 
-        		+ ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        		+ ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection con= null;
         PreparedStatement stmt = null;
         int resultado = -1;
         try{
             con = bd.getConexion();
             stmt = con.prepareStatement(sentencia);
-            stmt.setInt(1, v.getIdVehiculo());
-            stmt.setInt(2, v.getModelo().getIdModelo());
-            stmt.setInt(3, v.getPrecio());
-            stmt.setString(4, v.getMatricula());
-            stmt.setString(5, v.getColor());
-            stmt.setInt(6, v.getYear());
-            stmt.setInt(7, v.getKilometraje());
-            stmt.setInt(8, v.getPotenciaCV());
-            stmt.setInt(9, v.getCilindrada());
-            stmt.setInt(10, v.getPesoKG());
+            stmt.setInt(1, v.getModelo().getIdModelo());
+            stmt.setInt(2, v.getPrecio());
+            stmt.setString(3, v.getMatricula());
+            stmt.setString(4, v.getColor());
+            stmt.setInt(5, v.getYear());
+            stmt.setInt(6, v.getKilometraje());
+            stmt.setInt(7, v.getPotenciaCV());
+            stmt.setInt(8, v.getCilindrada());
+            stmt.setInt(9, v.getPesoKG());
             resultado=stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

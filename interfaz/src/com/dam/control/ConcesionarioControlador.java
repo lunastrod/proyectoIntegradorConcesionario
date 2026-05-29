@@ -43,7 +43,6 @@ public class ConcesionarioControlador implements ActionListener{
         this.loginDAO=loginDAO;
         this.modeloVehiculoDAO=modeloVehiculoDAO;
         this.vehiculoDAO=vehiculoDAO;
-        crearUsuario(new Login("admin","admin"));
         actualizarModoClaroOscuro(modoClaro);
     }
 
@@ -95,9 +94,9 @@ public class ConcesionarioControlador implements ActionListener{
             System.out.println("boton masinfo");
             v.cargarPanel(pInformacionVehiculo);
             //TODO temporal
-            ModeloVehiculo mPrueba=new ModeloVehiculo(1,"laferrari",2,3,"gasolina","trasera","Ferrari","manual");
-            Vehiculo vPrueba=new Vehiculo(1,mPrueba,100000,"matricula","rojo",2014,0,0,0,0);
-            pInformacionVehiculo.mostrarInfoVehiculo(vPrueba);
+            //ModeloVehiculo mPrueba=new ModeloVehiculo(1,"laferrari",2,3,"gasolina","trasera","Ferrari","manual");
+            //Vehiculo vPrueba=new Vehiculo(1,mPrueba,100000,"matricula","rojo",2014,0,0,0,0);
+            //pInformacionVehiculo.mostrarInfoVehiculo(vPrueba);
         }
         else{
             switch (e.getActionCommand()) {
@@ -144,7 +143,8 @@ public class ConcesionarioControlador implements ActionListener{
     private void guardarVehiculo() {
         Vehiculo v=pNuevoVehiculo.getVehiculo();
         
-        System.out.println("Vehiculo guardado: " + v);
+        vehiculoDAO.insert(v);
+        System.out.println(v);
     }
 
     private void guardarModelo() {

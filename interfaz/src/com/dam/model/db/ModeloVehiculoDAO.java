@@ -177,7 +177,7 @@ public class ModeloVehiculoDAO {
                 String tipoVehiculo = rs.getString(COL_TIPO_VEHICULO);
                 String tipoPropulsion = rs.getString(COL_TIPO_PROPULSION);
                 String traccion = rs.getString(COL_TRACCION);
-                String nombreMarca = rs.getString(marca);
+                String nombreMarca = rs.getString(COL_MARCA);
                 String tipoTransmision = rs.getString(COL_TIPO_TRANSMISION);
                 modelos.add(new ModeloVehiculo(idModelo, nombreModelo, numeroPlazas, numeroPuertas, tipoVehiculo, 
                 		tipoPropulsion, traccion, nombreMarca, tipoTransmision));
