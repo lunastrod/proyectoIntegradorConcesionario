@@ -8,7 +8,6 @@ import com.dam.model.data.Vehiculo;
 import com.dam.model.data.Venta;
 import com.dam.view.VPrincipal;
 import com.dam.view.PNuevoVehiculo;
-import com.dam.view.PRegistrarTrabajador;
 import com.dam.view.PVerCatalogo;
 import com.dam.view.PNuevoModelo;
 import com.dam.view.PInformacionVehiculo;
@@ -20,6 +19,7 @@ import com.dam.view.PVehiculo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import com.dam.model.db.ClienteDAO;
 import com.dam.model.db.LoginDAO;
 import com.dam.model.db.ModeloVehiculoDAO;
 import com.dam.model.db.TrabajadorDAO;
@@ -30,6 +30,7 @@ import javax.swing.JButton;
 import javax.swing.JMenuItem;
 
 public class ConcesionarioControlador implements ActionListener{
+    //===========Vistas
     private VPrincipal v;
     private PNuevoVehiculo pNuevoVehiculo;
     private PVerCatalogo pVerCatalogo;
@@ -37,24 +38,38 @@ public class ConcesionarioControlador implements ActionListener{
     private PModificarVehiculo pModificarVehiculo;
     private PLogin pLogin;
     private PRegistrarTrabajador pRegistrarTrabajador;
-    private LoginDAO loginDAO;
     private PInformacionVehiculo pInformacionVehiculo;
-    private PRegistrarTrabajador pRegistrarTrabajador;
+    //===========DAO
+    private ClienteDAO clienteDAO;
     private ModeloVehiculoDAO modeloVehiculoDAO;
     private TrabajadorDAO trabajadorDAO;
     private VehiculoDAO vehiculoDAO;
-    private TrabajadorDAO trabajadorDAO;
     private VentaDAO ventaDAO;
+    private LoginDAO loginDAO;
+    //===========Estado
     private boolean modoClaro=true;
     private boolean sesionIniciada=true;//TODO: temporal deberia estar a false en la version final
     private boolean admin=true;//TODO: temporal deberia estar a false en la version final
 
-    public ConcesionarioControlador(VPrincipal v,PNuevoVehiculo pNuevoVehiculo,
-    		PVerCatalogo pVerCatalogo,PNuevoModelo pNuevoModelo,PLogin pLogin,
-    		PRegistrarTrabajador pRegistrarTrabajador,
-    		PInformacionVehiculo pInformacionVehiculo,LoginDAO loginDAO,
-    		ModeloVehiculoDAO modeloVehiculoDAO,VehiculoDAO vehiculoDAO,
-    		TrabajadorDAO trabajadorDAO) {
+    public ConcesionarioControlador(
+        //vistas
+            VPrincipal v,
+            PNuevoVehiculo pNuevoVehiculo,
+            PVerCatalogo pVerCatalogo,
+            PNuevoModelo pNuevoModelo,
+            PModificarVehiculo pModificarVehiculo,
+            PLogin pLogin,
+            PRegistrarTrabajador pRegistrarTrabajador,
+            PInformacionVehiculo pInformacionVehiculo,
+        //DAO
+            ClienteDAO clienteDAO,
+            ModeloVehiculoDAO modeloVehiculoDAO,
+            TrabajadorDAO trabajadorDAO,
+            VehiculoDAO vehiculoDAO,
+            VentaDAO ventaDAO,
+            LoginDAO loginDAO) {
+        //Vistas
+        this.v = v;
         this.pNuevoVehiculo = pNuevoVehiculo;
         this.pVerCatalogo = pVerCatalogo;
         this.pNuevoModelo = pNuevoModelo;
@@ -62,14 +77,13 @@ public class ConcesionarioControlador implements ActionListener{
         this.pLogin = pLogin;
         this.pRegistrarTrabajador = pRegistrarTrabajador;
         this.pInformacionVehiculo=pInformacionVehiculo;
-        this.v = v;
-        this.loginDAO=loginDAO;
+        //DAO
+        this.clienteDAO=clienteDAO;
         this.modeloVehiculoDAO=modeloVehiculoDAO;
         this.trabajadorDAO=trabajadorDAO;
         this.vehiculoDAO=vehiculoDAO;
-        this.pRegistrarTrabajador = pRegistrarTrabajador;
-        this.trabajadorDAO = trabajadorDAO;
         this.ventaDAO=ventaDAO;
+        this.loginDAO=loginDAO;
         actualizarModoClaroOscuro(modoClaro);
         v.actualizarMenu(sesionIniciada,admin);
     }
@@ -178,11 +192,13 @@ public class ConcesionarioControlador implements ActionListener{
     }
 
     public void comprarVehiculo() {
+        //obtengo el vehiculo 
         Vehiculo v=pInformacionVehiculo.getVehiculoActual();
         String nombre= pInformacionVehiculo.getNombreTrabajador();
         Trabajador t=trabajadorDAO.getTrabajadorPorNombre(nombre);
-        Cliente cliente=pInformacionVehiculo.getCliente();
-        Venta venta=new Venta(-1,cliente,t,v,"");
+        Cliente clienteFormulario = pInformacionVehiculo.getCliente();
+        Cliente c=clienteDAO.selectPorNombre(clienteFormulario.getNombreApellidos());
+        Venta venta=new Venta(-1,c,t,v,"");
         ventaDAO.insert(venta);
         System.out.println(venta);
     }

@@ -7,6 +7,7 @@ import com.dam.model.data.Trabajador;
 import com.dam.model.data.Vehiculo;
 import com.dam.model.data.Venta;
 import com.dam.model.db.AccesoBD;
+import com.dam.model.db.ClienteDAO;
 import com.dam.model.db.LoginDAO;
 import com.dam.model.db.ModeloVehiculoDAO;
 import com.dam.model.db.TrabajadorDAO;
@@ -45,13 +46,13 @@ public class Inicio {
                 PLogin pLogin=new PLogin();
                 PRegistrarTrabajador pRegistrarTrabajador=new PRegistrarTrabajador();
                 AccesoBD bd=new AccesoBD();
+                ClienteDAO clienteDAO=new ClienteDAO(bd);
                 LoginDAO loginDAO=new LoginDAO(bd);
                 ModeloVehiculoDAO modeloVehiculoDAO=new ModeloVehiculoDAO(bd);
                 TrabajadorDAO trabajadorDAO=new TrabajadorDAO(bd);
                 VehiculoDAO vehiculoDAO=new VehiculoDAO(bd);
                 VentaDAO ventaDAO=new VentaDAO(bd);
                 PInformacionVehiculo pInformacionVehiculo=new PInformacionVehiculo();
-                TrabajadorDAO trabajadorDAO = new TrabajadorDAO(bd);
                 ConcesionarioControlador controlador=new ConcesionarioControlador(
                     ventanaPrincipal,
                     pNuevoVehiculo,
@@ -61,11 +62,12 @@ public class Inicio {
                     pLogin,
                     pRegistrarTrabajador,
                     pInformacionVehiculo,
-                    loginDAO,
+                    clienteDAO,
                     modeloVehiculoDAO,
                     trabajadorDAO,
                     vehiculoDAO,
-                    ventaDAO
+                    ventaDAO,
+                    loginDAO
                 );
                 
                 ventanaPrincipal.setControlador(controlador);
