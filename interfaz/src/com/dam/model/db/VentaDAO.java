@@ -72,14 +72,15 @@ public class VentaDAO {
 	}
 	
 	public ArrayList<Venta> selectVentas() {
-		//TODO: hacer join con modelo
-		String sentencia = "SELECT * FROM " + NOM_TABLA + 
-				" JOIN " + ClienteDAO.NOM_TABLA + 
-				" ON " + NOM_TABLA + "." + COL_ID_CLIENTE + " = " + ClienteDAO.NOM_TABLA + "." + ClienteDAO.COL_ID_CLIENTE + 
-				" JOIN " + TrabajadorDAO.NOM_TABLA 
-				+ " ON " + NOM_TABLA + "." + COL_ID_TRABAJADOR + " = " + TrabajadorDAO.NOM_TABLA + "." + TrabajadorDAO.COL_ID_TRABAJADOR + 
-				" JOIN " + VehiculoDAO.NOM_TABLA
-				+ " ON " + NOM_TABLA + "." + COL_ID_VEHICULO + " = " + VehiculoDAO.NOM_TABLA + "." + VehiculoDAO.COL_ID_VEHICULO;
+		String sentencia = "SELECT * FROM " + NOM_TABLA 
+				+ " JOIN " + ClienteDAO.NOM_TABLA 
+				+ " ON " + NOM_TABLA + "." + COL_ID_CLIENTE + " = " + ClienteDAO.NOM_TABLA + "." + ClienteDAO.COL_ID_CLIENTE 
+				+ " JOIN " + TrabajadorDAO.NOM_TABLA 
+				+ " ON " + NOM_TABLA + "." + COL_ID_TRABAJADOR + " = " + TrabajadorDAO.NOM_TABLA + "." + TrabajadorDAO.COL_ID_TRABAJADOR 
+				+ " JOIN " + VehiculoDAO.NOM_TABLA
+				+ " ON " + NOM_TABLA + "." + COL_ID_VEHICULO + " = " + VehiculoDAO.NOM_TABLA + "." + VehiculoDAO.COL_ID_VEHICULO
+				+ " JOIN " + ModeloVehiculoDAO.NOM_TABLA 
+				+ " ON " + VehiculoDAO.NOM_TABLA + "." + VehiculoDAO.COL_MODELO + " = " + ModeloVehiculoDAO.NOM_TABLA + "." + ModeloVehiculoDAO.COL_ID_MODELO;
 		
 		Connection con = null;
 		Statement stmt = null;

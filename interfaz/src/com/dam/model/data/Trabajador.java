@@ -22,6 +22,12 @@ public class Trabajador {
         this.passwordTrabajador = passwordTrabajador;
         this.esAdmin = esAdmin;
     }
+    
+    public Trabajador(String nombreApellidos, String passwordTrabajador, int esAdmin) {
+        this.nombreApellidos = nombreApellidos;
+        this.passwordTrabajador = passwordTrabajador;
+        this.esAdmin = esAdmin;
+    }
 
     public int getIdTrabajador() {
         return idTrabajador;
