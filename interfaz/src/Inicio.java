@@ -14,6 +14,7 @@ import com.dam.model.db.VehiculoDAO;
 import com.dam.model.db.VentaDAO;
 import com.dam.view.PInformacionVehiculo;
 import com.dam.view.PLogin;
+import com.dam.view.PModificarVehiculo;
 import com.dam.view.PNuevoModelo;
 import com.dam.view.PNuevoVehiculo;
 import com.dam.view.PRegistrarTrabajador;
@@ -21,7 +22,13 @@ import com.dam.view.PVerCatalogo;
 import com.dam.view.VPrincipal;
 
 /*TODO que hacemos con LoginDAO, eliminar? reemplazada por TrabajadorDAO 
-eliminar modelos necesitamos un panel con una lista de modelos
+para eliminar solo deberian aparecer los modelos a la venta, asi que dao de vehiculos a la venta
+panel de ver historial de ventas
+
+mensajes de error y aviso en VPrincipal
+
+quizas no hace falta cambiar el actioncommand de PVehiculo
+
 */
 
 public class Inicio {
@@ -34,12 +41,15 @@ public class Inicio {
                 
                 PNuevoVehiculo pNuevoVehiculo=new PNuevoVehiculo();
                 PNuevoModelo pNuevoModelo=new PNuevoModelo();
-                PRegistrarTrabajador prt = new PRegistrarTrabajador();
+                PModificarVehiculo pModificarVehiculo=new PModificarVehiculo();
                 PLogin pLogin=new PLogin();
+                PRegistrarTrabajador pRegistrarTrabajador=new PRegistrarTrabajador();
                 AccesoBD bd=new AccesoBD();
                 LoginDAO loginDAO=new LoginDAO(bd);
                 ModeloVehiculoDAO modeloVehiculoDAO=new ModeloVehiculoDAO(bd);
+                TrabajadorDAO trabajadorDAO=new TrabajadorDAO(bd);
                 VehiculoDAO vehiculoDAO=new VehiculoDAO(bd);
+                VentaDAO ventaDAO=new VentaDAO(bd);
                 PInformacionVehiculo pInformacionVehiculo=new PInformacionVehiculo();
                 TrabajadorDAO trabajadorDAO = new TrabajadorDAO(bd);
                 ConcesionarioControlador controlador=new ConcesionarioControlador(
@@ -47,19 +57,22 @@ public class Inicio {
                     pNuevoVehiculo,
                     pVerCatalogo,
                     pNuevoModelo,
+                    pModificarVehiculo,
                     pLogin,
-                    prt,
+                    pRegistrarTrabajador,
                     pInformacionVehiculo,
                     loginDAO,
                     modeloVehiculoDAO,
+                    trabajadorDAO,
                     vehiculoDAO,
-                    trabajadorDAO
+                    ventaDAO
                 );
                 
                 ventanaPrincipal.setControlador(controlador);
                 pNuevoVehiculo.setControlador(controlador);
                 pVerCatalogo.setControlador(controlador);
                 pNuevoModelo.setControlador(controlador);
+                pInformacionVehiculo.setControlador(controlador);
                 pLogin.setControlador(controlador);
 
                 controlador.cargarPanelCatalogo();
