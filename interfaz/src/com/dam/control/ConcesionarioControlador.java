@@ -13,6 +13,7 @@ import com.dam.view.PVerCatalogo;
 import com.dam.view.PNuevoModelo;
 import com.dam.view.PInformacionVehiculo;
 import com.dam.view.PLogin;
+import com.dam.view.PModificarModelo;
 import com.dam.view.PModificarVehiculo;
 import com.dam.view.PRegistrarTrabajador;
 import com.dam.view.PVehiculo;
@@ -34,6 +35,7 @@ public class ConcesionarioControlador implements ActionListener {
     private PNuevoVehiculo pNuevoVehiculo;
     private PVerCatalogo pVerCatalogo;
     private PNuevoModelo pNuevoModelo;
+    private PModificarModelo pModificarModelo;
     private PModificarVehiculo pModificarVehiculo;
     private PLogin pLogin;
     private PRegistrarTrabajador pRegistrarTrabajador;
@@ -54,6 +56,7 @@ public class ConcesionarioControlador implements ActionListener {
             PNuevoVehiculo pNuevoVehiculo,
             PVerCatalogo pVerCatalogo,
             PNuevoModelo pNuevoModelo,
+            PModificarModelo pModificarModelo,
             PModificarVehiculo pModificarVehiculo,
             PLogin pLogin,
             PRegistrarTrabajador pRegistrarTrabajador,
@@ -67,6 +70,7 @@ public class ConcesionarioControlador implements ActionListener {
         this.pNuevoVehiculo = pNuevoVehiculo;
         this.pVerCatalogo = pVerCatalogo;
         this.pNuevoModelo = pNuevoModelo;
+        this.pModificarModelo = pModificarModelo;
         this.pModificarVehiculo = pModificarVehiculo;
         this.pLogin = pLogin;
         this.pRegistrarTrabajador = pRegistrarTrabajador;
@@ -104,6 +108,7 @@ public class ConcesionarioControlador implements ActionListener {
                 cargarPanelCatalogo();
                 break;
             case VPrincipal.NUEVO_MODELO_MENU:
+                pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
                 v.cargarPanel(pNuevoModelo);
                 actualizarModoClaroOscuro(modoClaro);
                 break;
@@ -141,6 +146,15 @@ public class ConcesionarioControlador implements ActionListener {
                 break;
             case PNuevoModelo.GUARDAR_MODELO_BTN:
                 guardarModelo();
+                break;
+            case PNuevoModelo.ELIMINAR_MODELO_BTN:
+                eliminarModelo();
+                break;
+            case PNuevoModelo.MODIFICAR_MODELO_BTN:
+                cargarPanelModificarModelo();
+                break;
+            case PModificarModelo.GUARDAR_MODIFICACION_MODELO_BTN:
+                modificarModelo();
                 break;
             case PLogin.LOGIN_BTN:
                 login();
@@ -308,11 +322,53 @@ public class ConcesionarioControlador implements ActionListener {
         ModeloVehiculo m = pNuevoModelo.getModeloVehiculo();
         int res = modeloVehiculoDAO.insert(m);
         if (res > 0) {
+            pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
             Avisos.info(v, "Modelo guardado correctamente.");
         } else {
             Avisos.error(v, "Error al guardar el modelo.");
         }
         System.out.println(m);
+    }
+
+    private void cargarPanelModificarModelo() {
+        ModeloVehiculo modelo = pNuevoModelo.getModeloSeleccionado();
+        if (modelo == null) {
+            Avisos.aviso(v, "Selecciona un modelo de la lista.");
+            return;
+        }
+        pModificarModelo.cargarModelo(modelo);
+        v.cargarPanel(pModificarModelo);
+        actualizarModoClaroOscuro(modoClaro);
+    }
+
+    private void modificarModelo() {
+        ModeloVehiculo modelo = pModificarModelo.getModelo();
+        int res = modeloVehiculoDAO.update(modelo);
+        if (res > 0) {
+            Avisos.info(v, "Modelo modificado correctamente.");
+            v.cargarPanel(pNuevoModelo);
+            pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
+            actualizarModoClaroOscuro(modoClaro);
+        } else {
+            Avisos.error(v, "Error al modificar el modelo.");
+        }
+    }
+
+    private void eliminarModelo() {
+        ModeloVehiculo modelo = pNuevoModelo.getModeloSeleccionado();
+        if (modelo == null) {
+            Avisos.aviso(v, "Selecciona un modelo de la lista.");
+            return;
+        }
+        if (!Avisos.confirmar(v, "¿Eliminar el modelo \"" + modelo.getNombreModelo()
+                + "\"?\nSi tiene vehículos asociados no podrá eliminarse.")) return;
+        int res = modeloVehiculoDAO.delete(modelo.getNombreModelo());
+        if (res > 0) {
+            pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
+            Avisos.info(v, "Modelo eliminado correctamente.");
+        } else {
+            Avisos.error(v, "No se pudo eliminar el modelo.\nPuede que tenga vehículos asociados.");
+        }
     }
 
     private void login() {
