@@ -107,12 +107,6 @@ public class ConcesionarioControlador implements ActionListener {
                 v.cargarPanel(pNuevoModelo);
                 actualizarModoClaroOscuro(modoClaro);
                 break;
-            case VPrincipal.REGISTRAR_TRABAJADOR_MENU:
-                if (sesionIniciada && admin) {
-                    v.cargarPanel(pRegistrarTrabajador);
-                    actualizarModoClaroOscuro(modoClaro);
-                }
-                break;
             case VPrincipal.LOGIN_MENU:
                 v.cargarPanel(pLogin);
                 actualizarModoClaroOscuro(modoClaro);
@@ -152,7 +146,6 @@ public class ConcesionarioControlador implements ActionListener {
                 login();
                 break;
             case PInformacionVehiculo.COMPRAR_BTN:
-                // Muestra u oculta el formulario de compra sin procesar aún
                 pInformacionVehiculo.togglePanelCompra();
                 break;
             case PInformacionVehiculo.REALIZAR_COMPRA_BTN:
@@ -185,7 +178,6 @@ public class ConcesionarioControlador implements ActionListener {
         }
     }
 
-    /** Inserta el cliente si no existe, luego registra la venta. */
     public void comprarVehiculo() {
         Vehiculo vehiculo = pInformacionVehiculo.getVehiculoActual();
         if (vehiculo == null) {
@@ -205,7 +197,6 @@ public class ConcesionarioControlador implements ActionListener {
             return;
         }
 
-        // Buscar cliente; si no existe, crearlo
         Cliente cliente = clienteDAO.selectPorNombre(clienteFormulario.getNombreApellidos());
         if (cliente == null) {
             clienteDAO.insert(clienteFormulario);
@@ -239,8 +230,14 @@ public class ConcesionarioControlador implements ActionListener {
             Avisos.aviso(v, "Selecciona un vehículo de la lista.");
             return;
         }
+        String marca = vehiculo.getModelo().getMarca();
+        ArrayList<ModeloVehiculo> modelos = modeloVehiculoDAO.selectModeloPorMarca(marca);
+        if (modelos == null || modelos.isEmpty()) {
+            modelos = new ArrayList<>();
+            modelos.add(vehiculo.getModelo());
+        }
         pModificarVehiculo.actualizarMarcas(modeloVehiculoDAO.selectMarcas());
-        pModificarVehiculo.actualizarModelos(modeloVehiculoDAO.selectModeloPorMarca(vehiculo.getModelo().getMarca()));
+        pModificarVehiculo.actualizarModelos(modelos);
         pModificarVehiculo.cargarVehiculo(vehiculo);
         v.cargarPanel(pModificarVehiculo);
         actualizarModoClaroOscuro(modoClaro);
@@ -262,13 +259,13 @@ public class ConcesionarioControlador implements ActionListener {
             Avisos.aviso(v, "Selecciona un vehículo de la lista.");
             return;
         }
-        if (!Avisos.confirmar(v, "¿Eliminar el vehículo " + vehiculo + "?")) return;
+        if (!Avisos.confirmar(v, "¿Eliminar el vehículo " + vehiculo + "?\nSi tiene ventas asociadas no podrá eliminarse.")) return;
         int res = vehiculoDAO.delete(vehiculo.getIdVehiculo());
         if (res > 0) {
             pNuevoVehiculo.actualizarVehiculos(vehiculoDAO.selectTodos());
-            Avisos.info(v, "Vehículo eliminado.");
+            Avisos.info(v, "Vehículo eliminado correctamente.");
         } else {
-            Avisos.error(v, "Error al eliminar el vehículo.");
+            Avisos.error(v, "No se pudo eliminar el vehículo.\nPuede que tenga ventas registradas asociadas.");
         }
     }
 

@@ -27,7 +27,6 @@ public class VPrincipal extends JFrame implements IVentana{
     private JMenuItem itemNuevoTra;
     private JMenuItem itemVer;
     private JMenuItem itemNuevoMod;
-    private JMenuItem itemRegistrarTrabajador;
     private JMenuItem itemLogin;
     private JMenuItem mntmNewMenuItem;
     
@@ -73,9 +72,6 @@ public class VPrincipal extends JFrame implements IVentana{
         itemNuevoTra = new JMenuItem(NUEVO_EMPLEADO);
         menuEncuestas.add(itemNuevoTra);
 
-        itemRegistrarTrabajador = new JMenuItem(REGISTRAR_TRABAJADOR_MENU);
-        menuEncuestas.add(itemRegistrarTrabajador);
-
         itemLogin = new JMenuItem(LOGIN_MENU);
         menuEncuestas.add(itemLogin);
         
@@ -84,23 +80,15 @@ public class VPrincipal extends JFrame implements IVentana{
     }
 
     public void actualizarMenu(boolean empleado, boolean admin) {
-        if(empleado){
-            itemNuevoVeh.setVisible(true);
-            itemNuevoMod.setVisible(true);
-        }
-        else{
-            itemNuevoVeh.setVisible(false);
-            itemNuevoMod.setVisible(false);
-        }
-
-        itemRegistrarTrabajador.setVisible(empleado && admin);
+        itemNuevoVeh.setVisible(empleado);
+        itemNuevoMod.setVisible(empleado);
+        itemNuevoTra.setVisible(empleado && admin);
     }
 
     public void setControlador(ConcesionarioControlador c) {
         itemNuevoVeh.addActionListener(c);
         itemVer.addActionListener(c);
         itemNuevoMod.addActionListener(c);
-        itemRegistrarTrabajador.addActionListener(c);
         itemLogin.addActionListener(c);
         mntmNewMenuItem.addActionListener(c);
         itemNuevoTra.addActionListener(c);
