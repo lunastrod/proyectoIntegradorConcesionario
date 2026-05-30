@@ -16,6 +16,7 @@ import com.dam.view.PInformacionVehiculo;
 import com.dam.view.PLogin;
 import com.dam.view.PNuevoModelo;
 import com.dam.view.PNuevoVehiculo;
+import com.dam.view.PRegistrarTrabajador;
 import com.dam.view.PVerCatalogo;
 import com.dam.view.VPrincipal;
 
@@ -33,22 +34,26 @@ public class Inicio {
                 
                 PNuevoVehiculo pNuevoVehiculo=new PNuevoVehiculo();
                 PNuevoModelo pNuevoModelo=new PNuevoModelo();
+                PRegistrarTrabajador prt = new PRegistrarTrabajador();
                 PLogin pLogin=new PLogin();
                 AccesoBD bd=new AccesoBD();
                 LoginDAO loginDAO=new LoginDAO(bd);
                 ModeloVehiculoDAO modeloVehiculoDAO=new ModeloVehiculoDAO(bd);
                 VehiculoDAO vehiculoDAO=new VehiculoDAO(bd);
                 PInformacionVehiculo pInformacionVehiculo=new PInformacionVehiculo();
+                TrabajadorDAO trabajadorDAO = new TrabajadorDAO(bd);
                 ConcesionarioControlador controlador=new ConcesionarioControlador(
                     ventanaPrincipal,
                     pNuevoVehiculo,
                     pVerCatalogo,
                     pNuevoModelo,
                     pLogin,
+                    prt,
                     pInformacionVehiculo,
                     loginDAO,
                     modeloVehiculoDAO,
-                    vehiculoDAO
+                    vehiculoDAO,
+                    trabajadorDAO
                 );
                 
                 ventanaPrincipal.setControlador(controlador);

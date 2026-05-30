@@ -2,9 +2,11 @@ package com.dam.control;
 
 import com.dam.model.data.Login;
 import com.dam.model.data.ModeloVehiculo;
+import com.dam.model.data.Trabajador;
 import com.dam.model.data.Vehiculo;
 import com.dam.view.VPrincipal;
 import com.dam.view.PNuevoVehiculo;
+import com.dam.view.PRegistrarTrabajador;
 import com.dam.view.PVerCatalogo;
 import com.dam.view.PNuevoModelo;
 import com.dam.view.PInformacionVehiculo;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.dam.model.db.LoginDAO;
 import com.dam.model.db.ModeloVehiculoDAO;
+import com.dam.model.db.TrabajadorDAO;
 import com.dam.model.db.VehiculoDAO;
 
 import javax.swing.JButton;
@@ -28,13 +31,19 @@ public class ConcesionarioControlador implements ActionListener{
     private PLogin pLogin;
     private LoginDAO loginDAO;
     private PInformacionVehiculo pInformacionVehiculo;
-    
+    private PRegistrarTrabajador pRegistrarTrabajador;
     private ModeloVehiculoDAO modeloVehiculoDAO;
     private VehiculoDAO vehiculoDAO;
+    private TrabajadorDAO trabajadorDAO;
     private boolean modoClaro=true;
     private boolean sesionIniciada=true;//TODO: temporal deberia estar a false en la version final
 
-    public ConcesionarioControlador(VPrincipal v,PNuevoVehiculo pNuevoVehiculo,PVerCatalogo pVerCatalogo,PNuevoModelo pNuevoModelo,PLogin pLogin,PInformacionVehiculo pInformacionVehiculo,LoginDAO loginDAO,ModeloVehiculoDAO modeloVehiculoDAO,VehiculoDAO vehiculoDAO) {
+    public ConcesionarioControlador(VPrincipal v,PNuevoVehiculo pNuevoVehiculo,
+    		PVerCatalogo pVerCatalogo,PNuevoModelo pNuevoModelo,PLogin pLogin,
+    		PRegistrarTrabajador pRegistrarTrabajador,
+    		PInformacionVehiculo pInformacionVehiculo,LoginDAO loginDAO,
+    		ModeloVehiculoDAO modeloVehiculoDAO,VehiculoDAO vehiculoDAO,
+    		TrabajadorDAO trabajadorDAO) {
         this.pNuevoVehiculo = pNuevoVehiculo;
         this.pVerCatalogo = pVerCatalogo;
         this.pNuevoModelo = pNuevoModelo;
@@ -44,6 +53,8 @@ public class ConcesionarioControlador implements ActionListener{
         this.loginDAO=loginDAO;
         this.modeloVehiculoDAO=modeloVehiculoDAO;
         this.vehiculoDAO=vehiculoDAO;
+        this.pRegistrarTrabajador = pRegistrarTrabajador;
+        this.trabajadorDAO = trabajadorDAO;
         actualizarModoClaroOscuro(modoClaro);
         v.actualizarMenu(sesionIniciada);
     }
@@ -57,7 +68,7 @@ public class ConcesionarioControlador implements ActionListener{
         else if(e.getSource() instanceof JButton) {
             controlBotones(e);
         }
-        else{
+        else {
             System.out.println("Comando no reconocido: " + comando);
         }
     }
@@ -85,13 +96,29 @@ public class ConcesionarioControlador implements ActionListener{
                 modoClaro=!modoClaro;
                 actualizarModoClaroOscuro(modoClaro);
                 break;
+            case VPrincipal.NUEVO_EMPLEADO:
+            	v.cargarPanel(pRegistrarTrabajador);
+                actualizarModoClaroOscuro(modoClaro);
+                consultarTrabajadores();
+                
+                break;
             default:
                 System.out.println("Menu no reconocido: " + e.getActionCommand());
                 break;
         }
     }
 
-    private void controlBotones(ActionEvent e) {
+    private void consultarTrabajadores() {
+		ArrayList<Trabajador> listaTrabajadores = new ArrayList<Trabajador>();
+		
+		listaTrabajadores = trabajadorDAO.selectAllTrabajadores();
+		
+		pRegistrarTrabajador.cargarTabla(listaTrabajadores);
+		
+		
+	}
+
+	private void controlBotones(ActionEvent e) {
         if(e.getActionCommand().startsWith("masinfo")){
             System.out.println("boton masinfo");
             v.cargarPanel(pInformacionVehiculo);
