@@ -42,10 +42,6 @@ public class PInformacionVehiculo extends JPanel implements IPanel{
         setLayout(null);
 
         btnComprar = new JButton(COMPRAR_BTN);
-        btnComprar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
         btnComprar.setActionCommand(COMPRAR_BTN);
         btnComprar.setBounds(245, 58, 89, 23);
         add(btnComprar);

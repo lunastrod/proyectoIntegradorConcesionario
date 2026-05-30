@@ -158,7 +158,8 @@ public class ConcesionarioControlador implements ActionListener{
         Vehiculo v=pInformacionVehiculo.getVehiculoActual();
         String nombre= pInformacionVehiculo.getNombreTrabajador();
         Trabajador t=trabajadorDAO.getTrabajadorPorNombre(nombre);
-        Cliente cliente=pInformacionVehiculo.getCliente();
+        Cliente clienteFormulario = pInformacionVehiculo.getCliente();
+        Cliente c=clienteDAO.getClientePorApellidos(clienteFormulario.getApellidos(),clienteFormulario.getNombre());
         Venta venta=new Venta(-1,cliente,t,v,"");
         ventaDAO.insert(venta);
         System.out.println(venta);

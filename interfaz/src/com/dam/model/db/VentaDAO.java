@@ -38,11 +38,12 @@ public class VentaDAO {
 		this.bd = bd;
 	}
 	
+
 	public int insert(Venta v) {
 		String sentencia = "INSERT INTO " + NOM_TABLA + " ("
-				+ COL_ID_TRABAJADOR + ", " + COL_ID_VEHICULO 
+				+ COL_ID_CLIENTE + ", " + COL_ID_TRABAJADOR + ", " + COL_ID_VEHICULO
 				+ ") VALUES (?, ?, ?)";
-		
+
 		Connection con = null;
 		PreparedStatement stmt = null;
 		int res = -1;
@@ -57,16 +58,12 @@ public class VentaDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (stmt != null) {
-					stmt.close();
-				}
+				if (stmt != null) stmt.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			try {
-				if (con != null) {
-					con.close();
-				}
+				if (con != null) con.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

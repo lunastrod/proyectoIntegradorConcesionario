@@ -94,5 +94,46 @@ public class ClienteDAO {
 		return clientes;
 		
 	}
+
+	public Cliente selectPorNombre(String nombre) {
+		String sentencia = "SELECT * FROM " + NOM_TABLA + " WHERE " + COL_NOMBRE_APELLIDOS + " = ?";
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Cliente cliente = null;
+
+		try {
+			con = bd.getConexion();
+			stmt = con.prepareStatement(sentencia);
+			stmt.setString(1, nombre);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				int id = rs.getInt(COL_ID_CLIENTE);
+				String nombreApellidos = rs.getString(COL_NOMBRE_APELLIDOS);
+				String metodoPago = rs.getString(COL_METODO_PAGO);
+				cliente = new Cliente(id, nombreApellidos, metodoPago);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				if (stmt != null) stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				if (con != null) con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return cliente;
+	}
 	
 }
