@@ -17,6 +17,7 @@ import com.dam.view.PVerCatalogo;
 import com.dam.view.VPrincipal;
 
 //TODO ver que pasa si se elimina un vehiculo
+//TODO que el scrollpane quepa en la pantalla de catalogo
 
 public class Inicio {
     public static void main(String[] args) {

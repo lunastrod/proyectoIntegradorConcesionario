@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSpinner;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
 
 public class PNuevoModelo extends JPanel implements IPanel{
     private static final int ANCHO=1000;
@@ -34,6 +36,10 @@ public class PNuevoModelo extends JPanel implements IPanel{
     private DefaultComboBoxModel<String> modelVehiculo;
     private JSpinner spinnerPlazas;
     private JSpinner spinnerPuertas;
+    private JScrollPane scrollPane;
+    private JButton btnEliminarModelo;
+    private JButton btnModificarModelo;
+    private JList listModelos;
 
     public PNuevoModelo(){
         setLayout(null);
@@ -160,6 +166,27 @@ public class PNuevoModelo extends JPanel implements IPanel{
         JLabel lblNombreMarca_3_1_1_1 = new JLabel("Número de puertas");
         lblNombreMarca_3_1_1_1.setBounds(25, 320, 160, 20);
         add(lblNombreMarca_3_1_1_1);
+        
+        scrollPane = new JScrollPane();
+        scrollPane.setBounds(591, 85, 189, 194);
+        add(scrollPane);
+        
+        listModelos = new JList();
+        scrollPane.setViewportView(listModelos);
+        
+        JLabel lblModelosDisponibles = new JLabel("Modelos disponibles");
+        lblModelosDisponibles.setBounds(591, 60, 142, 14);
+        add(lblModelosDisponibles);
+        
+        btnEliminarModelo = new JButton("Eliminar Modelo");
+        btnEliminarModelo.setActionCommand("Eliminar Vehiculo");
+        btnEliminarModelo.setBounds(591, 305, 150, 25);
+        add(btnEliminarModelo);
+        
+        btnModificarModelo = new JButton("Modificar Modelo");
+        btnModificarModelo.setActionCommand("Modificar Vehiculo");
+        btnModificarModelo.setBounds(591, 353, 150, 25);
+        add(btnModificarModelo);
     }
 
     public void setControlador(ConcesionarioControlador c){
