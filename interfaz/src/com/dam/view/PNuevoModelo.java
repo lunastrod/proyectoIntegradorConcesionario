@@ -8,9 +8,11 @@ import javax.swing.JTextField;
 import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.ModeloVehiculo;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JSpinner;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
@@ -19,6 +21,8 @@ public class PNuevoModelo extends JPanel implements IPanel{
     private static final int ANCHO=1000;
     private static final int ALTO=1000;
     public static final String GUARDAR_MODELO_BTN="Guardar Modelo";
+    public static final String ELIMINAR_MODELO_BTN = "Eliminar Modelo";
+    public static final String MODIFICAR_MODELO_BTN = "Modificar Modelo";
     JButton btnGuardar;
     JTextField tfNombreModelo;
     JTextField tfNombreMarca;
@@ -39,7 +43,8 @@ public class PNuevoModelo extends JPanel implements IPanel{
     private JScrollPane scrollPane;
     private JButton btnEliminarModelo;
     private JButton btnModificarModelo;
-    private JList listModelos;
+    private DefaultListModel<ModeloVehiculo> modelModelosLista;
+    private JList<ModeloVehiculo> listModelos;   // ← cambia el tipo existente
 
     public PNuevoModelo(){
         setLayout(null);
@@ -103,11 +108,6 @@ public class PNuevoModelo extends JPanel implements IPanel{
 
         //boton guardar
         btnGuardar=new JButton(GUARDAR_MODELO_BTN);
-        btnGuardar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        btnGuardar.setActionCommand(GUARDAR_MODELO_BTN);
         btnGuardar.setBounds(25, 425, 150, 25);
         add(btnGuardar);
         
@@ -171,25 +171,40 @@ public class PNuevoModelo extends JPanel implements IPanel{
         scrollPane.setBounds(591, 85, 189, 194);
         add(scrollPane);
         
-        listModelos = new JList();
+        modelModelosLista = new DefaultListModel<>();
+        listModelos = new JList<>(modelModelosLista);
         scrollPane.setViewportView(listModelos);
         
         JLabel lblModelosDisponibles = new JLabel("Modelos disponibles");
         lblModelosDisponibles.setBounds(591, 60, 142, 14);
         add(lblModelosDisponibles);
         
-        btnEliminarModelo = new JButton("Eliminar Modelo");
-        btnEliminarModelo.setActionCommand("Eliminar Vehiculo");
+        btnEliminarModelo = new JButton(ELIMINAR_MODELO_BTN);
         btnEliminarModelo.setBounds(591, 305, 150, 25);
         add(btnEliminarModelo);
         
-        btnModificarModelo = new JButton("Modificar Modelo");
-        btnModificarModelo.setActionCommand("Modificar Vehiculo");
+        btnModificarModelo = new JButton(MODIFICAR_MODELO_BTN);
+        btnModificarModelo.setActionCommand(MODIFICAR_MODELO_BTN);
         btnModificarModelo.setBounds(591, 353, 150, 25);
         add(btnModificarModelo);
+
+        
     }
 
-    public void setControlador(ConcesionarioControlador c){
+    public void setControlador(ConcesionarioControlador c) {
         btnGuardar.addActionListener(c);
+        btnEliminarModelo.addActionListener(c);   // ya tenía actionCommand "Eliminar Vehiculo" — lo corregimos abajo
+        btnModificarModelo.addActionListener(c);
+    }
+
+    public void actualizarListaModelos(ArrayList<ModeloVehiculo> modelos) {
+        modelModelosLista.removeAllElements();
+        for (ModeloVehiculo m : modelos) {
+            modelModelosLista.addElement(m);
+        }
+    }
+
+    public ModeloVehiculo getModeloSeleccionado() {
+        return listModelos.getSelectedValue();
     }
 }

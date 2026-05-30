@@ -9,6 +9,7 @@ import com.dam.model.db.VehiculoDAO;
 import com.dam.model.db.VentaDAO;
 import com.dam.view.PInformacionVehiculo;
 import com.dam.view.PLogin;
+import com.dam.view.PModificarModelo;
 import com.dam.view.PModificarVehiculo;
 import com.dam.view.PNuevoModelo;
 import com.dam.view.PNuevoVehiculo;
@@ -16,8 +17,8 @@ import com.dam.view.PRegistrarTrabajador;
 import com.dam.view.PVerCatalogo;
 import com.dam.view.VPrincipal;
 
-//TODO ver que pasa si se elimina un vehiculo
-//TODO que el scrollpane quepa en la pantalla de catalogo
+//TODO ver que pasa si se elimina un vehiculo o modelo cuando tienen fK en venta
+
 
 public class Inicio {
     public static void main(String[] args) {
@@ -27,6 +28,7 @@ public class Inicio {
                 PVerCatalogo pVerCatalogo = new PVerCatalogo();
                 PNuevoVehiculo pNuevoVehiculo = new PNuevoVehiculo();
                 PNuevoModelo pNuevoModelo = new PNuevoModelo();
+                PModificarModelo pModificarModelo = new PModificarModelo();
                 PModificarVehiculo pModificarVehiculo = new PModificarVehiculo();
                 PLogin pLogin = new PLogin();
                 PRegistrarTrabajador pRegistrarTrabajador = new PRegistrarTrabajador();
@@ -44,6 +46,7 @@ public class Inicio {
                         pNuevoVehiculo,
                         pVerCatalogo,
                         pNuevoModelo,
+                        pModificarModelo,
                         pModificarVehiculo,
                         pLogin,
                         pRegistrarTrabajador,
@@ -58,6 +61,7 @@ public class Inicio {
                 pNuevoVehiculo.setControlador(controlador);
                 pVerCatalogo.setControlador(controlador);
                 pNuevoModelo.setControlador(controlador);
+                pModificarModelo.setControlador(controlador);
                 pInformacionVehiculo.setControlador(controlador);
                 pLogin.setControlador(controlador);
                 pModificarVehiculo.setControlador(controlador);

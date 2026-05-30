@@ -38,7 +38,7 @@ public class PVerCatalogo extends JPanel implements IPanel {
         scrollPane = new JScrollPane(panelVehiculos,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setBounds(0, MARGEN_Y, ANCHO, ALTO - MARGEN_Y);
+        scrollPane.setBounds(0, 60, 985, 903);
         scrollPane.setBorder(null);
         add(scrollPane);
     }

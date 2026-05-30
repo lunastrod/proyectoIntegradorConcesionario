@@ -79,7 +79,7 @@ public class ModeloVehiculo {
 	public String getTipoTransmision() {
 		return tipoTransmision;
 	}
-
+	/*
 	@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -88,4 +88,8 @@ public class ModeloVehiculo {
         .append(" - Tracción: ").append(traccion).append(" - Marca: ").append(marca).append(" - Tipo de transmisión: ").append(tipoTransmision);
         return sb.toString();
     }
+		*/
+	public String toString() {
+		return marca+" "+ nombreModelo;
+	}
 }
