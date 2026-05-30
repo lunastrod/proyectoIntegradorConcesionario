@@ -97,12 +97,6 @@ public class ModeloVehiculoDAO {
     }
 
     public int update(ModeloVehiculo m) {
-        /*TODO:
-        - La sentencia SQL construida tiene 7 columnas SET (falta COL_TIPO_VEHICULO)
-      pero los parametros del PreparedStatement asignan propulsion en posicion 4,
-      traccion en 5, marca en 6 y transmision en 7, saltandose tipo_vehiculo.
-      El metodo update no actualiza tipo_vehiculo aunque lo tiene en la clase.
-         */
         String sentencia="UPDATE " + NOM_TABLA + " SET " + COL_NOMBRE_MODELO + " = ?, " + COL_NUMERO_PLAZAS +
         		" = ?, " + COL_NUMERO_PUERTAS + " = ?, " + COL_TIPO_VEHICULO + " = ?, " +
         		COL_TIPO_PROPULSION + " = ?, " + COL_TRACCION + " = ?, " + COL_MARCA + " = ? WHERE " + COL_ID_MODELO + " = ?";
@@ -115,7 +109,8 @@ public class ModeloVehiculoDAO {
             stmt.setString(1, m.getNombreModelo());
             stmt.setInt(2, m.getNumeroPlazas());
             stmt.setInt(3, m.getNumeroPuertas());
-            stmt.setString(4, m.getTipoPropulsion());
+            stmt.setString(4, m.getTipoModelo());
+            stmt.setString(5, m.getTipoPropulsion());
             stmt.setString(5, m.getTraccion());
             stmt.setString(6, m.getMarca());
             stmt.setString(7, m.getTipoTransmision());

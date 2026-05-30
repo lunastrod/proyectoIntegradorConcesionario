@@ -65,14 +65,13 @@ public class Inicio {
     }
 
     public static void pruebas() {
-        /*
+    	/*
         AccesoBD bd=new AccesoBD();
         LoginDAO loginDAO=new LoginDAO(bd);
         ModeloVehiculoDAO modeloVehiculoDAO=new ModeloVehiculoDAO(bd);
         VehiculoDAO vehiculoDAO=new VehiculoDAO(bd);
         TrabajadorDAO trabajadorDAO=new TrabajadorDAO(bd);
         VentaDAO ventaDAO=new VentaDAO(bd);
-
         System.out.println(modeloVehiculoDAO.selectMarcas());
         System.out.println(modeloVehiculoDAO.selectModeloPorMarca("Mercedes"));
         System.out.println(vehiculoDAO.selectTodos());
