@@ -172,6 +172,15 @@ public class ConcesionarioControlador implements ActionListener {
             case PModificarVehiculo.BUSCAR_MARCA_MODIFICAR_BTN:
                 buscarMarcaModificar();
                 break;
+            case PRegistrarTrabajador.REGISTRAR_TRABAJADOR_BTN:
+                registrarTrabajador();
+                break;
+            case PRegistrarTrabajador.ELIMINAR_TRABAJADOR_BTN:
+                eliminarTrabajador();
+                break;
+            case PRegistrarTrabajador.LIMPIAR_DATOS_BTN:
+                pRegistrarTrabajador.limpiarDatos();
+                break;
             default:
                 System.out.println("Boton no reconocido: " + e.getActionCommand());
                 break;
@@ -335,5 +344,49 @@ public class ConcesionarioControlador implements ActionListener {
 
     private void consultarTrabajadores() {
         pRegistrarTrabajador.cargarTabla(trabajadorDAO.selectAllTrabajadores());
+    }
+
+    private void registrarTrabajador() {
+        Trabajador t = pRegistrarTrabajador.obtenerDatos();
+        if (t == null) return; // la vista ya mostró el error
+
+        int res = trabajadorDAO.insert(t);
+        if (res > 0) {
+            Avisos.info(v, "Trabajador registrado correctamente.");
+            pRegistrarTrabajador.limpiarDatos();
+            consultarTrabajadores();
+        } else {
+            Avisos.error(v, "Error al registrar el trabajador.\nComprueba que el nombre no esté repetido.");
+        }
+    }
+
+    private void eliminarTrabajador() {
+        int id = pRegistrarTrabajador.getIdTrabajadorSeleccionado();
+        if (id == -1) {
+            Avisos.aviso(v, "Selecciona un trabajador de la tabla.");
+            return;
+        }
+        if (!Avisos.confirmar(v, "¿Eliminar el trabajador seleccionado?")) return;
+
+        ArrayList<Trabajador> todos = trabajadorDAO.selectAllTrabajadores();
+        Trabajador seleccionado = null;
+        for (Trabajador t : todos) {
+            if (t.getIdTrabajador() == id) {
+                seleccionado = t;
+                break;
+            }
+        }
+        if (seleccionado == null) {
+            Avisos.error(v, "No se encontró el trabajador.");
+            return;
+        }
+
+        int res = trabajadorDAO.delete(seleccionado.getNombreApellidos());
+        if (res > 0) {
+            Avisos.info(v, "Trabajador eliminado correctamente.");
+            consultarTrabajadores();
+        } else {
+            Avisos.error(v, "No se pudo eliminar el trabajador.");
+        }
     }
 }
