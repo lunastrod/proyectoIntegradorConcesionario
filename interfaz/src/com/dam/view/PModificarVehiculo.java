@@ -20,9 +20,9 @@ public class PModificarVehiculo extends JPanel implements IPanel {
     private static final int ANCHO = 1000;
     private static final int ALTO = 1000;
 
-    public static final String MODIFICAR_VEHICULO_BTN = "Modificar Vehiculo";
-    public static final String VER_COLOR_BTN = "Ver color";
-    public static final String BUSCAR_MARCA_BTN = "Buscar Marca";
+    public static final String GUARDAR_MODIFICACION_BTN = "Guardar Modificación";
+    public static final String VER_COLOR_MODIFICAR_BTN = "Ver color modificar";
+    public static final String BUSCAR_MARCA_MODIFICAR_BTN = "Buscar Marca Modificar";
 
     private JButton btnModificar;
     private DefaultComboBoxModel<String> modelMarcas;
@@ -128,8 +128,8 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         spPrecio.setBounds(185, 183, 150, 25);
         add(spPrecio);
 
-        btnModificar = new JButton(MODIFICAR_VEHICULO_BTN);
-        btnModificar.setActionCommand(MODIFICAR_VEHICULO_BTN);
+        btnModificar = new JButton("Guardar cambios");
+        btnModificar.setActionCommand(GUARDAR_MODIFICACION_BTN);
         btnModificar.setBounds(80, 436, 150, 25);
         add(btnModificar);
 
@@ -198,8 +198,8 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         spAzul.setBounds(315, 250, 55, 20);
         add(spAzul);
 
-        btnVerColor = new JButton(VER_COLOR_BTN);
-        btnVerColor.setActionCommand(VER_COLOR_BTN);
+        btnVerColor = new JButton("Ver color");
+        btnVerColor.setActionCommand(VER_COLOR_MODIFICAR_BTN);
         btnVerColor.setBounds(380, 249, 89, 23);
         add(btnVerColor);
 
@@ -215,8 +215,8 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         lblPrecio.setBounds(80, 188, 95, 14);
         add(lblPrecio);
 
-        btnBuscarMarca = new JButton(BUSCAR_MARCA_BTN);
-        btnBuscarMarca.setActionCommand(BUSCAR_MARCA_BTN);
+        btnBuscarMarca = new JButton("Buscar Marca");
+        btnBuscarMarca.setActionCommand(BUSCAR_MARCA_MODIFICAR_BTN);
         btnBuscarMarca.setBounds(345, 104, 150, 25);
         add(btnBuscarMarca);
 
@@ -246,13 +246,11 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         if (modelos == null) {
             modelos = new ArrayList<ModeloVehiculo>();
         }
-
         for (ModeloVehiculo modeloExistente : modelos) {
             if (modeloExistente.getIdModelo() == modelo.getIdModelo()) {
                 return;
             }
         }
-
         modelos.add(modelo);
         modelModelos.addElement(modelo.getNombreModelo());
     }
@@ -265,10 +263,7 @@ public class PModificarVehiculo extends JPanel implements IPanel {
     }
 
     private void seleccionarModelo(ModeloVehiculo modelo) {
-        if (modelos == null) {
-            return;
-        }
-
+        if (modelos == null) return;
         for (int i = 0; i < modelos.size(); i++) {
             if (modelos.get(i).getIdModelo() == modelo.getIdModelo()) {
                 cbModelo.setSelectedIndex(i);
@@ -293,7 +288,6 @@ public class PModificarVehiculo extends JPanel implements IPanel {
             int rojo = Integer.parseInt(color.substring(1, indiceG));
             int verde = Integer.parseInt(color.substring(indiceG + 1, indiceB));
             int azul = Integer.parseInt(color.substring(indiceB + 1));
-
             spRojo.setValue(rojo);
             spVerde.setValue(verde);
             spAzul.setValue(azul);
