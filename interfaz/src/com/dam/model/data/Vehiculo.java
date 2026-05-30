@@ -18,8 +18,6 @@ CREATE TABLE IF NOT EXISTS "Vehiculo" (
 */
 
 public class Vehiculo {
-
-
     private int idVehiculo;
     private ModeloVehiculo modelo;
     private int precio;
@@ -101,7 +99,7 @@ public class Vehiculo {
 		sb.append("Tipo de transmisión: ").append(modelo.getTipoTransmision()).append("\n");
         return sb.toString();
     }
-	
+	/*
 	@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -113,4 +111,9 @@ public class Vehiculo {
 
         return sb.toString();
     }
+	*/
+	
+	public String toString () {
+		return "["+matricula+"] "+modelo.getNombreModelo()+" "+modelo.getMarca();
+	}
 }

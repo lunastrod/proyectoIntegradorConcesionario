@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -16,6 +17,8 @@ import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.ModeloVehiculo;
 import com.dam.model.data.Vehiculo;
 import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
 
 
 /*
@@ -48,6 +51,8 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
     public static final String GUARDAR_VEHICULO_BTN="Guardar Vehiculo";
     public static final String VER_COLOR_BTN="Ver color";
     public static final String BUSCAR_MARCA_BTN="Buscar Marca";
+    public static final String ELIMINAR_VEHICULO_BTN="Eliminar Vehiculo";
+    public static final String MODIFICAR_VEHICULO_BTN="Modificar Vehiculo";
 
     JButton btnGuardar;
     DefaultComboBoxModel<String> modelMarcas;
@@ -69,7 +74,12 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
     private JLabel lblMarca;
     private JLabel lblPrecio;
     private JButton btnBuscarMarca;
+    private JButton btnEliminarVehiculo;
+    private JButton btnModificarVehiculo;
+    private DefaultListModel<Vehiculo> modelVehiculos;
+    private JList<Vehiculo> listVehiculos;
     private ArrayList<ModeloVehiculo> modelos;
+    private ArrayList<Vehiculo> vehiculos;
     
 
     public PNuevoVehiculo(){
@@ -91,6 +101,22 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
         for(ModeloVehiculo m:modelos){
             modelModelos.addElement(m.getNombreModelo());
         }
+    }
+
+    public void actualizarVehiculos(ArrayList<Vehiculo> vehiculos){
+        this.vehiculos=vehiculos;
+        modelVehiculos.removeAllElements();
+        for(Vehiculo v:vehiculos){
+            modelVehiculos.addElement(v);
+        }
+    }
+
+    public Vehiculo getVehiculoSeleccionado(){
+        int indexVehiculo=listVehiculos.getSelectedIndex();
+        if(indexVehiculo==-1){
+            return null;
+        }
+        return vehiculos.get(indexVehiculo);
     }
 
     public String getMarca(){
@@ -229,6 +255,28 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
         btnBuscarMarca = new JButton(BUSCAR_MARCA_BTN);
         btnBuscarMarca.setBounds(345, 104, 150, 25);
         add(btnBuscarMarca);
+        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(636, 91, 189, 194);
+        add(scrollPane);
+        
+        modelVehiculos = new DefaultListModel<Vehiculo>();
+        listVehiculos = new JList<Vehiculo>(modelVehiculos);
+        scrollPane.setViewportView(listVehiculos);
+        
+        JLabel lblVehculosALa = new JLabel("Vehículos a la venta");
+        lblVehculosALa.setBounds(636, 66, 142, 14);
+        add(lblVehculosALa);
+        
+        btnEliminarVehiculo = new JButton(ELIMINAR_VEHICULO_BTN);
+        btnEliminarVehiculo.setActionCommand(ELIMINAR_VEHICULO_BTN);
+        btnEliminarVehiculo.setBounds(636, 311, 150, 25);
+        add(btnEliminarVehiculo);
+        
+        btnModificarVehiculo = new JButton(MODIFICAR_VEHICULO_BTN);
+        btnModificarVehiculo.setActionCommand(MODIFICAR_VEHICULO_BTN);
+        btnModificarVehiculo.setBounds(636, 359, 150, 25);
+        add(btnModificarVehiculo);
 
         actualizarColor();
     }
@@ -244,7 +292,7 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
         btnGuardar.addActionListener(c);
         btnVerColor.addActionListener(c);
         btnBuscarMarca.addActionListener(c);
+        btnEliminarVehiculo.addActionListener(c);
+        btnModificarVehiculo.addActionListener(c);
     }
-
-
 }
