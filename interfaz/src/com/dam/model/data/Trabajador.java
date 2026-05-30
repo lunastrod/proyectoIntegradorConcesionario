@@ -55,7 +55,7 @@ public class Trabajador {
     	
 		return estado;
     }
-
+    /*
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -63,5 +63,9 @@ public class Trabajador {
         .append(nombreApellidos).append(" - contraseña: ").append(passwordTrabajador)
         .append(" - Estado: ").append(traducirAdmin(esAdmin));
         return sb.toString();
+    }
+        */
+    public String toString(){
+        return nombreApellidos;
     }
 }
