@@ -20,9 +20,11 @@ public class VPrincipal extends JFrame implements IVentana{
     public static final String REGISTRAR_TRABAJADOR_MENU="Registrar Trabajador";
     public static final String LOGIN_MENU="Login";
     public static final String MODO_CLARO_OSCURO_MENU="Modo claro-oscuro";
+    public static final String NUEVO_EMPLEADO = "Nuevo trabajador";
 
 
     private JMenuItem itemNuevoVeh;
+    private JMenuItem itemNuevoTra;
     private JMenuItem itemVer;
     private JMenuItem itemNuevoMod;
     private JMenuItem itemRegistrarTrabajador;
@@ -67,6 +69,9 @@ public class VPrincipal extends JFrame implements IVentana{
         
         itemNuevoMod = new JMenuItem(NUEVO_MODELO_MENU);
         menuEncuestas.add(itemNuevoMod);
+        
+        itemNuevoTra = new JMenuItem(NUEVO_EMPLEADO);
+        menuEncuestas.add(itemNuevoTra);
 
         itemRegistrarTrabajador = new JMenuItem(REGISTRAR_TRABAJADOR_MENU);
         menuEncuestas.add(itemRegistrarTrabajador);
@@ -98,6 +103,7 @@ public class VPrincipal extends JFrame implements IVentana{
         itemRegistrarTrabajador.addActionListener(c);
         itemLogin.addActionListener(c);
         mntmNewMenuItem.addActionListener(c);
+        itemNuevoTra.addActionListener(c);
     }
 
     public void hacerVisible() {
