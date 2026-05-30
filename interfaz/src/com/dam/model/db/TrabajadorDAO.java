@@ -8,15 +8,7 @@ import java.util.ArrayList;
 
 import com.dam.model.data.Trabajador;
 
-/*
-CREATE TABLE IF NOT EXISTS "Trabajador" (
-	"id_trabajador"	INTEGER,
-	"nombre_apellidos"	varchar(100),
-	"password_trabajador"	varchar(100),
-	"es_admin"	INTEGER,
-	CONSTRAINT "pk_id_trabajo" PRIMARY KEY("id_trabajador" AUTOINCREMENT)
-);
- */
+
 public class TrabajadorDAO {
 	private AccesoBD bd;
 	public static final String NOM_TABLA = "Trabajador";
@@ -161,6 +153,36 @@ public class TrabajadorDAO {
             catch (Exception e) {e.printStackTrace();}
         }
 		return trabajadores;
-		
+	}
+
+	public Trabajador getTrabajadorPorNombre(String nombre) {
+		String sentencia = "SELECT * FROM " + NOM_TABLA + " WHERE " + COL_NOMBRE_TRABAJADOR + " = ?";
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Trabajador trabajador = null;
+		try {
+			con = bd.getConexion();
+			stmt = con.prepareStatement(sentencia);
+			stmt.setString(1, nombre);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				int idTrabajador = rs.getInt(COL_ID_TRABAJADOR);
+				String nombreTrabajador = rs.getString(COL_NOMBRE_TRABAJADOR);
+				String passwordTrabajador = rs.getString(COL_PASSWORD_TRABAJADOR);
+				int esAdmin = rs.getInt(COL_ES_ADMIN);
+				trabajador = new Trabajador(idTrabajador, nombreTrabajador, passwordTrabajador, esAdmin);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+            try {if (rs != null) {rs.close();}
+            } catch (Exception e) {e.printStackTrace();}
+            try {if (stmt != null) {stmt.close();}
+            } catch (Exception e) {e.printStackTrace();}
+            try {if (con != null) {con.close();}}
+            catch (Exception e) {e.printStackTrace();}
+        }
+		return trabajador;
 	}
 }

@@ -40,8 +40,8 @@ public class VentaDAO {
 	
 	public int insert(Venta v) {
 		String sentencia = "INSERT INTO " + NOM_TABLA + " ("
-				+ COL_ID_TRABAJADOR + ", " + COL_ID_VEHICULO + ", " + COL_FECHA 
-				+ ") VALUES (?, ?, ?, ?)";
+				+ COL_ID_TRABAJADOR + ", " + COL_ID_VEHICULO 
+				+ ") VALUES (?, ?, ?)";
 		
 		Connection con = null;
 		PreparedStatement stmt = null;

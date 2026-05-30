@@ -17,6 +17,7 @@ public class VPrincipal extends JFrame implements IVentana{
     public static final String NUEVO_VEHICULO_MENU="Nuevo Vehiculo";
     public static final String VER_CATALOGO_MENU="Ver Catalogo";
     public static final String NUEVO_MODELO_MENU="Nuevo Modelo";
+    public static final String REGISTRAR_TRABAJADOR_MENU="Registrar Trabajador";
     public static final String LOGIN_MENU="Login";
     public static final String MODO_CLARO_OSCURO_MENU="Modo claro-oscuro";
 
@@ -24,6 +25,7 @@ public class VPrincipal extends JFrame implements IVentana{
     private JMenuItem itemNuevoVeh;
     private JMenuItem itemVer;
     private JMenuItem itemNuevoMod;
+    private JMenuItem itemRegistrarTrabajador;
     private JMenuItem itemLogin;
     private JMenuItem mntmNewMenuItem;
     
@@ -66,6 +68,9 @@ public class VPrincipal extends JFrame implements IVentana{
         itemNuevoMod = new JMenuItem(NUEVO_MODELO_MENU);
         menuEncuestas.add(itemNuevoMod);
 
+        itemRegistrarTrabajador = new JMenuItem(REGISTRAR_TRABAJADOR_MENU);
+        menuEncuestas.add(itemRegistrarTrabajador);
+
         itemLogin = new JMenuItem(LOGIN_MENU);
         menuEncuestas.add(itemLogin);
         
@@ -73,7 +78,7 @@ public class VPrincipal extends JFrame implements IVentana{
         menuBar.add(mntmNewMenuItem);
     }
 
-    public void actualizarMenu(boolean empleado) {
+    public void actualizarMenu(boolean empleado, boolean admin) {
         if(empleado){
             itemNuevoVeh.setVisible(true);
             itemNuevoMod.setVisible(true);
@@ -82,12 +87,15 @@ public class VPrincipal extends JFrame implements IVentana{
             itemNuevoVeh.setVisible(false);
             itemNuevoMod.setVisible(false);
         }
+
+        itemRegistrarTrabajador.setVisible(empleado && admin);
     }
 
     public void setControlador(ConcesionarioControlador c) {
         itemNuevoVeh.addActionListener(c);
         itemVer.addActionListener(c);
         itemNuevoMod.addActionListener(c);
+        itemRegistrarTrabajador.addActionListener(c);
         itemLogin.addActionListener(c);
         mntmNewMenuItem.addActionListener(c);
     }

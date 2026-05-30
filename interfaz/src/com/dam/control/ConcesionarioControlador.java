@@ -1,21 +1,29 @@
 package com.dam.control;
 
+import com.dam.model.data.Cliente;
 import com.dam.model.data.Login;
 import com.dam.model.data.ModeloVehiculo;
+import com.dam.model.data.Trabajador;
 import com.dam.model.data.Vehiculo;
+import com.dam.model.data.Venta;
 import com.dam.view.VPrincipal;
 import com.dam.view.PNuevoVehiculo;
 import com.dam.view.PVerCatalogo;
 import com.dam.view.PNuevoModelo;
 import com.dam.view.PInformacionVehiculo;
 import com.dam.view.PLogin;
+import com.dam.view.PModificarVehiculo;
+import com.dam.view.PRegistrarTrabajador;
+import com.dam.view.PVehiculo;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 import com.dam.model.db.LoginDAO;
 import com.dam.model.db.ModeloVehiculoDAO;
+import com.dam.model.db.TrabajadorDAO;
 import com.dam.model.db.VehiculoDAO;
+import com.dam.model.db.VentaDAO;
 
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -25,27 +33,36 @@ public class ConcesionarioControlador implements ActionListener{
     private PNuevoVehiculo pNuevoVehiculo;
     private PVerCatalogo pVerCatalogo;
     private PNuevoModelo pNuevoModelo;
+    private PModificarVehiculo pModificarVehiculo;
     private PLogin pLogin;
+    private PRegistrarTrabajador pRegistrarTrabajador;
     private LoginDAO loginDAO;
     private PInformacionVehiculo pInformacionVehiculo;
     
     private ModeloVehiculoDAO modeloVehiculoDAO;
+    private TrabajadorDAO trabajadorDAO;
     private VehiculoDAO vehiculoDAO;
+    private VentaDAO ventaDAO;
     private boolean modoClaro=true;
     private boolean sesionIniciada=true;//TODO: temporal deberia estar a false en la version final
+    private boolean admin=true;//TODO: temporal deberia estar a false en la version final
 
-    public ConcesionarioControlador(VPrincipal v,PNuevoVehiculo pNuevoVehiculo,PVerCatalogo pVerCatalogo,PNuevoModelo pNuevoModelo,PLogin pLogin,PInformacionVehiculo pInformacionVehiculo,LoginDAO loginDAO,ModeloVehiculoDAO modeloVehiculoDAO,VehiculoDAO vehiculoDAO) {
+    public ConcesionarioControlador(VPrincipal v,PNuevoVehiculo pNuevoVehiculo,PVerCatalogo pVerCatalogo,PNuevoModelo pNuevoModelo,PModificarVehiculo pModificarVehiculo,PLogin pLogin,PRegistrarTrabajador pRegistrarTrabajador,PInformacionVehiculo pInformacionVehiculo,LoginDAO loginDAO,ModeloVehiculoDAO modeloVehiculoDAO,TrabajadorDAO trabajadorDAO,VehiculoDAO vehiculoDAO,VentaDAO ventaDAO) {
         this.pNuevoVehiculo = pNuevoVehiculo;
         this.pVerCatalogo = pVerCatalogo;
         this.pNuevoModelo = pNuevoModelo;
+        this.pModificarVehiculo = pModificarVehiculo;
         this.pLogin = pLogin;
+        this.pRegistrarTrabajador = pRegistrarTrabajador;
         this.pInformacionVehiculo=pInformacionVehiculo;
         this.v = v;
         this.loginDAO=loginDAO;
         this.modeloVehiculoDAO=modeloVehiculoDAO;
+        this.trabajadorDAO=trabajadorDAO;
         this.vehiculoDAO=vehiculoDAO;
+        this.ventaDAO=ventaDAO;
         actualizarModoClaroOscuro(modoClaro);
-        v.actualizarMenu(sesionIniciada);
+        v.actualizarMenu(sesionIniciada,admin);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -67,6 +84,7 @@ public class ConcesionarioControlador implements ActionListener{
             case VPrincipal.NUEVO_VEHICULO_MENU:
                 
                 pNuevoVehiculo.actualizarMarcas(modeloVehiculoDAO.selectMarcas());
+                pNuevoVehiculo.actualizarVehiculos(vehiculoDAO.selectTodos());
                 v.cargarPanel(pNuevoVehiculo);
                 actualizarModoClaroOscuro(modoClaro);
                 break;
@@ -76,6 +94,12 @@ public class ConcesionarioControlador implements ActionListener{
             case VPrincipal.NUEVO_MODELO_MENU:
                 v.cargarPanel(pNuevoModelo);
                 actualizarModoClaroOscuro(modoClaro);
+                break;
+            case VPrincipal.REGISTRAR_TRABAJADOR_MENU:
+                if(sesionIniciada && admin){
+                    v.cargarPanel(pRegistrarTrabajador);
+                    actualizarModoClaroOscuro(modoClaro);
+                }
                 break;
             case VPrincipal.LOGIN_MENU:
                 v.cargarPanel(pLogin);
@@ -92,41 +116,71 @@ public class ConcesionarioControlador implements ActionListener{
     }
 
     private void controlBotones(ActionEvent e) {
-        if(e.getActionCommand().startsWith("masinfo")){
-            System.out.println("boton masinfo");
-            v.cargarPanel(pInformacionVehiculo);
-            int id=Integer.parseInt(e.getActionCommand().substring("masinfo".length()));
-            System.out.println("id: "+id);
-            Vehiculo vehiculo=vehiculoDAO.selectVehiculoPorId(id).get(0);
-            pInformacionVehiculo.mostrarInfoVehiculo(vehiculo);
+        Vehiculo vehiculo;
+        switch (e.getActionCommand()) {
+            case PVehiculo.MAS_INFO_BTN:
+                v.cargarPanel(pInformacionVehiculo);
+                vehiculo=((PVehiculo)((JButton)e.getSource()).getParent()).getVehiculoActual();
+                pInformacionVehiculo.mostrarInfoVehiculo(vehiculo);
+                break;
+            case PNuevoVehiculo.GUARDAR_VEHICULO_BTN:
+                guardarVehiculo();
+                break;
+            case PNuevoModelo.GUARDAR_MODELO_BTN:
+                guardarModelo();
+                break;
+            case PLogin.LOGIN_BTN:
+                login();
+                break;
+            case PInformacionVehiculo.COMPRAR_BTN:
+                comprarVehiculo();
+                
+                break;
+            case PNuevoVehiculo.BUSCAR_MARCA_BTN:
+                buscarMarca();
+                break;
+            case PNuevoVehiculo.VER_COLOR_BTN:
+                pNuevoVehiculo.actualizarColor();
+                break;
+            case PNuevoVehiculo.ELIMINAR_VEHICULO_BTN:
+                //TODO: eliminar vehiculo
+                break;
+            case PNuevoVehiculo.MODIFICAR_VEHICULO_BTN:
+                cargarPanelModificarVehiculo();
+                break;
+            default:
+                System.out.println("Boton no reconocido: " + e.getActionCommand());
+                break;
         }
-        else{
-            switch (e.getActionCommand()) {
-                case PNuevoVehiculo.GUARDAR_VEHICULO_BTN:
-                    guardarVehiculo();
-                    break;
-                case PNuevoModelo.GUARDAR_MODELO_BTN:
-                    guardarModelo();
-                    break;
-                case PLogin.LOGIN_BTN:
-                    login();
-                    break;
-                case PNuevoVehiculo.BUSCAR_MARCA_BTN:
-                    buscarMarca();
-                    break;
-                case PNuevoVehiculo.VER_COLOR_BTN:
-                    pNuevoVehiculo.actualizarColor();
-                    break;
-                default:
-                    System.out.println("Boton no reconocido: " + e.getActionCommand());
-                    break;
-            }
-        }
+    }
+
+    public void comprarVehiculo() {
+        Vehiculo v=pInformacionVehiculo.getVehiculoActual();
+        String nombre= pInformacionVehiculo.getNombreTrabajador();
+        Trabajador t=trabajadorDAO.getTrabajadorPorNombre(nombre);
+        Cliente cliente=pInformacionVehiculo.getCliente();
+        Venta venta=new Venta(-1,cliente,t,v,"");
+        ventaDAO.insert(venta);
+        System.out.println(venta);
     }
 
     public void cargarPanelCatalogo() {
         pVerCatalogo.actualizarPanelesVehiculo(vehiculoDAO.selectTodos());
         v.cargarPanel(pVerCatalogo);
+        actualizarModoClaroOscuro(modoClaro);
+    }
+
+    private void cargarPanelModificarVehiculo() {
+        Vehiculo vehiculo=pNuevoVehiculo.getVehiculoSeleccionado();
+        if(vehiculo==null){
+            System.out.println("No hay vehiculo seleccionado");
+            return;
+        }
+
+        pModificarVehiculo.actualizarMarcas(modeloVehiculoDAO.selectMarcas());
+        pModificarVehiculo.actualizarModelos(modeloVehiculoDAO.selectModeloPorMarca(vehiculo.getModelo().getMarca()));
+        pModificarVehiculo.cargarVehiculo(vehiculo);
+        v.cargarPanel(pModificarVehiculo);
         actualizarModoClaroOscuro(modoClaro);
     }
 
@@ -166,11 +220,11 @@ public class ConcesionarioControlador implements ActionListener{
         if(loginCorrecto){
             System.out.println("Login correcto");
             sesionIniciada=true;
-            v.actualizarMenu(sesionIniciada);
+            v.actualizarMenu(sesionIniciada,admin);
         }else{
             System.out.println("Login incorrecto");
             sesionIniciada=false;
-            v.actualizarMenu(sesionIniciada);
+            v.actualizarMenu(sesionIniciada,admin);
         }
         System.out.println(l);
     }
