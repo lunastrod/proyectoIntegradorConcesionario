@@ -17,17 +17,24 @@ public class VPrincipal extends JFrame implements IVentana{
     public static final String NUEVO_VEHICULO_MENU="Nuevo Vehiculo";
     public static final String VER_CATALOGO_MENU="Ver Catalogo";
     public static final String NUEVO_MODELO_MENU="Nuevo Modelo";
+    public static final String REGISTRAR_TRABAJADOR_MENU="Registrar Trabajador";
     public static final String LOGIN_MENU="Login";
+    public static final String MODO_CLARO_OSCURO_MENU="Modo claro-oscuro";
+    public static final String NUEVO_EMPLEADO = "Nuevo trabajador";
 
 
     private JMenuItem itemNuevoVeh;
+    private JMenuItem itemNuevoTra;
     private JMenuItem itemVer;
     private JMenuItem itemNuevoMod;
     private JMenuItem itemLogin;
+    private JMenuItem mntmNewMenuItem;
+    
 
     public VPrincipal() {
         configurarVentana();
         crearComponentes();
+        
     }
 
     public void cargarPanel(JPanel panel) {
@@ -54,31 +61,28 @@ public class VPrincipal extends JFrame implements IVentana{
         menuBar.add(menuEncuestas);
 
         itemVer = new JMenuItem(VER_CATALOGO_MENU);
-        itemVer.setActionCommand(VER_CATALOGO_MENU);
         menuEncuestas.add(itemVer);
 
         itemNuevoVeh = new JMenuItem(NUEVO_VEHICULO_MENU);
-        itemNuevoVeh.setActionCommand(NUEVO_VEHICULO_MENU);
         menuEncuestas.add(itemNuevoVeh);
         
         itemNuevoMod = new JMenuItem(NUEVO_MODELO_MENU);
-        itemNuevoMod.setActionCommand(NUEVO_MODELO_MENU);
         menuEncuestas.add(itemNuevoMod);
+        
+        itemNuevoTra = new JMenuItem(NUEVO_EMPLEADO);
+        menuEncuestas.add(itemNuevoTra);
 
         itemLogin = new JMenuItem(LOGIN_MENU);
-        itemLogin.setActionCommand(LOGIN_MENU);
         menuEncuestas.add(itemLogin);
+        
+        mntmNewMenuItem = new JMenuItem(MODO_CLARO_OSCURO_MENU);
+        menuBar.add(mntmNewMenuItem);
     }
 
-    public void actualizarMenu(boolean empleado) {
-        if(empleado){
-            itemNuevoVeh.setVisible(true);
-            itemNuevoMod.setVisible(true);
-        }
-        else{
-            itemNuevoVeh.setVisible(false);
-            itemNuevoMod.setVisible(false);
-        }
+    public void actualizarMenu(boolean empleado, boolean admin) {
+        itemNuevoVeh.setVisible(empleado);
+        itemNuevoMod.setVisible(empleado);
+        itemNuevoTra.setVisible(empleado && admin);
     }
 
     public void setControlador(ConcesionarioControlador c) {
@@ -86,6 +90,8 @@ public class VPrincipal extends JFrame implements IVentana{
         itemVer.addActionListener(c);
         itemNuevoMod.addActionListener(c);
         itemLogin.addActionListener(c);
+        mntmNewMenuItem.addActionListener(c);
+        itemNuevoTra.addActionListener(c);
     }
 
     public void hacerVisible() {

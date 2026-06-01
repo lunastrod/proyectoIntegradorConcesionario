@@ -16,21 +16,28 @@ CREATE TABLE IF NOT EXISTS "Modelo" (
 */
 
 public class ModeloVehiculo {
+	public static String[] TIPOS_TRANSMISION={"Manual","Automático"};
+    public static String[] TIPOS_PROPULSION={"Diesel","Gasolina","Eléctrico","Híbrido","Híbrido enchufable"};
+    public static String[] TIPOS_TRACCION={"Delantera","Trasera","4x4","AWD"};
+	public static String[] TIPOS_VEHICULOS={"Autobús","Berlina","Camión articulado","Camión rígido","Camioneta","Ciclomotor","Compacto","Deportivo","Descapotable","Familiar","Furgoneta","Motocicleta","SUV","Todoterreno"};
+
     private int idModelo;
     private String nombreModelo;
     private int numeroPlazas;
     private int numeroPuertas;
+    private String tipoModelo;
     private String tipoPropulsion;
     private String traccion;
     private String marca;
     private String tipoTransmision;
 
-    public ModeloVehiculo(int idModelo, String nombreModelo, int numeroPlazas, int numeroPuertas, String tipoPropulsion,
+    public ModeloVehiculo(int idModelo, String nombreModelo, int numeroPlazas, int numeroPuertas, String tipoModelo, String tipoPropulsion,
 			String traccion, String marca, String tipoTransmision) {
 		this.idModelo = idModelo;
 		this.nombreModelo = nombreModelo;
 		this.numeroPlazas = numeroPlazas;
 		this.numeroPuertas = numeroPuertas;
+		this.tipoModelo = tipoModelo;
 		this.tipoPropulsion = tipoPropulsion;
 		this.traccion = traccion;
 		this.marca = marca;
@@ -52,6 +59,10 @@ public class ModeloVehiculo {
 	public int getNumeroPuertas() {
 		return numeroPuertas;
 	}
+	
+	public String getTipoModelo() {
+		return tipoModelo;
+	}
 
 	public String getTipoPropulsion() {
 		return tipoPropulsion;
@@ -68,7 +79,7 @@ public class ModeloVehiculo {
 	public String getTipoTransmision() {
 		return tipoTransmision;
 	}
-
+	/*
 	@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -77,4 +88,8 @@ public class ModeloVehiculo {
         .append(" - Tracción: ").append(traccion).append(" - Marca: ").append(marca).append(" - Tipo de transmisión: ").append(tipoTransmision);
         return sb.toString();
     }
+		*/
+	public String toString() {
+		return marca+" "+ nombreModelo;
+	}
 }

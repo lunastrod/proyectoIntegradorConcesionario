@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.Login;
 
+
 public class PLogin extends JPanel implements IPanel{
     private static final int ANCHO=600;
     private static final int ALTO=400;
@@ -63,5 +64,6 @@ public class PLogin extends JPanel implements IPanel{
     public void setControlador(ConcesionarioControlador c) {
         btnLogin.addActionListener(c);
     }
+
 
 }

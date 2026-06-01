@@ -8,28 +8,11 @@ import java.util.ArrayList;
 import com.dam.model.data.ModeloVehiculo;
 
 import java.sql.ResultSet;
-
-/*
-CREATE TABLE IF NOT EXISTS "Modelo" (
-    "id_modelo" INTEGER,
-    "nombre_modelo" varchar(80),
-    "numero_plazas" INTEGER,
-    "numero_puertas" INTEGER,
-    "tipo_vehiculo" varchar(100),
-    "tipo_propulsion" varchar(100),
-    "traccion" varchar(20),
-    "marca" varchar(70),
-    "tipo_transmision" varchar(30),
-    CONSTRAINT "pk_id" PRIMARY KEY("id_modelo" AUTOINCREMENT)
-);
-*/
-
-//TODO nombre_modelo unique
+import java.sql.SQLException;
 
 public class ModeloVehiculoDAO {
     private AccesoBD bd;
-    public static final String NOM_TABLA="Modelo";
-
+    public static final String NOM_TABLA = "Modelo";
     public static final String COL_ID_MODELO = "id_modelo";
     public static final String COL_NOMBRE_MODELO = "nombre_modelo";
     public static final String COL_NUMERO_PLAZAS = "numero_plazas";
@@ -39,109 +22,184 @@ public class ModeloVehiculoDAO {
     public static final String COL_TRACCION = "traccion";
     public static final String COL_MARCA = "marca";
     public static final String COL_TIPO_TRANSMISION = "tipo_transmision";
-    public static final String COL_NOMBRE_MARCA = COL_MARCA;
-    
+
     public ModeloVehiculoDAO(AccesoBD bd) {
         this.bd = bd;
     }
 
     public int insert(ModeloVehiculo m) {
-        String sentencia="INSERT INTO "+NOM_TABLA+" ("+
-        COL_NOMBRE_MODELO+", "+
-        COL_MARCA+
-        ") VALUES (?,?)";
+        String sentencia = "INSERT INTO " + NOM_TABLA + " ("
+                + COL_NOMBRE_MODELO + ", " + COL_NUMERO_PLAZAS
+                + ", " + COL_NUMERO_PUERTAS + ", " + COL_TIPO_VEHICULO + ", " + COL_TIPO_PROPULSION
+                + ", " + COL_TRACCION + ", " + COL_MARCA + ", " + COL_TIPO_TRANSMISION
+                + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        Connection con= null;
+        Connection con = null;
         PreparedStatement stmt = null;
         int resultado = -1;
-        try{
+        try {
             con = bd.getConexion();
             stmt = con.prepareStatement(sentencia);
             stmt.setString(1, m.getNombreModelo());
-            stmt.setString(2, m.getNombreMarca());
-            resultado=stmt.executeUpdate();
+            stmt.setInt(2, m.getNumeroPlazas());
+            stmt.setInt(3, m.getNumeroPuertas());
+            stmt.setString(4, m.getTipoModelo());
+            stmt.setString(5, m.getTipoPropulsion());
+            stmt.setString(6, m.getTraccion());
+            stmt.setString(7, m.getMarca());
+            stmt.setString(8, m.getTipoTransmision());
+            resultado = stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {if (stmt != null) {stmt.close();}
-            } catch (Exception e) {e.printStackTrace();}
-            try {if (con != null) {con.close();}}
-            catch (Exception e) {e.printStackTrace();}
+            try { if (stmt != null) stmt.close(); } catch (Exception e) { e.printStackTrace(); }
+            try { if (con != null) con.close(); } catch (Exception e) { e.printStackTrace(); }
         }
         return resultado;
     }
 
     public int delete(String nombreModelo) {
-        String sentencia="DELETE FROM "+NOM_TABLA+" WHERE "+COL_NOMBRE_MODELO+" = ?";
-        Connection con= null;
+        String sentencia = "DELETE FROM " + NOM_TABLA + " WHERE " + COL_NOMBRE_MODELO + " = ?";
+        Connection con = null;
         PreparedStatement stmt = null;
         int resultado = -1;
-        try{
+        try {
             con = bd.getConexion();
             stmt = con.prepareStatement(sentencia);
             stmt.setString(1, nombreModelo);
-            resultado=stmt.executeUpdate();
+            resultado = stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {if (stmt != null) {stmt.close();}
-            } catch (Exception e) {e.printStackTrace();}
-            try {if (con != null) {con.close();}}
-            catch (Exception e) {e.printStackTrace();}
+            try { if (stmt != null) stmt.close(); } catch (Exception e) { e.printStackTrace(); }
+            try { if (con != null) con.close(); } catch (Exception e) { e.printStackTrace(); }
         }
         return resultado;
     }
 
+    /** Parámetros corregidos: 1-nombre, 2-plazas, 3-puertas, 4-tipo_vehiculo,
+     *  5-propulsion, 6-traccion, 7-marca, 8-transmision, 9-id */
     public int update(ModeloVehiculo m) {
-        String sentencia="UPDATE "+NOM_TABLA+" SET "+COL_NOMBRE_MODELO+" = ?, "+COL_MARCA+" = ? WHERE "+COL_ID_MODELO+" = ?";
-        Connection con= null;
+        String sentencia = "UPDATE " + NOM_TABLA + " SET "
+                + COL_NOMBRE_MODELO + " = ?, "
+                + COL_NUMERO_PLAZAS + " = ?, "
+                + COL_NUMERO_PUERTAS + " = ?, "
+                + COL_TIPO_VEHICULO + " = ?, "
+                + COL_TIPO_PROPULSION + " = ?, "
+                + COL_TRACCION + " = ?, "
+                + COL_MARCA + " = ?, "
+                + COL_TIPO_TRANSMISION + " = ? "
+                + "WHERE " + COL_ID_MODELO + " = ?";
+
+        Connection con = null;
         PreparedStatement stmt = null;
         int resultado = -1;
-        try{
+        try {
             con = bd.getConexion();
             stmt = con.prepareStatement(sentencia);
             stmt.setString(1, m.getNombreModelo());
-            stmt.setString(2, m.getNombreMarca());
-            stmt.setInt(3, m.getIdModelo());
-            resultado=stmt.executeUpdate();
+            stmt.setInt(2, m.getNumeroPlazas());
+            stmt.setInt(3, m.getNumeroPuertas());
+            stmt.setString(4, m.getTipoModelo());
+            stmt.setString(5, m.getTipoPropulsion());
+            stmt.setString(6, m.getTraccion());
+            stmt.setString(7, m.getMarca());
+            stmt.setString(8, m.getTipoTransmision());
+            stmt.setInt(9, m.getIdModelo());
+            resultado = stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {if (stmt != null) {stmt.close();}
-            } catch (Exception e) {e.printStackTrace();}
-            try {if (con != null) {con.close();}}
-            catch (Exception e) {e.printStackTrace();}
+            try { if (stmt != null) stmt.close(); } catch (Exception e) { e.printStackTrace(); }
+            try { if (con != null) con.close(); } catch (Exception e) { e.printStackTrace(); }
         }
         return resultado;
     }
 
-    public ArrayList<ModeloVehiculo> selectTodos(){
-        String sentencia="SELECT * FROM "+NOM_TABLA+" ORDER BY "+COL_MARCA+", "+COL_NOMBRE_MODELO;
-        Connection con= null;
+    public ArrayList<String> selectMarcas() {
+        String sentencia = "SELECT DISTINCT " + COL_MARCA + " FROM " + NOM_TABLA;
+        Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<ModeloVehiculo> modelos = new ArrayList<ModeloVehiculo>();
-        try{
+        ArrayList<String> marcas = new ArrayList<String>();
+        try {
             con = bd.getConexion();
             stmt = con.createStatement();
             rs = stmt.executeQuery(sentencia);
-            while(rs.next()){
-                int idModelo = rs.getInt(COL_ID_MODELO);
-                String nombreModelo = rs.getString(COL_NOMBRE_MODELO);
-                String nombreMarca = rs.getString(COL_MARCA);
-                modelos.add(new ModeloVehiculo(idModelo,nombreModelo,nombreMarca));
+            while (rs.next()) {
+                marcas.add(rs.getString(1));
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); if (stmt != null) stmt.close(); if (con != null) con.close(); }
+            catch (SQLException e) { e.printStackTrace(); }
+        }
+        return marcas;
+    }
+
+    public ArrayList<ModeloVehiculo> selectModeloPorMarca(String marca) {
+        String sentencia = "SELECT * FROM " + NOM_TABLA + " WHERE " + COL_MARCA
+                + " = ? ORDER BY " + COL_MARCA + ", " + COL_NOMBRE_MODELO;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<ModeloVehiculo> modelos = new ArrayList<ModeloVehiculo>();
+        try {
+            con = bd.getConexion();
+            stmt = con.prepareStatement(sentencia);
+            stmt.setString(1, marca);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                modelos.add(mapRow(rs));
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {if (rs != null) {rs.close();}
-            } catch (Exception e) {e.printStackTrace();}
-            try {if (stmt != null) {stmt.close();}
-            } catch (Exception e) {e.printStackTrace();}
-            try {if (con != null) {con.close();}}
-            catch (Exception e) {e.printStackTrace();}
+            try { if (rs != null) rs.close(); } catch (Exception e) { e.printStackTrace(); }
+            try { if (stmt != null) stmt.close(); } catch (Exception e) { e.printStackTrace(); }
+            try { if (con != null) con.close(); } catch (Exception e) { e.printStackTrace(); }
         }
         return modelos;
     }
 
+    public ArrayList<ModeloVehiculo> selectTodos() {
+        String sentencia = "SELECT * FROM " + NOM_TABLA
+                + " ORDER BY " + COL_MARCA + ", " + COL_NOMBRE_MODELO;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        ArrayList<ModeloVehiculo> modelos = new ArrayList<ModeloVehiculo>();
+        try {
+            con = bd.getConexion();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(sentencia);
+            while (rs.next()) {
+                modelos.add(mapRow(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) { e.printStackTrace(); }
+            try { if (stmt != null) stmt.close(); } catch (Exception e) { e.printStackTrace(); }
+            try { if (con != null) con.close(); } catch (Exception e) { e.printStackTrace(); }
+        }
+        return modelos;
+    }
+
+    private ModeloVehiculo mapRow(ResultSet rs) throws SQLException {
+        int idModelo = rs.getInt(COL_ID_MODELO);
+        String nombreModelo = rs.getString(COL_NOMBRE_MODELO);
+        int numeroPlazas = rs.getInt(COL_NUMERO_PLAZAS);
+        int numeroPuertas = rs.getInt(COL_NUMERO_PUERTAS);
+        String tipoVehiculo = rs.getString(COL_TIPO_VEHICULO);
+        String tipoPropulsion = rs.getString(COL_TIPO_PROPULSION);
+        String traccion = rs.getString(COL_TRACCION);
+        String nombreMarca = rs.getString(COL_MARCA);
+        String tipoTransmision = rs.getString(COL_TIPO_TRANSMISION);
+        return new ModeloVehiculo(idModelo, nombreModelo, numeroPlazas, numeroPuertas,
+                tipoVehiculo, tipoPropulsion, traccion, nombreMarca, tipoTransmision);
+    }
 }

@@ -2,8 +2,10 @@ package com.dam.view;
 
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -15,6 +17,9 @@ import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.ModeloVehiculo;
 import com.dam.model.data.Vehiculo;
 import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
+
 
 /*
 CREATE TABLE Marca (
@@ -36,11 +41,18 @@ precio int
 );
 */
 
+/*
+TODO: bloquear los campos si no se ha pulsado el boton de buscar marca
+*/
+
 public class PNuevoVehiculo extends JPanel implements IPanel{
     private static final int ANCHO=1000;
     private static final int ALTO=1000;
     public static final String GUARDAR_VEHICULO_BTN="Guardar Vehiculo";
     public static final String VER_COLOR_BTN="Ver color";
+    public static final String BUSCAR_MARCA_BTN="Buscar Marca";
+    public static final String ELIMINAR_VEHICULO_BTN="Eliminar Vehiculo";
+    public static final String MODIFICAR_VEHICULO_BTN="Modificar Vehiculo";
 
     JButton btnGuardar;
     DefaultComboBoxModel<String> modelMarcas;
@@ -61,6 +73,13 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
     private JLabel lblModelo;
     private JLabel lblMarca;
     private JLabel lblPrecio;
+    private JButton btnBuscarMarca;
+    private JButton btnEliminarVehiculo;
+    private JButton btnModificarVehiculo;
+    private DefaultListModel<Vehiculo> modelVehiculos;
+    private JList<Vehiculo> listVehiculos;
+    private ArrayList<ModeloVehiculo> modelos;
+    private ArrayList<Vehiculo> vehiculos;
     
 
     public PNuevoVehiculo(){
@@ -69,28 +88,58 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
         crearComponentes();
     }
 
+    public void actualizarMarcas(ArrayList<String> marcas){
+        modelMarcas.removeAllElements();
+        for(String m:marcas){
+            modelMarcas.addElement(m);
+        }
+    }
+
+    public void actualizarModelos(ArrayList<ModeloVehiculo> modelos){
+        this.modelos=modelos;
+        modelModelos.removeAllElements();
+        for(ModeloVehiculo m:modelos){
+            modelModelos.addElement(m.getNombreModelo());
+        }
+    }
+
+    public void actualizarVehiculos(ArrayList<Vehiculo> vehiculos){
+        this.vehiculos=vehiculos;
+        modelVehiculos.removeAllElements();
+        for(Vehiculo v:vehiculos){
+            modelVehiculos.addElement(v);
+        }
+    }
+
+    public Vehiculo getVehiculoSeleccionado(){
+        int indexVehiculo=listVehiculos.getSelectedIndex();
+        if(indexVehiculo==-1){
+            return null;
+        }
+        return vehiculos.get(indexVehiculo);
+    }
+
+    public String getMarca(){
+        int indexMarca=cbMarca.getSelectedIndex();
+        String marca=modelMarcas.getElementAt(indexMarca);
+        return marca;
+    }
+
     public Vehiculo getVehiculo(){
-        String marca=(String)cbMarca.getSelectedItem();
-        String modelo=(String)cbModelo.getSelectedItem();
         int precio=(int)spPrecio.getValue();
 
-        ModeloVehiculo m=new ModeloVehiculo(1,modelo,marca);
+        int indexModelo=cbModelo.getSelectedIndex();
+        ModeloVehiculo m=modelos.get(indexModelo);
+        
+        String matricula=txtMatricula.getText();
+        String color="R"+spRojo.getValue()+"G"+spVerde.getValue()+"B"+spAzul.getValue();
+        int year=(int)spYear.getValue();
+        int kilometraje=(int)spKilometraje.getValue();
+        int potencia=(int)spPotencia.getValue();
+        int cilindrada=(int)spCilindrada.getValue();
+        int peso=(int)spPeso.getValue();
 
-        return new Vehiculo(1,m,precio);
-    }
-
-    public void actualizarMarcas(String [] marcas){
-        modelMarcas.removeAllElements();
-        for(String marca:marcas){
-            modelMarcas.addElement(marca);
-        }
-    }
-
-    public void actualizarModelos(String [] modelos){
-        modelModelos.removeAllElements();
-        for(String modelo:modelos){
-            modelModelos.addElement(modelo);
-        }
+        return new Vehiculo(-1,m,precio,matricula,color,year,kilometraje,potencia,cilindrada,peso);
     }
 
     public void crearComponentes(){
@@ -99,7 +148,7 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
         add(lblTitulo);
 
         //seleccionar la marca con una lista desplegable
-        modelMarcas=new DefaultComboBoxModel<>();
+        modelMarcas=new DefaultComboBoxModel<String>();
         cbMarca=new JComboBox<String>(modelMarcas);
         cbMarca.setBounds(185, 103, 150, 25);
         add(cbMarca);
@@ -126,11 +175,11 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
         add(txtMatricula);
         txtMatricula.setColumns(10);
         
-        spYear = new JSpinner();
+        spYear = new JSpinner(new SpinnerNumberModel(2000, 1800, 2200, 1));
         spYear.setBounds(185, 281, 86, 20);
         add(spYear);
         
-        spKilometraje = new JSpinner();
+        spKilometraje = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         spKilometraje.setBounds(185, 312, 86, 20);
         add(spKilometraje);
         
@@ -202,6 +251,32 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
         lblPrecio = new JLabel("Precio");
         lblPrecio.setBounds(80, 188, 95, 14);
         add(lblPrecio);
+        
+        btnBuscarMarca = new JButton(BUSCAR_MARCA_BTN);
+        btnBuscarMarca.setBounds(345, 104, 150, 25);
+        add(btnBuscarMarca);
+        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(636, 91, 189, 194);
+        add(scrollPane);
+        
+        modelVehiculos = new DefaultListModel<Vehiculo>();
+        listVehiculos = new JList<Vehiculo>(modelVehiculos);
+        scrollPane.setViewportView(listVehiculos);
+        
+        JLabel lblVehculosALa = new JLabel("Vehículos a la venta");
+        lblVehculosALa.setBounds(636, 66, 142, 14);
+        add(lblVehculosALa);
+        
+        btnEliminarVehiculo = new JButton(ELIMINAR_VEHICULO_BTN);
+        btnEliminarVehiculo.setActionCommand(ELIMINAR_VEHICULO_BTN);
+        btnEliminarVehiculo.setBounds(636, 311, 150, 25);
+        add(btnEliminarVehiculo);
+        
+        btnModificarVehiculo = new JButton(MODIFICAR_VEHICULO_BTN);
+        btnModificarVehiculo.setActionCommand(MODIFICAR_VEHICULO_BTN);
+        btnModificarVehiculo.setBounds(636, 359, 150, 25);
+        add(btnModificarVehiculo);
 
         actualizarColor();
     }
@@ -216,7 +291,8 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
     public void setControlador(ConcesionarioControlador c){
         btnGuardar.addActionListener(c);
         btnVerColor.addActionListener(c);
+        btnBuscarMarca.addActionListener(c);
+        btnEliminarVehiculo.addActionListener(c);
+        btnModificarVehiculo.addActionListener(c);
     }
-
-
 }

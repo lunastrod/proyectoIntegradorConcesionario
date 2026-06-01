@@ -1,10 +1,11 @@
 package com.dam.model.data;
 
 /*
-CREATE TABLE Cliente (
-id_cliente INT PRIMARY KEY,
-nombre_apellidos varchar(100),
-metodo_pago varchar(50)
+CREATE TABLE IF NOT EXISTS "Cliente" (
+	"id_cliente"	INTEGER,
+	"nombre_apellidos"	varchar(100),
+	"metodo_pago"	varchar(50),
+	CONSTRAINT "pk_id_cli" PRIMARY KEY("id_cliente" AUTOINCREMENT)
 );
 */
 

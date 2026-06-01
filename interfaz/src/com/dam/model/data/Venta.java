@@ -19,8 +19,8 @@ public class Venta {
     private Cliente cliente;
     private Trabajador trabajador;
     private Vehiculo vehiculo;
-    private int fecha;
-    public Venta(int idVenta, Cliente cliente, Trabajador trabajador, Vehiculo vehiculo, int fecha) {
+    private String fecha;
+    public Venta(int idVenta, Cliente cliente, Trabajador trabajador, Vehiculo vehiculo, String fecha) {
         this.idVenta = idVenta;
         this.cliente = cliente;
         this.trabajador = trabajador;
@@ -40,7 +40,7 @@ public class Venta {
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
-    public int getFecha() {
+    public String getFecha() {
     	return fecha;
     }
 
