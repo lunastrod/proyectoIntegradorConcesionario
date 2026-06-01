@@ -1,7 +1,7 @@
 package com.dam.model.data;
-
 /*
-CREATE TABLE IF NOT EXISTS "Venta" (
+DROP TABLE IF EXISTS "Venta";
+CREATE TABLE "Venta" (
 	"id_venta"	INTEGER,
 	"id_cliente"	INTEGER,
 	"id_trabajador"	INTEGER,
@@ -13,13 +13,59 @@ CREATE TABLE IF NOT EXISTS "Venta" (
 	CONSTRAINT "fk_id_car" FOREIGN KEY("id_vehiculo") REFERENCES "Vehiculo"("id_vehiculo")
 );
 */
-
+/**
+ * Representa una venta realizada en el concesionario.
+ * <p>
+ * Registra la transacción entre un {@link Cliente} y el concesionario,
+ * incluyendo el {@link Vehiculo} vendido, el {@link Trabajador} que atendió
+ * la venta y la fecha en que se realizó.
+ * <p>
+ * Cada venta queda persistida en la base de datos a través de
+ * {@link com.dam.model.db.VentaDAO}.
+ *
+ * @see Cliente
+ * @see Trabajador
+ * @see Vehiculo
+ * @see com.dam.model.db.VentaDAO
+ */
 public class Venta {
+
+    /** Identificador único de la venta en la base de datos. */
     private int idVenta;
+
+    /** Cliente que ha adquirido el vehículo. */
     private Cliente cliente;
+
+    /** Trabajador del concesionario que ha atendido la venta. */
     private Trabajador trabajador;
+
+    /** Vehículo que ha sido vendido en esta transacción. */
     private Vehiculo vehiculo;
+
+    /**
+     * Fecha y hora en que se realizó la venta.
+     * <p>
+     * Se almacena como cadena de texto con el formato
+     * proporcionado por SQLite DATETIME DEFAULT CURRENT_TIMESTAMP,
+     * por ejemplo "2024-03-15 10:30:00".
+     */
     private String fecha;
+
+    /**
+     * Crea una venta con todos sus atributos.
+     * <p>
+     * Se usa al recuperar ventas existentes de la base de datos.
+     * Para registrar una nueva venta, el idVenta debe ser -1,
+     * ya que la base de datos lo asigna automáticamente, y fecha
+     * puede ser una cadena vacía, pues la base de datos aplica
+     * CURRENT_TIMESTAMP por defecto.
+     *
+     * @param idVenta    identificador único de la venta (-1 si es nueva)
+     * @param cliente    cliente que adquiere el vehículo
+     * @param trabajador trabajador que atiende la venta
+     * @param vehiculo   vehículo vendido
+     * @param fecha      fecha y hora de la venta en formato "YYYY-MM-DD HH:MM:SS"}
+     */
     public Venta(int idVenta, Cliente cliente, Trabajador trabajador, Vehiculo vehiculo, String fecha) {
         this.idVenta = idVenta;
         this.cliente = cliente;
@@ -28,22 +74,65 @@ public class Venta {
         this.fecha = fecha;
     }
 
+    /**
+     * Devuelve el identificador único de la venta.
+     *
+     * @return id de la venta
+     */
     public int getIdVenta() {
         return idVenta;
     }
+
+    /**
+     * Devuelve el cliente que ha adquirido el vehículo.
+     *
+     * @return cliente de la venta
+     */
     public Cliente getCliente() {
         return cliente;
     }
+
+    /**
+     * Devuelve el trabajador que ha atendido la venta.
+     *
+     * @return trabajador que gestionó la venta
+     */
     public Trabajador getTrabajador() {
         return trabajador;
     }
+
+    /**
+     * Devuelve el vehículo que ha sido vendido en esta transacción.
+     *
+     * @return vehículo vendido
+     */
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
+
+    /**
+     * Devuelve la fecha y hora en que se realizó la venta.
+     * <p>
+     * El valor proviene directamente de la base de datos, donde se genera
+     * automáticamente mediante CURRENT_TIMESTAMP en el momento
+     * de insertar el registro.
+     *
+     * @return fecha y hora de la venta en formato "YYYY-MM-DD HH:MM:SS"
+     */
     public String getFecha() {
-    	return fecha;
+        return fecha;
     }
 
+    /**
+     * Devuelve una representación textual completa de la venta,
+     * incluyendo el identificador, el cliente, el trabajador,
+     * el vehículo y la fecha.
+     * <p>
+     * Se usa principalmente para depuración y trazas en consola
+     * tras registrar una nueva venta.
+     *
+     * @return cadena multilínea con todos los datos de la venta
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

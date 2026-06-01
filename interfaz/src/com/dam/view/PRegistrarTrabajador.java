@@ -155,7 +155,6 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
 
 
     public void cargarTrabajador(Trabajador t) {
-        idTrabajadorEditando = t.getIdTrabajador();
         tfEmpleado.setText(t.getNombreApellidos());
         tfPasswd.setText(t.getPasswordTrabajador());
         tfConfirmPasswd.setText(t.getPasswordTrabajador());

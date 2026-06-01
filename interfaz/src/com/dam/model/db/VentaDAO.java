@@ -5,15 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import com.dam.model.data.Cliente;
 import com.dam.model.data.ModeloVehiculo;
 import com.dam.model.data.Trabajador;
 import com.dam.model.data.Vehiculo;
 import com.dam.model.data.Venta;
-
 /*
-CREATE TABLE IF NOT EXISTS "Venta" (
+DROP TABLE IF EXISTS "Venta";
+CREATE TABLE "Venta" (
 	"id_venta"	INTEGER,
 	"id_cliente"	INTEGER,
 	"id_trabajador"	INTEGER,
@@ -24,20 +23,73 @@ CREATE TABLE IF NOT EXISTS "Venta" (
 	CONSTRAINT "fk_id_trabajo" FOREIGN KEY("id_trabajador") REFERENCES "Trabajador"("id_trabajador"),
 	CONSTRAINT "fk_id_car" FOREIGN KEY("id_vehiculo") REFERENCES "Vehiculo"("id_vehiculo")
 );
+*/
+/**
+ * Objeto de acceso a datos para la entidad {@link Venta}.
+ * <p>
+ * Proporciona operaciones de inserción y consulta sobre la tabla
+ * Venta de la base de datos. Las consultas realizan múltiples
+ * JOIN con las tablas Cliente, Trabajador, Vehiculo y Modelo
+ * para devolver objetos {@link Venta} completamente poblados.
+ * Cada método gestiona su propia conexión, abriéndola al inicio
+ * y cerrándola en el bloque finally.
+ *
+ * @see Venta
+ * @see Cliente
+ * @see Trabajador
+ * @see Vehiculo
+ * @see AccesoBD
  */
 public class VentaDAO {
-	private AccesoBD bd;
-	public static final String NOM_TABLA = "Venta";
-	public static final String COL_ID_VENTA = "id_venta";
-	public static final String COL_ID_CLIENTE = "id_cliente";
-	public static final String COL_ID_TRABAJADOR = "id_trabajador";
-	public static final String COL_ID_VEHICULO = "id_vehiculo";
-	public static final String COL_FECHA = "fecha";
-	
-	public VentaDAO(AccesoBD bd) {
-		this.bd = bd;
-	}
-	
+
+    /** Instancia de acceso a la base de datos usada para obtener conexiones. */
+    private AccesoBD bd;
+
+    /** Nombre de la tabla en la base de datos. */
+    public static final String NOM_TABLA = "Venta";
+
+    /** Nombre de la columna identificador de la venta. */
+    public static final String COL_ID_VENTA = "id_venta";
+
+    /** Nombre de la columna con la clave foránea al cliente de la venta. */
+    public static final String COL_ID_CLIENTE = "id_cliente";
+
+    /** Nombre de la columna con la clave foránea al trabajador que atendió la venta. */
+    public static final String COL_ID_TRABAJADOR = "id_trabajador";
+
+    /** Nombre de la columna con la clave foránea al vehículo vendido. */
+    public static final String COL_ID_VEHICULO = "id_vehiculo";
+
+    /**
+     * Nombre de la columna con la fecha y hora de la venta.
+     * Su valor es generado automáticamente por la base de datos
+     * mediante CURRENT_TIMESTAMP si no se indica explícitamente.
+     */
+    public static final String COL_FECHA = "fecha";
+
+    /**
+     * Crea un nuevo VentaDAO con la instancia de acceso
+     * a la base de datos indicada.
+     *
+     * @param bd instancia de AccesoBD para obtener conexiones
+     */
+    public VentaDAO(AccesoBD bd) {
+        this.bd = bd;
+    }
+
+    /**
+     * Inserta una nueva venta en la base de datos.
+     * <p>
+     * El identificador de la venta y la fecha son asignados automáticamente
+     * por la base de datos: el primero mediante AUTOINCREMENT y la segunda
+     * mediante CURRENT_TIMESTAMP. Por ello, solo se persisten el cliente,
+     * el trabajador y el vehículo asociados.
+     *
+     * @param v venta a insertar; el cliente, trabajador y vehículo deben
+     *          existir previamente en la base de datos
+     * @return número de filas afectadas; 1 si se insertó correctamente,
+     *         -1 si ocurrió un error
+     */
 
 	public int insert(Venta v) {
 		String sentencia = "INSERT INTO " + NOM_TABLA + " ("
@@ -70,7 +122,17 @@ public class VentaDAO {
 		}
 		return res;
 	}
-	
+
+	/**
+     * Recupera todas las ventas registradas en la base de datos.
+     * <p>
+     * Realiza JOIN con las tablas Cliente, Trabajador, Vehiculo y Modelo
+     * para devolver cada venta con todos sus objetos asociados
+     * completamente poblados.
+     *
+     * @return lista con todas las ventas; lista vacía si no hay
+     *         ninguna o si ocurrió un error
+     */
 	public ArrayList<Venta> selectVentas() {
 		String sentencia = "SELECT * FROM " + NOM_TABLA 
 				+ " JOIN " + ClienteDAO.NOM_TABLA 
