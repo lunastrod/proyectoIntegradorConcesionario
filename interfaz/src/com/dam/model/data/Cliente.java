@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS "Cliente" (
 	CONSTRAINT "pk_id_cli" PRIMARY KEY("id_cliente" AUTOINCREMENT)
 );
 */
-
 /**
  * Representa un cliente del concesionario
  */
