@@ -17,11 +17,10 @@ CREATE TABLE IF NOT EXISTS "Cliente" (
 /**
  * Objeto de acceso a datos para la entidad {@link Cliente}.
  * <p>
- * Proporciona operaciones de inserción, consulta y búsqueda
+ * Proporciona operaciones para insertar, consultar y buscar con parámetros
  * sobre la tabla Cliente de la base de datos.
  * Cada método gestiona su propia conexión, abriéndola al inicio
  * y cerrándola en el bloque finally.
- *
  * @see Cliente
  * @see AccesoBD
  */
@@ -44,7 +43,6 @@ public class ClienteDAO {
 
     /**
      * Crea un nuevo ClienteDAO con la instancia de acceso a la base de datos indicada.
-     *
      * @param bd instancia de AccesoBD para obtener conexiones
      */
     public ClienteDAO(AccesoBD bd) {
@@ -56,7 +54,6 @@ public class ClienteDAO {
      * <p>
      * El identificador del cliente es asignado automáticamente
      * por la base de datos mediante AUTOINCREMENT.
-     *
      * @param c cliente a insertar
      * @return número de filas afectadas; 1 si se insertó correctamente,
      *         -1 si ocurrió un error
@@ -83,8 +80,7 @@ public class ClienteDAO {
     }
 
     /**
-     * Recupera todos los clientes de la base de datos ordenados por identificador.
-     *
+     * Obtiene todos los clientes de la base de datos ordenados por identificador.
      * @return lista con todos los clientes; lista vacía si no hay ninguno
      *         o si ocurrió un error
      */
@@ -119,10 +115,9 @@ public class ClienteDAO {
      * <p>
      * Se usa tras insertar un cliente nuevo para obtener el registro
      * completo con el identificador asignado por la base de datos.
-     *
-     * @param nombre nombre y apellidos exactos del cliente a buscar
+     * @param nombre nombre y apellidos exactos del cliente a buscar.
      * @return cliente encontrado, o null si no existe ninguno
-     *         con ese nombre o si ocurrió un error
+     *         con ese nombre o si ocurrió un error.
      */
     public Cliente selectPorNombre(String nombre) {
         String sentencia = "SELECT * FROM " + NOM_TABLA + " WHERE " + COL_NOMBRE_APELLIDOS + " = ?";

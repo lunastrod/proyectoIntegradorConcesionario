@@ -13,7 +13,7 @@ CREATE TABLE "Trabajador" (
  * Representa a un trabajador del concesionario.
  * <p>
  * Un trabajador puede tener dos roles: empleado común o administrador,
- * indicado por el campo esAdmin. Las credenciales almacenadas
+ * indicado por el campo "esAdmin". Las credenciales almacenadas
  * se usan para autenticar al trabajador a través del formulario de login.
  * @see com.dam.model.db.TrabajadorDAO
  */
@@ -40,7 +40,6 @@ public class Trabajador {
     /**
      * Crea un trabajador con todos sus atributos, incluyendo el identificador
      * de base de datos. Usado al recuperar registros existentes.
-     *
      * @param idTrabajador       identificador único del trabajador
      * @param nombreApellidos    nombre y apellidos del trabajador
      * @param passwordTrabajador contraseña del trabajador
@@ -55,8 +54,7 @@ public class Trabajador {
 
     /**
      * Crea un trabajador sin identificador, usado al registrar
-     * un nuevo trabajador antes de persistirlo en la base de datos.
-     *
+     * un nuevo trabajador antes de que tenga persistencia en la base de datos.
      * @param nombreApellidos    nombre y apellidos del trabajador
      * @param passwordTrabajador contraseña del trabajador
      * @param esAdmin            1 si es administrador, 0 si es empleado común
@@ -69,7 +67,6 @@ public class Trabajador {
 
     /**
      * Devuelve el identificador único del trabajador.
-     *
      * @return id del trabajador
      */
     public int getIdTrabajador() {
@@ -78,7 +75,6 @@ public class Trabajador {
 
     /**
      * Devuelve el nombre y apellidos del trabajador.
-     *
      * @return nombre y apellidos
      */
     public String getNombreApellidos() {
@@ -90,7 +86,6 @@ public class Trabajador {
      * <p>
      * <strong>Precaución:</strong> no exponer este valor en logs
      * ni en entornos accesibles por terceros.
-     *
      * @return contraseña del trabajador
      */
     public String getPasswordTrabajador() {
@@ -99,7 +94,6 @@ public class Trabajador {
 
     /**
      * Devuelve el valor numérico que indica el rol del trabajador.
-     *
      * @return 1 si es administrador, 0 si es empleado común
      */
     public int getEsAdmin() {
@@ -108,7 +102,6 @@ public class Trabajador {
 
     /**
      * Traduce el valor numérico del rol a una cadena legible.
-     *
      * @param esAdmin valor numérico del rol (0 o 1)
      * @return Administrador si esAdmin es 1,
      *         Trabajador común si es 0,
@@ -125,7 +118,6 @@ public class Trabajador {
 
         return estado;
     }
-
     /*
     @Override
     public String toString() {
@@ -136,7 +128,6 @@ public class Trabajador {
         return sb.toString();
     }
     */
-
     /**
      * Devuelve el nombre y apellidos del trabajador como representación textual.
      * <p>

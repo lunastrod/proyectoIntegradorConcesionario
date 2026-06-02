@@ -27,13 +27,12 @@ CREATE TABLE "Venta" (
 /**
  * Objeto de acceso a datos para la entidad {@link Venta}.
  * <p>
- * Proporciona operaciones de inserción y consulta sobre la tabla
+ * Proporciona operaciones de insertar y consulta sobre la tabla
  * Venta de la base de datos. Las consultas realizan múltiples
  * JOIN con las tablas Cliente, Trabajador, Vehiculo y Modelo
  * para devolver objetos {@link Venta} completamente poblados.
  * Cada método gestiona su propia conexión, abriéndola al inicio
  * y cerrándola en el bloque finally.
- *
  * @see Venta
  * @see Cliente
  * @see Trabajador
@@ -48,7 +47,7 @@ public class VentaDAO {
     /** Nombre de la tabla en la base de datos. */
     public static final String NOM_TABLA = "Venta";
 
-    /** Nombre de la columna identificador de la venta. */
+    /** Nombre de la columna ID de la venta. */
     public static final String COL_ID_VENTA = "id_venta";
 
     /** Nombre de la columna con la clave foránea al cliente de la venta. */
@@ -70,7 +69,6 @@ public class VentaDAO {
     /**
      * Crea un nuevo VentaDAO con la instancia de acceso
      * a la base de datos indicada.
-     *
      * @param bd instancia de AccesoBD para obtener conexiones
      */
     public VentaDAO(AccesoBD bd) {
@@ -80,17 +78,15 @@ public class VentaDAO {
     /**
      * Inserta una nueva venta en la base de datos.
      * <p>
-     * El identificador de la venta y la fecha son asignados automáticamente
+     * El ID de la venta y la fecha son asignados automáticamente
      * por la base de datos: el primero mediante AUTOINCREMENT y la segunda
      * mediante CURRENT_TIMESTAMP. Por ello, solo se persisten el cliente,
      * el trabajador y el vehículo asociados.
-     *
      * @param v venta a insertar; el cliente, trabajador y vehículo deben
      *          existir previamente en la base de datos
      * @return número de filas afectadas; 1 si se insertó correctamente,
      *         -1 si ocurrió un error
      */
-
 	public int insert(Venta v) {
 		String sentencia = "INSERT INTO " + NOM_TABLA + " ("
 				+ COL_ID_CLIENTE + ", " + COL_ID_TRABAJADOR + ", " + COL_ID_VEHICULO
@@ -129,7 +125,6 @@ public class VentaDAO {
      * Realiza JOIN con las tablas Cliente, Trabajador, Vehiculo y Modelo
      * para devolver cada venta con todos sus objetos asociados
      * completamente poblados.
-     *
      * @return lista con todas las ventas; lista vacía si no hay
      *         ninguna o si ocurrió un error
      */

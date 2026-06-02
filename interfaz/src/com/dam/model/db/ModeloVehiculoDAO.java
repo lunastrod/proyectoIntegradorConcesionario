@@ -29,7 +29,6 @@ CREATE TABLE "Modelo" (
  * de la base de datos, así como consultas filtradas por marca.
  * Cada método gestiona su propia conexión, abriéndola al inicio
  * y cerrándola en el bloque finally.
- *
  * @see ModeloVehiculo
  * @see AccesoBD
  */
@@ -41,7 +40,7 @@ public class ModeloVehiculoDAO {
     /** Nombre de la tabla en la base de datos. */
     public static final String NOM_TABLA = "Modelo";
 
-    /** Nombre de la columna identificador del modelo. */
+    /** Nombre de la columna ID del modelo. */
     public static final String COL_ID_MODELO = "id_modelo";
 
     /** Nombre de la columna con el nombre del modelo. */
@@ -71,7 +70,6 @@ public class ModeloVehiculoDAO {
     /**
      * Crea un nuevo ModeloVehiculoDAO con la instancia de acceso
      * a la base de datos indicada.
-     *
      * @param bd instancia de AccesoBD para obtener conexiones
      */
     public ModeloVehiculoDAO(AccesoBD bd) {
@@ -81,9 +79,8 @@ public class ModeloVehiculoDAO {
     /**
      * Inserta un nuevo modelo de vehículo en la base de datos.
      * <p>
-     * El identificador del modelo es asignado automáticamente
+     * El ID del modelo es asignado automáticamente
      * por la base de datos mediante AUTOINCREMENT.
-     *
      * @param m modelo de vehículo a insertar
      * @return número de filas afectadas; 1 si se insertó correctamente,
      *         -1 si ocurrió un error
@@ -122,12 +119,11 @@ public class ModeloVehiculoDAO {
     /**
      * Elimina el modelo de vehículo con el nombre indicado.
      * <p>
-     * Si el modelo tiene vehículos asociados mediante clave foránea,
+     * Si el modelo tiene vehículos asociados mediante una clave foránea,
      * la base de datos impedirá la eliminación y el método devolverá -1.
-     *
-     * @param nombreModelo nombre del modelo a eliminar
+     * @param nombreModelo nombre del modelo a eliminar.
      * @return número de filas afectadas; 1 si se eliminó correctamente,
-     *         -1 si ocurrió un error o el modelo tiene vehículos asociados
+     *         -1 si ocurrió un error o el modelo tiene vehículos asociados.
      */
     public int delete(String nombreModelo) {
         String sentencia = "DELETE FROM " + NOM_TABLA + " WHERE " + COL_NOMBRE_MODELO + " = ?";
@@ -152,11 +148,10 @@ public class ModeloVehiculoDAO {
      * Actualiza los datos de un modelo de vehículo existente en la base de datos.
      * <p>
      * Identifica el registro a actualizar por el identificador del modelo.
-     *
      * @param m modelo con los nuevos datos; su identificador debe coincidir
-     *          con un registro existente en la base de datos
+     *          con un registro existente en la base de datos.
      * @return número de filas afectadas; 1 si se actualizó correctamente,
-     *         -1 si ocurrió un error
+     *         -1 si ocurrió un error.
      */
     /** Parámetros corregidos: 1-nombre, 2-plazas, 3-puertas, 4-tipo_vehiculo,
      *  5-propulsion, 6-traccion, 7-marca, 8-transmision, 9-id */
@@ -201,9 +196,8 @@ public class ModeloVehiculoDAO {
      * Recupera todas las marcas distintas registradas en la tabla de modelos.
      * <p>
      * Se usa para poblar los desplegables de marca en la interfaz.
-     *
      * @return lista con los nombres de las marcas sin repetición;
-     *         lista vacía si no hay ninguna o si ocurrió un error
+     *         lista vacía si no hay ninguna o si ocurrió un error.
     */
     public ArrayList<String> selectMarcas() {
         String sentencia = "SELECT DISTINCT " + COL_MARCA + " FROM " + NOM_TABLA;
@@ -233,11 +227,10 @@ public class ModeloVehiculoDAO {
      * Recupera todos los modelos de vehículo pertenecientes a una marca concreta,
      * ordenados por marca y nombre de modelo.
      * <p>
-     * Se usa para poblar el desplegable de modelos tras seleccionar una marca.
-     *
-     * @param marca nombre de la marca por la que filtrar
+     * Se usa para llenar el desplegable de modelos tras seleccionar una marca.
+     * @param marca nombre de la marca por la que filtrar.
      * @return lista de modelos de la marca indicada; lista vacía si no hay
-     *         ninguno o si ocurrió un error
+     *         ninguno o si ocurrió un error.
      */
     public ArrayList<ModeloVehiculo> selectModeloPorMarca(String marca) {
         String sentencia = "SELECT * FROM " + NOM_TABLA + " WHERE " + COL_MARCA
@@ -266,10 +259,9 @@ public class ModeloVehiculoDAO {
 
     /**
      * Recupera todos los modelos de vehículo registrados en la base de datos,
-     * ordenados por marca y nombre de modelo.
-     *
+     * ordenados por marca y nombre del modelo.
      * @return lista con todos los modelos; lista vacía si no hay ninguno
-     *         o si ocurrió un error
+     *         o si ocurrió un error.
      */
     public ArrayList<ModeloVehiculo> selectTodos() {
         String sentencia = "SELECT * FROM " + NOM_TABLA
@@ -301,7 +293,6 @@ public class ModeloVehiculoDAO {
      * <p>
      * Método auxiliar usado por los métodos de consulta para evitar
      * duplicar la lógica de mapeo.
-     *
      * @param rs ResultSet posicionado en la fila a mapear
      * @return objeto ModeloVehiculo con los datos de la fila
      * @throws SQLException si ocurre un error al leer alguna columna del ResultSet
