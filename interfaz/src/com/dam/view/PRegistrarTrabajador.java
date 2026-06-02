@@ -176,7 +176,7 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
     /**
      * Vacia el listado visual actual e inserta una nueva tanda de filas en base
      * a los elementos recibidos en la colección.
-     * * @param listaTrabajadores colección dinámica con la información de los empleados a cargar
+     * @param listaTrabajadores colección dinámica con la información de los empleados a cargar
      */
     public void cargarTabla(ArrayList<Trabajador> listaTrabajadores) {
         table.clearSelection();
@@ -195,7 +195,7 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
     /**
      * Identifica el valor de la celda de identificación correspondiente a la fila
      * que ha sido marcada por el usuario.
-     * * @return el número identificador del trabajador seleccionado, o -1 si ninguna fila está activa
+     * @return el número identificador del trabajador seleccionado, o -1 si ninguna fila está activa
      */
     public int getIdTrabajadorSeleccionado() {
         int fila = table.getSelectedRow();
@@ -206,7 +206,7 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
     /**
      * Vuelca la información de un objeto Trabajador concreto sobre los cuadros de entrada
      * y la casilla de control del panel.
-     * * @param t el objeto que contiene las propiedades a reflejar en la interfaz
+     * @param t el objeto que contiene las propiedades a reflejar en la interfaz
      */
     public void cargarTrabajador(Trabajador t) {
         tfEmpleado.setText(t.getNombreApellidos());
@@ -232,7 +232,7 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
      * necesarias y devuelve una instancia estructurada del empleado.
      * <p>
      * Lanza advertencias emergentes si algún criterio obligatorio es omitido o es incorrecto.
-     * * @return un objeto de tipo Trabajador correctamente validado, o null si falla alguna comprobación
+     * @return un objeto de tipo Trabajador correctamente validado, o null si falla alguna comprobación
      */
     public Trabajador obtenerDatos() {
         String nombre = tfEmpleado.getText().trim();
@@ -261,7 +261,7 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
     /**
      * Enlaza el controlador principal del concesionario con los botones interactivos
      * del panel para recibir los eventos de interacción periférica.
-     * * @param c el manejador controlador central de flujos de negocio y navegación
+     * @param c el manejador controlador central de flujos de negocio y navegación
      */
     public void setControlador(ConcesionarioControlador c) {
         btnRegistro.addActionListener(c);

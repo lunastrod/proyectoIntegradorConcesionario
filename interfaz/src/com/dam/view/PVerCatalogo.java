@@ -80,7 +80,6 @@ public class PVerCatalogo extends JPanel implements IPanel {
      * Elimina todos los paneles anteriores, crea un {@link PVehiculo} por cada
      * vehículo de la lista, le asigna el controlador y recalcula el tamaño
      * preferido del panel interno para que el scroll funcione correctamente.
-     *
      * @param vehiculos lista de vehículos a mostrar en el catálogo
      */
     public void actualizarPanelesVehiculo(ArrayList<Vehiculo> vehiculos) {
@@ -102,7 +101,6 @@ public class PVerCatalogo extends JPanel implements IPanel {
     /**
      * Almacena la referencia al controlador para poder asignársela
      * a cada {@link PVehiculo} que se cree al actualizar el catálogo.
-     *
      * @param c controlador principal de la aplicación
      */
     public void setControlador(ConcesionarioControlador c) {

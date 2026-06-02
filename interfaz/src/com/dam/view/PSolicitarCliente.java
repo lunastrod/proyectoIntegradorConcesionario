@@ -5,7 +5,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.Login;
 
@@ -14,7 +13,7 @@ import com.dam.model.data.Login;
  * <p>
  * Contiene un formulario con campos para el nombre, método de pago y credenciales,
  * permitiendo capturar la información e interactuar con el controlador principal.
- * * @see IPanel
+ * @see IPanel
  * @see ConcesionarioControlador
  */
 public class PSolicitarCliente extends JPanel implements IPanel {
@@ -63,7 +62,7 @@ public class PSolicitarCliente extends JPanel implements IPanel {
 
     /**
      * Obtiene los datos de autenticación introducidos en el formulario.
-     * * @return un objeto Login que encapsula el texto del empleado y la contraseña
+     * @return un objeto Login que encapsula el texto del empleado y la contraseña
      */
     public Login getLogin() {
         return new Login(tfEmpleado.getText(), tfPasswd.getText());

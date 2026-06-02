@@ -8,7 +8,6 @@ import com.dam.control.ConcesionarioControlador;
  * Establece un contrato común para la configuración, creación de componentes,
  * asignación del controlador y visualización de cualquier ventana,
  * permitiendo que el controlador las gestione de forma uniforme.
- *
  * @see ConcesionarioControlador
  * @see IPanel
  */
@@ -35,9 +34,8 @@ public interface IVentana {
      * Registra el controlador en los componentes interactivos de la ventana.
      * <p>
      * Se llama una vez creados los componentes para añadir el controlador
-     * como ActionListener de los elementos que generan eventos,
+     * como el ActionListener de los elementos que generan eventos,
      * como los ítems de menú.
-     *
      * @param c controlador principal de la aplicación
      */
     public void setControlador(ConcesionarioControlador c);

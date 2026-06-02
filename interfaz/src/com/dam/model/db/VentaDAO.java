@@ -126,7 +126,7 @@ public class VentaDAO {
      * para devolver cada venta con todos sus objetos asociados
      * completamente poblados.
      * @return lista con todas las ventas; lista vacía si no hay
-     *         ninguna o si ocurrió un error
+     *         ninguna o si ocurrió un error.
      */
 	public ArrayList<Venta> selectVentas() {
 		String sentencia = "SELECT * FROM " + NOM_TABLA 

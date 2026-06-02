@@ -15,7 +15,6 @@ import com.dam.model.data.Login;
  * y un botón para enviar las credenciales al controlador. Los datos
  * introducidos se encapsulan en un objeto {@link Login} mediante
  * el método {@link #getLogin()}.
- *
  * @see Login
  * @see IPanel
  * @see ConcesionarioControlador
@@ -59,7 +58,6 @@ public class PLogin extends JPanel implements IPanel {
     /**
      * Construye y devuelve un objeto {@link Login} con los datos
      * introducidos en el formulario en el momento de la llamada.
-     *
      * @return objeto Login con el nombre de usuario y la contraseña introducidos
      */
     public Login getLogin() {
@@ -99,7 +97,6 @@ public class PLogin extends JPanel implements IPanel {
 
     /**
      * Registra el controlador como ActionListener del botón de acceso.
-     *
      * @param c controlador principal de la aplicación
      */
     public void setControlador(ConcesionarioControlador c) {

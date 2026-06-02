@@ -8,7 +8,6 @@ import com.dam.control.ConcesionarioControlador;
  * Establece un contrato común para la creación de componentes visuales
  * y la asignación del controlador, permitiendo que el controlador
  * interactúe con cualquier panel de forma uniforme.
- *
  * @see ConcesionarioControlador
  * @see IVentana
  */
