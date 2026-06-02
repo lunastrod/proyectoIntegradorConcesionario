@@ -1,12 +1,10 @@
 package com.dam.view;
 
 import javax.swing.JPanel;
-
 import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.Cliente;
 import com.dam.model.data.Trabajador;
 import com.dam.model.data.Vehiculo;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;

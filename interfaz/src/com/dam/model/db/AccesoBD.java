@@ -14,8 +14,7 @@ import java.util.Properties;
  * <p>
  * Lee el driver y la URL de conexión desde el fichero de propiedades
  * DB/ConfiguracionDB.properties y proporciona conexiones JDBC
- * listas para usar al resto de clases DAO.
- *
+ * listas para que las puedan usar el resto de clases DAO.
  * @see ClienteDAO
  * @see TrabajadorDAO
  * @see VehiculoDAO
@@ -62,7 +61,6 @@ public class AccesoBD {
      * y abre una conexión con la URL configurada.
      * Es responsabilidad del llamante cerrar la conexión cuando ya no
      * sea necesaria para liberar los recursos.
-     *
      * @return conexión activa a la base de datos
      * @throws ClassNotFoundException si el driver JDBC no se encuentra en el classpath
      * @throws SQLException           si ocurre un error al establecer la conexión

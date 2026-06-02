@@ -25,7 +25,6 @@ public class Login {
 
     /**
      * Devuelve el nombre de usuario introducido.
-     *
      * @return nombre de usuario
      */
     public String getUsuario() {
@@ -34,7 +33,6 @@ public class Login {
 
     /**
      * Devuelve la contraseña introducida.
-     *
      * @return contraseña en texto plano
      */
     public String getPasswd() {
@@ -44,7 +42,7 @@ public class Login {
     /**
      * Devuelve una representación textual del intento de login.
      * <p>
-     * @return cadena con el usuario y la contraseña
+     * @return cadena con el usuario y la contraseña introducidas.
      */
     @Override
     public String toString() {

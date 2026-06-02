@@ -19,12 +19,11 @@ CREATE TABLE "Trabajador" (
 /**
  * Objeto de acceso a datos para la entidad {@link Trabajador}.
  * <p>
- * Proporciona operaciones de inserción, eliminación y consulta
+ * Proporciona operaciones para insertar, borrar y consultar
  * sobre la tabla Trabajador de la base de datos, incluyendo
  * la validación de credenciales para el inicio de sesión.
  * Cada método gestiona su propia conexión, abriéndola al inicio
  * y cerrándola en el bloque finally.
- *
  * @see Trabajador
  * @see AccesoBD
  */
@@ -36,7 +35,7 @@ public class TrabajadorDAO {
     /** Nombre de la tabla en la base de datos. */
     public static final String NOM_TABLA = "Trabajador";
 
-    /** Nombre de la columna identificador del trabajador. */
+    /** Nombre de la columna ID del trabajador. */
     public static final String COL_ID_TRABAJADOR = "id_trabajador";
 
     /** Nombre de la columna con el nombre y apellidos del trabajador. */
@@ -51,7 +50,6 @@ public class TrabajadorDAO {
     /**
      * Crea un nuevo TrabajadorDAO con la instancia de acceso
      * a la base de datos indicada.
-     *
      * @param bd instancia de AccesoBD para obtener conexiones
      */
     public TrabajadorDAO(AccesoBD bd) {
@@ -61,12 +59,11 @@ public class TrabajadorDAO {
     /**
      * Inserta un nuevo trabajador en la base de datos.
      * <p>
-     * El identificador del trabajador es asignado automáticamente
+     * El ID del trabajador es asignado automáticamente
      * por la base de datos mediante AUTOINCREMENT.
-     *
-     * @param t trabajador a insertar
+     * @param t trabajador a insertar.
      * @return número de filas afectadas; 1 si se insertó correctamente,
-     *         -1 si ocurrió un error
+     *         -1 si ocurrió un error.
      */
     public int insert(Trabajador t) {
         String sentencia = "INSERT INTO " + NOM_TABLA + " (" + COL_NOMBRE_TRABAJADOR
@@ -94,10 +91,9 @@ public class TrabajadorDAO {
      * <p>
      * Si el trabajador tiene ventas asociadas mediante clave foránea,
      * la base de datos impedirá la eliminación y el método devolverá -1.
-     *
-     * @param nombreApellidos nombre y apellidos exactos del trabajador a eliminar
+     * @param nombreApellidos nombre y apellidos exactos del trabajador a eliminar.
      * @return número de filas afectadas; 1 si se eliminó correctamente,
-     *         -1 si ocurrió un error o el trabajador tiene ventas asociadas
+     *         -1 si ocurrió un error o el trabajador tiene ventas asociadas.
      */
     public int delete(String nombreApellidos) {
         String sentencia = "DELETE FROM " + NOM_TABLA + " WHERE " + COL_NOMBRE_TRABAJADOR + " = ?";
@@ -119,10 +115,9 @@ public class TrabajadorDAO {
     }
     /**
      * Busca un trabajador por su nombre y apellidos.
-     *
-     * @param nombre nombre y apellidos exactos del trabajador a buscar
+     * @param nombre nombre y apellidos exactos del trabajador a buscar.
      * @return trabajador encontrado, o null si no existe ninguno
-     *         con ese nombre o si ocurrió un error
+     *         con ese nombre o si ocurrió un error.
      */
     public ArrayList<Trabajador> selectAllTrabajadores() {
         String sentencia = "SELECT * FROM " + NOM_TABLA + " ORDER BY " + COL_ID_TRABAJADOR;
@@ -148,7 +143,6 @@ public class TrabajadorDAO {
     }
     /**
      * Busca un trabajador por su nombre y apellidos.
-     *
      * @param nombre nombre y apellidos exactos del trabajador a buscar
      * @return trabajador encontrado, o null si no existe ninguno
      *         con ese nombre o si ocurrió un error
@@ -162,11 +156,10 @@ public class TrabajadorDAO {
      * <p>
      * Se usa en el proceso de inicio de sesión para autenticar al trabajador
      * y determinar si tiene permisos de administrador.
-     *
      * @param nombre   nombre y apellidos del trabajador
-     * @param password contraseña introducida en el formulario de login
+     * @param password contraseña introducida en el formulario de login.
      * @return trabajador cuyas credenciales coinciden, o null si
-     *         el nombre o la contraseña son incorrectos
+     *         el nombre o la contraseña son incorrectos.
      */
     /** Devuelve el trabajador si las credenciales son correctas, null si no coinciden. */
     public Trabajador getTrabajadorPorCredenciales(String nombre, String password) {
@@ -201,11 +194,10 @@ public class TrabajadorDAO {
      * <p>
      * Método auxiliar reutilizado por las consultas que filtran
      * por un único campo de texto.
-     *
-     * @param sentencia sentencia SQL con un único parámetro de sustitución
-     * @param param     valor del parámetro a sustituir en la sentencia
+     * @param sentencia sentencia SQL con un único parámetro de sustitución.
+     * @param param     valor del parámetro a sustituir en la sentencia.
      * @return trabajador encontrado, o null si no hay resultados
-     *         o si ocurrió un error
+     *         o si ocurrió un error.
      */
     private Trabajador ejecutarConsultaUnico(String sentencia, String param) {
         Connection con = null;
@@ -235,9 +227,8 @@ public class TrabajadorDAO {
      * <p>
      * Método auxiliar usado por los métodos de consulta para evitar
      * duplicar la lógica de mapeo.
-     *
-     * @param rs ResultSet posicionado en la fila a mapear
-     * @return objeto Trabajador con los datos de la fila
+     * @param rs ResultSet posicionado en la fila a mapear.
+     * @return objeto Trabajador con los datos de la fila.
      * @throws Exception si ocurre un error al leer alguna columna del ResultSet
      */
     private Trabajador extraeTrabajador(ResultSet rs) throws Exception {

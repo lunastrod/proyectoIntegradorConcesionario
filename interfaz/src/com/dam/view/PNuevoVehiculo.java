@@ -3,7 +3,6 @@ package com.dam.view;
 
 import java.awt.Color;
 import java.util.ArrayList;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -12,34 +11,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-
 import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.ModeloVehiculo;
 import com.dam.model.data.Vehiculo;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
-
-
-/*
-CREATE TABLE Marca (
-nombre_marca varchar(50) PRIMARY KEY
-);
-
-CREATE TABLE Modelo (
-id_modelo INT PRIMARY KEY,
-nombre_modelo varchar(80),
-nombre_marca varchar(50),
-foreign key (nombre_marca) references Marca(nombre_marca)
-);
-
-CREATE TABLE Vehiculo (
-id_vehiculo INT PRIMARY KEY,
-modelo int,
-foreign key (modelo) references Modelo(id_modelo),
-precio int
-);
-*/
 
 /*
 TODO: bloquear los campos si no se ha pulsado el boton de buscar marca

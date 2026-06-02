@@ -17,9 +17,7 @@ import com.dam.view.PRegistrarTrabajador;
 import com.dam.view.PVerCatalogo;
 import com.dam.view.VPrincipal;
 
-//TODO ver que pasa si se elimina un vehiculo o modelo cuando tienen fK en venta
-
-
+//TODO: ver que pasa si se elimina un vehiculo o modelo cuando tienen fK en venta
 public class Inicio {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {

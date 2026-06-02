@@ -30,10 +30,9 @@ CREATE TABLE "Vehiculo" (
  * Proporciona operaciones CRUD completas sobre la tabla Vehiculo
  * de la base de datos. Las consultas realizan un JOIN con la tabla
  * Modelo para devolver objetos {@link Vehiculo} completamente
- * poblados con su {@link ModeloVehiculo} asociado.
+ * llenados con su {@link ModeloVehiculo} asociado.
  * Cada método gestiona su propia conexión, abriéndola al inicio
  * y cerrándola en el bloque finally.
- *
  * @see Vehiculo
  * @see ModeloVehiculo
  * @see AccesoBD
@@ -46,7 +45,7 @@ public class VehiculoDAO {
     /** Nombre de la tabla en la base de datos. */
     public static final String NOM_TABLA = "Vehiculo";
 
-    /** Nombre de la columna identificador del vehículo. */
+    /** Nombre de la columna ID del vehículo. */
     public static final String COL_ID_VEHICULO = "id_vehiculo";
 
     /** Nombre de la columna con la clave foránea al modelo del vehículo. */
@@ -79,7 +78,6 @@ public class VehiculoDAO {
     /**
      * Crea un nuevo VehiculoDAO con la instancia de acceso
      * a la base de datos indicada.
-     *
      * @param bd instancia de AccesoBD para obtener conexiones
      */
     public VehiculoDAO(AccesoBD bd) {
@@ -89,9 +87,8 @@ public class VehiculoDAO {
     /**
      * Inserta un nuevo vehículo en la base de datos.
      * <p>
-     * El identificador del vehículo es asignado automáticamente
+     * El ID del vehículo es asignado automáticamente
      * por la base de datos mediante AUTOINCREMENT.
-     *
      * @param v vehículo a insertar; su modelo debe existir previamente en la base de datos
      * @return número de filas afectadas; 1 si se insertó correctamente,
      *         -1 si ocurrió un error
@@ -130,12 +127,11 @@ public class VehiculoDAO {
     /**
      * Actualiza los datos de un vehículo existente en la base de datos.
      * <p>
-     * Identifica el registro a actualizar por el identificador del vehículo.
-     *
-     * @param v vehículo con los nuevos datos; su identificador debe coincidir
-     *          con un registro existente en la base de datos
+     * Identifica el registro a actualizar por el ID del vehículo.
+     * @param v vehículo con los nuevos datos; su ID debe coincidir
+     *          con un registro existente en la base de datos.
      * @return número de filas afectadas; 1 si se actualizó correctamente,
-     *         -1 si ocurrió un error
+     *         -1 si ocurrió un error.
      */
     public int update(Vehiculo v) {
         String sentencia = "UPDATE " + NOM_TABLA + " SET "
@@ -175,14 +171,13 @@ public class VehiculoDAO {
         return resultado;
     }
     /**
-     * Elimina el vehículo con el identificador indicado.
+     * Elimina el vehículo con el ID indicado.
      * <p>
      * Si el vehículo tiene ventas asociadas mediante clave foránea,
      * la base de datos impedirá la eliminación y el método devolverá -1.
-     *
-     * @param idVehiculo identificador del vehículo a eliminar
+     * @param idVehiculo ID del vehículo a eliminar.
      * @return número de filas afectadas; 1 si se eliminó correctamente,
-     *         -1 si ocurrió un error o el vehículo tiene ventas asociadas
+     *         -1 si ocurrió un error o el vehículo tiene ventas asociadas.
      */
     public int delete(int idVehiculo) {
         String sentencia = "DELETE FROM " + NOM_TABLA + " WHERE " + COL_ID_VEHICULO + " = ?";
@@ -203,14 +198,13 @@ public class VehiculoDAO {
         return resultado;
     }
     /**
-     * Recupera los vehículos cuyo identificador coincide con el indicado.
+     * Recupera los vehículos cuyo ID coincide con el indicado.
      * <p>
      * Realiza un JOIN con la tabla Modelo para devolver el vehículo
      * con su modelo completamente poblado.
-     *
-     * @param id identificador del vehículo a buscar
+     * @param id ID del vehículo a buscar.
      * @return lista con el vehículo encontrado; lista vacía si no existe
-     *         ninguno con ese identificador o si ocurrió un error
+     *         ninguno con ese ID o si ocurrió un error.
      */
     public ArrayList<Vehiculo> selectVehiculoPorId(int id) {
         String sentencia = "SELECT * FROM " + NOM_TABLA + " JOIN " + ModeloVehiculoDAO.NOM_TABLA
@@ -242,8 +236,7 @@ public class VehiculoDAO {
      * Recupera todos los vehículos registrados en la base de datos.
      * <p>
      * Realiza un JOIN con la tabla Modelo para devolver cada
-     * vehículo con su modelo completamente poblado.
-     *
+     * vehículo con su modelo completamente lleno.
      * @return lista con todos los vehículos; lista vacía si no hay
      *         ninguno o si ocurrió un error
      */
@@ -279,7 +272,6 @@ public class VehiculoDAO {
      * Método auxiliar usado por los métodos de consulta para evitar
      * duplicar la lógica de mapeo. Requiere que el ResultSet provenga
      * de una consulta con JOIN sobre la tabla Modelo.
-     *
      * @param rs ResultSet posicionado en la fila a mapear
      * @return objeto Vehiculo con todos sus datos y modelo poblado
      * @throws Exception si ocurre un error al leer alguna columna del ResultSet

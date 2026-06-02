@@ -18,11 +18,10 @@ CREATE TABLE "Venta" (
  * <p>
  * Registra la transacción entre un {@link Cliente} y el concesionario,
  * incluyendo el {@link Vehiculo} vendido, el {@link Trabajador} que atendió
- * la venta y la fecha en que se realizó.
+ * la venta y la fecha en que se realizó la transacción.
  * <p>
  * Cada venta queda persistida en la base de datos a través de
  * {@link com.dam.model.db.VentaDAO}.
- *
  * @see Cliente
  * @see Trabajador
  * @see Vehiculo
@@ -59,7 +58,6 @@ public class Venta {
      * ya que la base de datos lo asigna automáticamente, y fecha
      * puede ser una cadena vacía, pues la base de datos aplica
      * CURRENT_TIMESTAMP por defecto.
-     *
      * @param idVenta    identificador único de la venta (-1 si es nueva)
      * @param cliente    cliente que adquiere el vehículo
      * @param trabajador trabajador que atiende la venta
@@ -76,7 +74,6 @@ public class Venta {
 
     /**
      * Devuelve el identificador único de la venta.
-     *
      * @return id de la venta
      */
     public int getIdVenta() {
@@ -85,7 +82,6 @@ public class Venta {
 
     /**
      * Devuelve el cliente que ha adquirido el vehículo.
-     *
      * @return cliente de la venta
      */
     public Cliente getCliente() {
@@ -94,7 +90,6 @@ public class Venta {
 
     /**
      * Devuelve el trabajador que ha atendido la venta.
-     *
      * @return trabajador que gestionó la venta
      */
     public Trabajador getTrabajador() {
@@ -103,7 +98,6 @@ public class Venta {
 
     /**
      * Devuelve el vehículo que ha sido vendido en esta transacción.
-     *
      * @return vehículo vendido
      */
     public Vehiculo getVehiculo() {
@@ -116,7 +110,6 @@ public class Venta {
      * El valor proviene directamente de la base de datos, donde se genera
      * automáticamente mediante CURRENT_TIMESTAMP en el momento
      * de insertar el registro.
-     *
      * @return fecha y hora de la venta en formato "YYYY-MM-DD HH:MM:SS"
      */
     public String getFecha() {

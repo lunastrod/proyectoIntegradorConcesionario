@@ -17,13 +17,12 @@ CREATE TABLE "Vehiculo" (
 );
 */
 /**
- * Representa un vehículo concreto disponible en el concesionario.
+ * Representa un vehículo en concreto disponible en el concesionario.
  * <p>
  * Cada vehículo está asociado a un ModeloVehiculo que define
  * sus características técnicas comunes, mientras que esta clase almacena
  * los atributos específicos de la unidad física: matrícula, color,
  * kilometraje, precio, etc.
- *
  * @see ModeloVehiculo
  * @see com.dam.model.db.VehiculoDAO
  */
@@ -38,7 +37,7 @@ public class Vehiculo {
      */
     private ModeloVehiculo modelo;
 
-    /** Precio de venta del vehículo en euros. */
+    /** Precio de venta del vehículo en euros(€). */
     private int precio;
 
     /**
@@ -48,8 +47,7 @@ public class Vehiculo {
     private String matricula;
 
     /**
-     * Color de la pintura del vehículo, almacenado en formato
-     * RGB.
+     * Color de la pintura del vehículo, almacenado en formato RGB.
      */
     private String color;
 
@@ -74,17 +72,16 @@ public class Vehiculo {
      * Se usa tanto al recuperar vehículos de la base de datos como al
      * construir uno nuevo antes de persistirlo (en ese caso idVehiculo
      * debe ser -1, ya que la base de datos lo asigna automáticamente).
-     *
-     * @param idVehiculo  identificador único del vehículo (-1 si es nuevo)
-     * @param modelo      modelo al que pertenece el vehículo
-     * @param precio      precio de venta en euros
-     * @param matricula   matrícula del vehículo
-     * @param color       color en formato RGB
-     * @param year        año de fabricación
-     * @param kilometraje kilometraje actual en kilómetros
-     * @param potenciaCV  potencia del motor en CV
-     * @param cilindrada  cilindrada del motor en cc
-     * @param pesoKG      peso del vehículo en kg
+     * @param idVehiculo  identificador único del vehículo (-1 si es nuevo).
+     * @param modelo      modelo al que pertenece el vehículo.
+     * @param precio      precio de venta en euros.
+     * @param matricula   matrícula del vehículo.
+     * @param color       color en formato RGB.
+     * @param year        año de fabricación.
+     * @param kilometraje kilometraje actual en kilómetros.
+     * @param potenciaCV  potencia del motor en caballos(CV).
+     * @param cilindrada  cilindrada del motor en cilindros(cc).
+     * @param pesoKG      peso del vehículo en kilogramos(kg).
      */
     public Vehiculo(int idVehiculo, ModeloVehiculo modelo, int precio, String matricula,
             String color, int year, int kilometraje, int potenciaCV, int cilindrada, int pesoKG) {
@@ -102,7 +99,6 @@ public class Vehiculo {
 
     /**
      * Devuelve el identificador único del vehículo.
-     *
      * @return id del vehículo
      */
     public int getIdVehiculo() {
@@ -111,7 +107,6 @@ public class Vehiculo {
 
     /**
      * Devuelve el modelo al que pertenece este vehículo.
-     *
      * @return modelo del vehículo
      */
     public ModeloVehiculo getModelo() {
@@ -120,7 +115,6 @@ public class Vehiculo {
 
     /**
      * Devuelve el precio de venta del vehículo en euros.
-     *
      * @return precio en euros
      */
     public int getPrecio() {
@@ -129,7 +123,6 @@ public class Vehiculo {
 
     /**
      * Devuelve la matrícula del vehículo.
-     *
      * @return matrícula
      */
     public String getMatricula() {
@@ -146,7 +139,6 @@ public class Vehiculo {
 
     /**
      * Devuelve el año de fabricación del vehículo.
-     *
      * @return año de fabricación
      */
     public int getYear() {
@@ -155,7 +147,6 @@ public class Vehiculo {
 
     /**
      * Devuelve el kilometraje actual del vehículo en kilómetros.
-     *
      * @return kilometraje en km
      */
     public int getKilometraje() {
@@ -164,7 +155,6 @@ public class Vehiculo {
 
     /**
      * Devuelve la potencia del motor del vehículo en caballos de vapor.
-     *
      * @return potencia en CV
      */
     public int getPotenciaCV() {
@@ -173,7 +163,6 @@ public class Vehiculo {
 
     /**
      * Devuelve la cilindrada del motor del vehículo en centímetros cúbicos.
-     *
      * @return cilindrada en cc
      */
     public int getCilindrada() {
@@ -182,7 +171,6 @@ public class Vehiculo {
 
     /**
      * Devuelve el peso del vehículo en kilogramos.
-     *
      * @return peso en kg
      */
     public int getPesoKG() {
@@ -194,7 +182,6 @@ public class Vehiculo {
      * combinando los atributos propios de la unidad y los del modelo asociado.
      * <p>
      * Se usa para mostrar el detalle del vehículo en el panel de PInformacionVehiculo.
-     *
      * @return cadena multilínea con todas las especificaciones técnicas
      */
     public String getEspecificacionesTecnicas() {
