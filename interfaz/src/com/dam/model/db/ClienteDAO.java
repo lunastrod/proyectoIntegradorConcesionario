@@ -32,7 +32,7 @@ public class ClienteDAO {
     /** Nombre de la tabla en la base de datos. */
     public static final String NOM_TABLA = "Cliente";
 
-    /** Nombre de la columna identificador del cliente. */
+    /** Nombre de la columna ID del cliente. */
     public static final String COL_ID_CLIENTE = "id_cliente";
 
     /** Nombre de la columna con el nombre y apellidos del cliente. */
@@ -43,7 +43,7 @@ public class ClienteDAO {
 
     /**
      * Crea un nuevo ClienteDAO con la instancia de acceso a la base de datos indicada.
-     * @param bd instancia de AccesoBD para obtener conexiones
+     * @param bd instancia de AccesoBD para obtener conexiones.
      */
     public ClienteDAO(AccesoBD bd) {
         this.bd = bd;
@@ -52,11 +52,10 @@ public class ClienteDAO {
     /**
      * Inserta un nuevo cliente en la base de datos.
      * <p>
-     * El identificador del cliente es asignado automáticamente
+     * El ID del cliente es asignado automáticamente
      * por la base de datos mediante AUTOINCREMENT.
-     * @param c cliente a insertar
-     * @return número de filas afectadas; 1 si se insertó correctamente,
-     *         -1 si ocurrió un error
+     * @param c cliente a insertar.
+     * @return número de filas afectadas; 1 si se insertó correctamente, -1 si ocurrió un error.
      */
     public int insert(Cliente c) {
         String sentencia = "INSERT INTO " + NOM_TABLA + " (" + COL_NOMBRE_APELLIDOS
@@ -80,7 +79,7 @@ public class ClienteDAO {
     }
 
     /**
-     * Obtiene todos los clientes de la base de datos ordenados por identificador.
+     * Obtiene todos los clientes de la base de datos ordenados por ID.
      * @return lista con todos los clientes; lista vacía si no hay ninguno
      *         o si ocurrió un error
      */
@@ -114,7 +113,7 @@ public class ClienteDAO {
      * Busca un cliente por su nombre y apellidos.
      * <p>
      * Se usa tras insertar un cliente nuevo para obtener el registro
-     * completo con el identificador asignado por la base de datos.
+     * completo con el ID asignado por la base de datos.
      * @param nombre nombre y apellidos exactos del cliente a buscar.
      * @return cliente encontrado, o null si no existe ninguno
      *         con ese nombre o si ocurrió un error.

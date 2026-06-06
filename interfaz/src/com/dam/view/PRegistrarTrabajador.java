@@ -53,7 +53,7 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
     /** Modelo estructurado que maneja el flujo de filas y columnas de la tabla. */
     private DefaultTableModel dtmTrabajadores;
 
-    /** Título de cabecera para la columna de identificador único. */
+    /** Título de cabecera para la columna de ID único. */
     private static final String CLM_ID_TRABAJADOR   = "ID";
     /** Título de cabecera para la columna de nombre de usuario. */
     private static final String CLM_NOMBRE_APELLIDOS = "Nombre y apellidos";
@@ -195,7 +195,7 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
     /**
      * Identifica el valor de la celda de identificación correspondiente a la fila
      * que ha sido marcada por el usuario.
-     * @return el número identificador del trabajador seleccionado, o -1 si ninguna fila está activa
+     * @return el número ID del trabajador seleccionado, o -1 si ninguna fila está activa
      */
     public int getIdTrabajadorSeleccionado() {
         int fila = table.getSelectedRow();

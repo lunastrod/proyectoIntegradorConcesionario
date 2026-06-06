@@ -70,7 +70,7 @@ public class ModeloVehiculoDAO {
     /**
      * Crea un nuevo ModeloVehiculoDAO con la instancia de acceso
      * a la base de datos indicada.
-     * @param bd instancia de AccesoBD para obtener conexiones
+     * @param bd instancia de AccesoBD para obtener conexiones.
      */
     public ModeloVehiculoDAO(AccesoBD bd) {
         this.bd = bd;
@@ -81,9 +81,9 @@ public class ModeloVehiculoDAO {
      * <p>
      * El ID del modelo es asignado automáticamente
      * por la base de datos mediante AUTOINCREMENT.
-     * @param m modelo de vehículo a insertar
+     * @param m modelo de vehículo a insertar.
      * @return número de filas afectadas; 1 si se insertó correctamente,
-     *         -1 si ocurrió un error
+     *         -1 si ocurrió un error.
      */
     public int insert(ModeloVehiculo m) {
         String sentencia = "INSERT INTO " + NOM_TABLA + " ("
@@ -147,14 +147,12 @@ public class ModeloVehiculoDAO {
      /**
      * Actualiza los datos de un modelo de vehículo existente en la base de datos.
      * <p>
-     * Identifica el registro a actualizar por el identificador del modelo.
-     * @param m modelo con los nuevos datos; su identificador debe coincidir
+     * Identifica el registro a actualizar por el ID del modelo.
+     * @param m modelo con los nuevos datos; su ID debe coincidir
      *          con un registro existente en la base de datos.
      * @return número de filas afectadas; 1 si se actualizó correctamente,
      *         -1 si ocurrió un error.
      */
-    /** Parámetros corregidos: 1-nombre, 2-plazas, 3-puertas, 4-tipo_vehiculo,
-     *  5-propulsion, 6-traccion, 7-marca, 8-transmision, 9-id */
     public int update(ModeloVehiculo m) {
         String sentencia = "UPDATE " + NOM_TABLA + " SET "
                 + COL_NOMBRE_MODELO + " = ?, "
@@ -293,9 +291,9 @@ public class ModeloVehiculoDAO {
      * <p>
      * Método auxiliar usado por los métodos de consulta para evitar
      * duplicar la lógica de mapeo.
-     * @param rs ResultSet posicionado en la fila a mapear
-     * @return objeto ModeloVehiculo con los datos de la fila
-     * @throws SQLException si ocurre un error al leer alguna columna del ResultSet
+     * @param rs ResultSet posicionado en la fila a mapear.
+     * @return objeto ModeloVehiculo con los datos de la fila.
+     * @throws SQLException si ocurre un error al leer alguna columna del ResultSet.
      */
     private ModeloVehiculo obtenerModelo(ResultSet rs) throws SQLException {
         int idModelo = rs.getInt(COL_ID_MODELO);

@@ -52,7 +52,7 @@ public class ModeloVehiculo {
         "Furgoneta", "Motocicleta", "SUV", "Todoterreno"
     };
 
-    /** Identificador único del modelo en la base de datos. */
+    /** ID único del modelo en la base de datos. */
     private int idModelo;
 
     /** Nombre comercial del modelo (p. ej. "Corolla", "Corsa"). */
@@ -82,7 +82,7 @@ public class ModeloVehiculo {
     /**
      * Crea un nuevo ModeloVehiculo con todos sus atributos.
      *
-     * @param idModelo        identificador único del modelo.
+     * @param idModelo        ID único del modelo.
      * @param nombreModelo    nombre comercial del modelo.
      * @param numeroPlazas    número de plazas.
      * @param numeroPuertas   número de puertas.
@@ -107,7 +107,7 @@ public class ModeloVehiculo {
     }
 
     /**
-     * Devuelve el identificador único del modelo.
+     * Devuelve el ID único del modelo.
      * @return id del modelo
      */
     public int getIdModelo() {

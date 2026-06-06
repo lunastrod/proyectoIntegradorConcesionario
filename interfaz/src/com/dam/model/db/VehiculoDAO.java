@@ -238,7 +238,7 @@ public class VehiculoDAO {
      * Realiza un JOIN con la tabla Modelo para devolver cada
      * vehículo con su modelo completamente lleno.
      * @return lista con todos los vehículos; lista vacía si no hay
-     *         ninguno o si ocurrió un error
+     *         ninguno o si ocurrió un error.
      */
     public ArrayList<Vehiculo> selectTodos() {
         String sentencia = "SELECT * FROM " + NOM_TABLA + " JOIN " + ModeloVehiculoDAO.NOM_TABLA
@@ -272,9 +272,9 @@ public class VehiculoDAO {
      * Método auxiliar usado por los métodos de consulta para evitar
      * duplicar la lógica de mapeo. Requiere que el ResultSet provenga
      * de una consulta con JOIN sobre la tabla Modelo.
-     * @param rs ResultSet posicionado en la fila a mapear
-     * @return objeto Vehiculo con todos sus datos y modelo poblado
-     * @throws Exception si ocurre un error al leer alguna columna del ResultSet
+     * @param rs ResultSet posicionado en la fila a mapear.
+     * @return objeto Vehiculo con todos sus datos y modelo poblado.
+     * @throws Exception si ocurre un error al leer alguna columna del ResultSet.
      */
     private Vehiculo extraeVehiculo(ResultSet rs) throws Exception {
         int idVehiculo = rs.getInt(COL_ID_VEHICULO);

@@ -62,7 +62,7 @@ public class PSolicitarCliente extends JPanel implements IPanel {
 
     /**
      * Obtiene los datos de autenticación introducidos en el formulario.
-     * @return un objeto Login que encapsula el texto del empleado y la contraseña
+     * @return un objeto Login que encapsula el texto del empleado y la contraseña.
      */
     public Login getLogin() {
         return new Login(tfEmpleado.getText(), tfPasswd.getText());
@@ -110,7 +110,7 @@ public class PSolicitarCliente extends JPanel implements IPanel {
     /**
      * Registra el controlador de la aplicación como el escuchador de eventos
      * para el botón de acción principal de este panel.
-     * @param c el controlador principal encargado de gestionar los eventos de la interfaz
+     * @param c el controlador principal encargado de gestionar los eventos de la interfaz.
      */
     public void setControlador(ConcesionarioControlador c) {
         btnLogin.addActionListener(c);

@@ -11,32 +11,83 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import java.util.ArrayList;
 
+/**
+ * Panel que muestra la información detallada de un vehículo
+ * y permite al usuario iniciar el proceso de compra del mismo.
+ * <p>
+ * Nos enseña el modelo, el precio y las especificaciones técnicas
+ * del vehículo seleccionado del catálogo. Contiene un subpanel
+ * de compra oculto por defecto que se muestra al pulsar el botón
+ * de comprar, permitiendo introducir los datos del cliente,
+ * el trabajador que nos atiende la venta y el método de pago.
+ * @see Vehiculo
+ * @see Cliente
+ * @see Trabajador
+ * @see IPanel
+ * @see ConcesionarioControlador
+ */
 public class PInformacionVehiculo extends JPanel implements IPanel {
+
+    /** Ancho del panel en píxeles. */
     private static final int ANCHO = 1000;
+
+    /** Alto del panel en píxeles. */
     private static final int ALTO = 1000;
+
+    /** Comando de acción del botón que muestra u oculta el panel de compra. */
     public static final String COMPRAR_BTN = "Comprar";
+
+    /** Comando de acción del botón que confirma y registra la compra. */
     public static final String REALIZAR_COMPRA_BTN = "Realizar Compra";
 
+    /** Etiqueta que muestra el nombre del modelo y la marca del vehículo. */
     JLabel lblPrecio;
+
+    /** Etiqueta que muestra el precio del vehículo en euros. */
     JLabel lblModelo;
+
+    /** Área de texto no editable con las especificaciones técnicas del vehículo. */
     JTextArea textAreaEspecificaciones;
+
+    /** Botón que alterna la visibilidad del panel de compra. */
     private JButton btnComprar;
+
+    /** Vehículo cuya información se está mostrando actualmente. */
     Vehiculo vehiculoActual;
+
+    /** Campo de texto para introducir el nombre y apellidos del cliente. */
     private JTextField txtNombreCliente;
+
+    /** Modelo del desplegable con la lista de trabajadores disponibles. */
     private DefaultComboBoxModel<Trabajador> modelTrabajadores;
+
+    /** Desplegable para seleccionar el trabajador que atiende la venta. */
     private JComboBox<Trabajador> cbTrabajador;
+
+    /** Botón que confirma y registra la compra del vehículo. */
     private JButton btnRealizarCompra;
+
+    /** Campo de texto para introducir el método de pago del cliente. */
     private JTextField txtMetodoPago;
+
+    /** Subpanel que agrupa los campos del formulario de compra. */
     private JPanel panelCompra;
 
+    /**
+     * Crea el panel de información del vehículo e inicializa todos sus componentes.
+     */
     public PInformacionVehiculo() {
         crearComponentes();
         setSize(ANCHO, ALTO);
     }
 
+    /**
+     * Crea e inicializa todos los componentes visuales del panel,
+     * incluyendo las etiquetas de modelo y precio, el área de especificaciones
+     * técnicas, el botón de comprar y el subpanel de compra con su formulario.
+     */
     public void crearComponentes() {
         setLayout(null);
 
@@ -98,6 +149,13 @@ public class PInformacionVehiculo extends JPanel implements IPanel {
         panelCompra.add(btnRealizarCompra);
     }
 
+    /**
+     * Actualiza el desplegable de trabajadores con la lista proporcionada.
+     * <p>
+     * Se llama antes de mostrar el panel para asegurarse de que
+     * la lista de trabajadores está actualizada con los datos de la base de datos.
+     * @param trabajadores lista de trabajadores a mostrar en el desplegable
+     */
     public void actualizarTrabajadores(ArrayList<Trabajador> trabajadores) {
         modelTrabajadores.removeAllElements();
         for (Trabajador t : trabajadores) {
@@ -105,6 +163,14 @@ public class PInformacionVehiculo extends JPanel implements IPanel {
         }
     }
 
+    /**
+     * Carga los datos del vehículo indicado en el panel y oculta
+     * el formulario de compra.
+     * <p>
+     * Actualiza las etiquetas de modelo y precio, rellena el área de
+     * especificaciones técnicas y limpia los campos del formulario de compra.
+     * @param v vehículo cuya información se desea mostrar al usuario.
+     */
     public void mostrarInfoVehiculo(Vehiculo v) {
         vehiculoActual = v;
         lblModelo.setText(v.getModelo().getMarca() + " " + v.getModelo().getNombreModelo());
@@ -114,28 +180,60 @@ public class PInformacionVehiculo extends JPanel implements IPanel {
         limpiarFormularioCompra();
     }
 
+    /**
+     * Vacia los campos del formulario de compra.
+     * <p>
+     * Se llama al cargar un nuevo vehículo para evitar que queden
+     * datos de una compra anterior.
+     */
     private void limpiarFormularioCompra() {
         txtNombreCliente.setText("");
         txtMetodoPago.setText("");
     }
 
+    /**
+     * Alterna la visibilidad del subpanel de compra.
+     * <p>
+     * Si el panel de compra estaba oculto, lo muestra; si estaba visible, lo oculta.
+     * Se invoca al pulsar el botón de comprar.
+     */
     public void togglePanelCompra() {
         panelCompra.setVisible(!panelCompra.isVisible());
     }
 
+    /**
+     * Devuelve el vehículo que se está mostrando actualmente en el panel.
+     * @return vehículo actual
+     */
     public Vehiculo getVehiculoActual() {
         return vehiculoActual;
     }
 
+    /**
+     * Construye y devuelve un objeto {@link Cliente} con los datos
+     * introducidos en el formulario de compra.
+     * <p>
+     * El ID se establece a -1 ya que el cliente aún
+     * no ha tenido persistencia en la base de datos.
+     * @return cliente con los datos del formulario
+     */
     public Cliente getCliente() {
         return new Cliente(-1, txtNombreCliente.getText(), txtMetodoPago.getText());
     }
 
-    /** Devuelve el trabajador seleccionado en el combo, o null si está vacío. */
+    /**
+     * Devuelve el trabajador seleccionado en el desplegable del formulario de compra.
+     * @return trabajador seleccionado, o null si el desplegable está vacío
+     */
     public Trabajador getTrabajadorSeleccionado() {
         return (Trabajador) modelTrabajadores.getSelectedItem();
     }
 
+    /**
+     * Registra el controlador como ActionListener de los botones
+     * de comprar y de realizar compra.
+     * @param c controlador principal de la aplicación
+     */
     public void setControlador(ConcesionarioControlador c) {
         btnComprar.addActionListener(c);
         btnRealizarCompra.addActionListener(c);
