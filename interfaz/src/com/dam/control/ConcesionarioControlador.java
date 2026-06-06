@@ -10,6 +10,7 @@ import com.dam.view.Avisos;
 import com.dam.view.VPrincipal;
 import com.dam.view.PNuevoVehiculo;
 import com.dam.view.PVerCatalogo;
+import com.dam.view.PVerVentasClientes;
 import com.dam.view.PNuevoModelo;
 import com.dam.view.PInformacionVehiculo;
 import com.dam.view.PLogin;
@@ -71,6 +72,9 @@ public class ConcesionarioControlador implements ActionListener {
 
     /** Panel con la información detallada de un vehículo y el formulario de compra. */
     private PInformacionVehiculo pInformacionVehiculo;
+    
+    /** Panel con la información en tablas de los clientes y ventas. */
+    private PVerVentasClientes pVerVentasClientes;
 
     /** DAO para operaciones sobre la tabla Cliente. */
     private ClienteDAO clienteDAO;
@@ -121,6 +125,7 @@ public class ConcesionarioControlador implements ActionListener {
      * @param pLogin               panel de inicio de sesión.
      * @param pRegistrarTrabajador panel de gestión de trabajadores.
      * @param pInformacionVehiculo panel de información y compra de vehículos.
+     * @param pVerVentasClientes   panel para ver las ventas y clientes.
      * @param clienteDAO           DAO de clientes.
      * @param modeloVehiculoDAO    DAO de modelos de vehículo.
      * @param trabajadorDAO        DAO de trabajadores.
@@ -137,6 +142,7 @@ public class ConcesionarioControlador implements ActionListener {
             PLogin pLogin,
             PRegistrarTrabajador pRegistrarTrabajador,
             PInformacionVehiculo pInformacionVehiculo,
+            PVerVentasClientes pVerVentasClientes,
             ClienteDAO clienteDAO,
             ModeloVehiculoDAO modeloVehiculoDAO,
             TrabajadorDAO trabajadorDAO,
@@ -151,6 +157,7 @@ public class ConcesionarioControlador implements ActionListener {
         this.pLogin = pLogin;
         this.pRegistrarTrabajador = pRegistrarTrabajador;
         this.pInformacionVehiculo = pInformacionVehiculo;
+        this.pVerVentasClientes = pVerVentasClientes;
         this.clienteDAO = clienteDAO;
         this.modeloVehiculoDAO = modeloVehiculoDAO;
         this.trabajadorDAO = trabajadorDAO;
@@ -218,13 +225,26 @@ public class ConcesionarioControlador implements ActionListener {
                 actualizarModoClaroOscuro(modoClaro);
                 consultarTrabajadores();
                 break;
+            case VPrincipal.VER_TABLAS:
+            	v.cargarPanel(pVerVentasClientes);
+            	actualizarModoClaroOscuro(modoClaro);
+            	consultarClientesVentas();
             default:
                 System.out.println("Menu no reconocido: " + e.getActionCommand());
                 break;
         }
     }
-
+    
     /**
+     * Método que nos devuelven los datos de los clientes y las ventas para el panel de
+     *  ver las ventas y clientes de las tablas de la base de datos.
+	*/
+    private void consultarClientesVentas() {
+		pVerVentasClientes.cargarTabla(clienteDAO.selectAllClientes());
+		pVerVentasClientes.cargarTabla1(ventaDAO.selectVentas());
+	}
+
+	/**
      * Gestiona los eventos generados por los botones de todos los paneles.
      * <p>
      * Identifica el botón pulsado mediante su comando de acción y delega
@@ -581,7 +601,7 @@ public class ConcesionarioControlador implements ActionListener {
         if (trabajador != null) {
             sesionIniciada = true;
             admin = trabajador.getEsAdmin() == 1;
-            Avisos.info(v, "Sesión iniciada como " + trabajador.getNombreApellidos() + ".");
+            Avisos.info(v, "Sesión iniciada como " + trabajador.getNombreTrabajador() + ".");
         } else {
             sesionIniciada = false;
             admin = false;
@@ -669,7 +689,7 @@ public class ConcesionarioControlador implements ActionListener {
             return;
         }
 
-        int res = trabajadorDAO.delete(seleccionado.getNombreApellidos());
+        int res = trabajadorDAO.delete(seleccionado.getNombreTrabajador());
         if (res > 0) {
             Avisos.info(v, "Trabajador eliminado correctamente.");
             consultarTrabajadores();

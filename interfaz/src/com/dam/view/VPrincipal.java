@@ -51,6 +51,9 @@ public class VPrincipal extends JFrame implements IVentana {
 
     /** Texto del ítem de menú para añadir un nuevo trabajador al sistema. */
     public static final String NUEVO_EMPLEADO = "Nuevo trabajador";
+    
+    /** Texto del ítem de menú para ver las tablas de clientes y ventas. */
+    public static final String VER_TABLAS = "Ver ventas y clientes";
 
     /** Ítem de menú para la opción de añadir vehículos. */
     private JMenuItem itemNuevoVeh;
@@ -60,6 +63,9 @@ public class VPrincipal extends JFrame implements IVentana {
 
     /** Ítem de menú para la opción de ver el catálogo. */
     private JMenuItem itemVer;
+    
+    /** Ítem de menú para la opción de ver los clientes y ventas. */
+    private JMenuItem itemVerTablas;
 
     /** Ítem de menú para la opción de añadir modelos de vehículos. */
     private JMenuItem itemNuevoMod;
@@ -129,6 +135,9 @@ public class VPrincipal extends JFrame implements IVentana {
         
         itemNuevoTra = new JMenuItem(NUEVO_EMPLEADO);
         menuEncuestas.add(itemNuevoTra);
+        
+        itemVerTablas = new JMenuItem(VER_TABLAS);
+        menuEncuestas.add(itemVerTablas);
 
         itemLogin = new JMenuItem(LOGIN_MENU);
         menuEncuestas.add(itemLogin);
@@ -140,15 +149,16 @@ public class VPrincipal extends JFrame implements IVentana {
     /**
      * Actualiza la visibilidad de las opciones del menú según los permisos del usuario.
      * <p>
-     * Permite restringir el acceso al añadido de vehículos, modelos y gestión de
-     * trabajadores dependiendo de si el usuario ha iniciado sesión como empleado o
+     * Permite restringir el acceso al añadido de vehículos, modelos, gestión de
+     * trabajadores y ver ventas/clientes dependiendo de si el usuario ha iniciado sesión como empleado o
      * si cuenta con privilegios adicionales de administrador.
      * @param empleado true si el usuario actual es un empleado autenticado.
-     * @param admin    true si el usuario actual posee rol de administrador.
+     * @param admin true si el usuario actual posee rol de administrador.
      */
     public void actualizarMenu(boolean empleado, boolean admin) {
         itemNuevoVeh.setVisible(empleado);
         itemNuevoMod.setVisible(empleado);
+        itemVerTablas.setVisible(empleado);
         itemNuevoTra.setVisible(empleado && admin);
     }
 
@@ -162,6 +172,7 @@ public class VPrincipal extends JFrame implements IVentana {
         itemVer.addActionListener(c);
         itemNuevoMod.addActionListener(c);
         itemNuevoTra.addActionListener(c);
+        itemVerTablas.addActionListener(c);
         itemLogin.addActionListener(c);
         mntmNewMenuItem.addActionListener(c);
     }

@@ -16,6 +16,7 @@ import com.dam.view.PNuevoModelo;
 import com.dam.view.PNuevoVehiculo;
 import com.dam.view.PRegistrarTrabajador;
 import com.dam.view.PVerCatalogo;
+import com.dam.view.PVerVentasClientes;
 import com.dam.view.VPrincipal;
 
 //filtros en el catalogo
@@ -66,6 +67,7 @@ public class Inicio {
                 PLogin pLogin = new PLogin();
                 PRegistrarTrabajador pRegistrarTrabajador = new PRegistrarTrabajador();
                 PInformacionVehiculo pInformacionVehiculo = new PInformacionVehiculo();
+                PVerVentasClientes pVerVentasClientes = new PVerVentasClientes();
 
                 AccesoBD bd = new AccesoBD();
                 SetupBD setup = new SetupBD(bd);
@@ -86,10 +88,12 @@ public class Inicio {
                         pLogin,
                         pRegistrarTrabajador,
                         pInformacionVehiculo,
+                        pVerVentasClientes,
                         clienteDAO,
                         modeloVehiculoDAO,
                         trabajadorDAO,
                         vehiculoDAO,
+                        
                         ventaDAO);
 
                 ventanaPrincipal.setControlador(controlador);
@@ -101,7 +105,8 @@ public class Inicio {
                 pLogin.setControlador(controlador);
                 pModificarVehiculo.setControlador(controlador);
                 pRegistrarTrabajador.setControlador(controlador);
-
+                pVerVentasClientes.setControlador(controlador);
+                
                 controlador.cargarPanelCatalogo();
                 ventanaPrincipal.hacerVisible();
             }
