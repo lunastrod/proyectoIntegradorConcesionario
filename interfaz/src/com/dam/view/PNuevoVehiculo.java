@@ -204,7 +204,6 @@ public class PNuevoVehiculo extends JPanel implements IPanel {
         int indexMarca = cbMarca.getSelectedIndex();
         return modelMarcas.getElementAt(indexMarca);
     }
-
     /**
      * Construye y devuelve un objeto {@link Vehiculo} con los datos
      * introducidos actualmente en el formulario.
@@ -214,19 +213,21 @@ public class PNuevoVehiculo extends JPanel implements IPanel {
      * formato RGB a partir de los spinners de los componentes RGB.
      * @return vehículo con los datos del formulario listo para insertar
      */
-    public Vehiculo getVehiculo() {
-        int precio = (int) spPrecio.getValue();
-        int indexModelo = cbModelo.getSelectedIndex();
-        ModeloVehiculo m = modelos.get(indexModelo);
-        String matricula = txtMatricula.getText();
-        String color = "R" + spRojo.getValue() + "G" + spVerde.getValue() + "B" + spAzul.getValue();
-        int year = (int) spYear.getValue();
-        int kilometraje = (int) spKilometraje.getValue();
-        int potencia = (int) spPotencia.getValue();
-        int cilindrada = (int) spCilindrada.getValue();
-        int peso = (int) spPeso.getValue();
-        return new Vehiculo(-1, m, precio, matricula, color, year, kilometraje, potencia, cilindrada, peso);
-    }
+    public Vehiculo getVehiculo(){
+        int precio=(int)spPrecio.getValue();
+
+        int indexModelo=cbModelo.getSelectedIndex();
+        ModeloVehiculo m=modelos.get(indexModelo);
+        
+        String matricula=txtMatricula.getText().trim();
+        String color = "#" + Integer.toHexString(new java.awt.Color((int)spRojo.getValue(), (int)spVerde.getValue(), (int)spAzul.getValue()).getRGB()).substring(2).toUpperCase();
+        int year=(int)spYear.getValue();
+        int kilometraje=(int)spKilometraje.getValue();
+        int potencia=(int)spPotencia.getValue();
+        int cilindrada=(int)spCilindrada.getValue();
+        int peso=(int)spPeso.getValue();
+
+        return new Vehiculo(-1,m,precio,matricula,color,year,kilometraje,potencia,cilindrada,peso);
 
     /**
      * Crea e inicializa todos los componentes visuales del formulario:
@@ -271,16 +272,16 @@ public class PNuevoVehiculo extends JPanel implements IPanel {
         spKilometraje = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         spKilometraje.setBounds(185, 312, 86, 20);
         add(spKilometraje);
-
-        spPotencia = new JSpinner();
+        
+        spPotencia = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         spPotencia.setBounds(185, 343, 86, 20);
         add(spPotencia);
-
-        spCilindrada = new JSpinner();
+        
+        spCilindrada = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         spCilindrada.setBounds(185, 374, 86, 20);
         add(spCilindrada);
-
-        spPeso = new JSpinner();
+        
+        spPeso = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         spPeso.setBounds(185, 405, 86, 20);
         add(spPeso);
 

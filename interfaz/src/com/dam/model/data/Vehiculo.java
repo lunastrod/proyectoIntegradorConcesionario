@@ -1,4 +1,7 @@
 package com.dam.model.data;
+
+import java.awt.Color;
+
 /*
 DROP TABLE IF EXISTS "Vehiculo";
 CREATE TABLE "Vehiculo" (
@@ -212,5 +215,42 @@ public class Vehiculo {
     @Override
     public String toString() {
         return "[" + matricula + "] " + modelo.getNombreModelo() + " " + modelo.getMarca();
+    }
+
+    /**
+     * Valida la matrícula de un vehículo.
+     * <p>
+     * Se usa en el panel de PNuevoVehiculo para comprobar que la
+     * matrícula introducida es correcta.
+     * @param matricula matrícula a comprobar
+     * @return true si la matrícula es correcta, false en caso contrario
+     * */
+    public static boolean matriculaValida(String matricula) {
+        if (matricula == null) return false;
+        if (matricula.length() != 8) return false;
+        for (int i = 0; i < 4; i++) {
+            if (!Character.isDigit(matricula.charAt(i))) return false;
+        }
+        if (matricula.charAt(4) != ' ') return false;
+        for (int i = 5; i < 8; i++) {
+            if (!Character.isUpperCase(matricula.charAt(i))) return false;
+        }
+        return true;
+    }
+    /**
+     * Devuelve el color de pintura del vehículo.
+     * <p>
+     * Se usa para mostrar el color en el panel de PInformacionVehiculo.
+     * El color se guarda como String con el formato R0-255G0-255B0-255.
+     * hay que parsearlo a Color.
+     * @return color del vehículo
+     */
+    public Color getColorParsed() {
+        try {
+            return Color.decode(this.color);
+        } catch (Exception e) {
+            //e.printStackTrace();
+            return Color.WHITE;
+        }
     }
 }

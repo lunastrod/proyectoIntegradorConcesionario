@@ -419,6 +419,8 @@ public class ConcesionarioControlador implements ActionListener {
      */
     private void modificarVehiculo() {
         Vehiculo vehiculo = pModificarVehiculo.getVehiculo();
+        if (!validarMatriculaVehiculo(vehiculo)) return;
+
         int res = vehiculoDAO.update(vehiculo);
         if (res > 0) {
             Avisos.info(v, "Vehículo modificado correctamente.");
@@ -483,6 +485,8 @@ public class ConcesionarioControlador implements ActionListener {
      */
     private void guardarVehiculo() {
         Vehiculo vehiculo = pNuevoVehiculo.getVehiculo();
+        if (!validarMatriculaVehiculo(vehiculo)) return;
+
         int res = vehiculoDAO.insert(vehiculo);
         if (res > 0) {
             pNuevoVehiculo.actualizarVehiculos(vehiculoDAO.selectTodos());
@@ -510,6 +514,14 @@ public class ConcesionarioControlador implements ActionListener {
             Avisos.error(v, "Error al guardar el modelo.");
         }
         System.out.println(m);
+    }
+
+    private boolean validarMatriculaVehiculo(Vehiculo vehiculo) {
+        if (!Vehiculo.matriculaValida(vehiculo.getMatricula())) {
+            Avisos.error(v, "La matrícula debe tener el formato 0000 AAA.");
+            return false;
+        }
+        return true;
     }
 
     /**
