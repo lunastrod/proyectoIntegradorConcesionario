@@ -21,6 +21,11 @@ import com.dam.view.VPrincipal;
 //validaciones de los campos, como la matricula
 //filtros en el catalogo
 //constantes de tamaño duplicadas, podrian ir en la interface
+//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)  podriamos poner una confirmacion para salir
+//limpiar paneles cuando sea necesario
+//indicar que el vehiculo está vendido
+//spinner de PNuevoVehiculo para potencia debería tener limites
+//boton de volver en algunos paneles???
 public class Inicio {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
