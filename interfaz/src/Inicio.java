@@ -19,12 +19,6 @@ import com.dam.view.PVerCatalogo;
 import com.dam.view.PVerVentasClientes;
 import com.dam.view.VPrincipal;
 
-//filtros en el catalogo
-//constantes de tamaño duplicadas, podrian ir en la interface
-//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)  podriamos poner una confirmacion para salir
-//limpiar paneles cuando sea necesario
-//indicar que el vehiculo está vendido
-//boton de volver en algunos paneles???
 /**
  * Clase de arranque de la aplicación de concesionario (Autogestión).
  * <p>
@@ -55,9 +49,15 @@ public class Inicio {
      * - Hace visible la ventana principal.
      * @param args argumentos de línea de comandos; no se utilizan en esta aplicación.
      */
+    public static boolean REGENERAR_BD = true;
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
+                AccesoBD bd = new AccesoBD();
+                if (REGENERAR_BD) {
+                    SetupBD setup = new SetupBD(bd);
+                    setup.crearEsquema();
+                }
                 VPrincipal ventanaPrincipal = new VPrincipal();
                 PVerCatalogo pVerCatalogo = new PVerCatalogo();
                 PNuevoVehiculo pNuevoVehiculo = new PNuevoVehiculo();
@@ -68,10 +68,6 @@ public class Inicio {
                 PRegistrarTrabajador pRegistrarTrabajador = new PRegistrarTrabajador();
                 PInformacionVehiculo pInformacionVehiculo = new PInformacionVehiculo();
                 PVerVentasClientes pVerVentasClientes = new PVerVentasClientes();
-
-                AccesoBD bd = new AccesoBD();
-                SetupBD setup = new SetupBD(bd);
-                setup.crearEsquema();
                 ClienteDAO clienteDAO = new ClienteDAO(bd);
                 ModeloVehiculoDAO modeloVehiculoDAO = new ModeloVehiculoDAO(bd);
                 TrabajadorDAO trabajadorDAO = new TrabajadorDAO(bd);

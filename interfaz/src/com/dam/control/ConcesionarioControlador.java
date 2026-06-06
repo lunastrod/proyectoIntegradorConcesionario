@@ -95,21 +95,22 @@ public class ConcesionarioControlador implements ActionListener {
      * Indica si la interfaz está en modo claro (true) u oscuro (false).
      * Se alterna desde el menú principal.
      */
-    private boolean modoClaro = true;
+    private boolean modoClaro = false;
 
     /**
      * Indica si hay una sesión de trabajador activa.
      * Controla la visibilidad de las opciones del menú restringidas.
-     * NOTA: En la versión final estará por defecto en false.
      */
-    private boolean sesionIniciada = true;
+    private boolean sesionIniciada = false;
 
     /**
      * Indica si el trabajador con sesión activa tiene permisos de administrador.
      * Controla la visibilidad de las opciones exclusivas de administrador.
-     * NOTA: En la versión final estará por defecto en false.
      */
-    private boolean admin = true;
+    private boolean admin = false;
+
+    public static final boolean DEBUG_ADMIN = false;
+
 
     /**
      * Crea el controlador inyectando todas las vistas y DAOs necesarios.
@@ -165,6 +166,10 @@ public class ConcesionarioControlador implements ActionListener {
         this.ventaDAO = ventaDAO;
         actualizarModoClaroOscuro(modoClaro);
         v.actualizarMenu(sesionIniciada, admin);
+        if(DEBUG_ADMIN) {
+            sesionIniciada = true;
+            admin = true;
+        }
     }
 
     /**
@@ -203,13 +208,16 @@ public class ConcesionarioControlador implements ActionListener {
                 pNuevoVehiculo.actualizarVehiculos(vehiculoDAO.selectTodos());
                 v.cargarPanel(pNuevoVehiculo);
                 actualizarModoClaroOscuro(modoClaro);
+                pNuevoVehiculo.limpiarDatos();
                 break;
             case VPrincipal.VER_CATALOGO_MENU:
                 cargarPanelCatalogo();
+                actualizarModoClaroOscuro(modoClaro);
                 break;
             case VPrincipal.NUEVO_MODELO_MENU:
                 pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
                 v.cargarPanel(pNuevoModelo);
+                pNuevoModelo.limpiarDatos();
                 actualizarModoClaroOscuro(modoClaro);
                 break;
             case VPrincipal.LOGIN_MENU:
@@ -224,6 +232,7 @@ public class ConcesionarioControlador implements ActionListener {
                 v.cargarPanel(pRegistrarTrabajador);
                 actualizarModoClaroOscuro(modoClaro);
                 consultarTrabajadores();
+                pRegistrarTrabajador.limpiarDatos();
                 break;
             case VPrincipal.VER_TABLAS:
             	v.cargarPanel(pVerVentasClientes);
@@ -439,6 +448,8 @@ public class ConcesionarioControlador implements ActionListener {
         int res = vehiculoDAO.update(vehiculo);
         if (res > 0) {
             Avisos.info(v, "Vehículo modificado correctamente.");
+            pNuevoVehiculo.actualizarVehiculos(vehiculoDAO.selectTodos());
+            v.cargarPanel(pNuevoVehiculo);
         } else {
             Avisos.error(v, "Error al modificar el vehículo.");
         }
@@ -521,14 +532,15 @@ public class ConcesionarioControlador implements ActionListener {
      */
     private void guardarModelo() {
         ModeloVehiculo m = pNuevoModelo.getModeloVehiculo();
-        int res = modeloVehiculoDAO.insert(m);
-        if (res > 0) {
-            pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
-            Avisos.info(v, "Modelo guardado correctamente.");
-        } else {
-            Avisos.error(v, "Error al guardar el modelo.");
+        if(m != null){
+            int res = modeloVehiculoDAO.insert(m);
+            if (res > 0) {
+                pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
+                Avisos.info(v, "Modelo guardado correctamente.");
+            } else {
+                Avisos.error(v, "Error al guardar el modelo.");
+            }
         }
-        System.out.println(m);
     }
 
     private boolean validarMatriculaVehiculo(Vehiculo vehiculo) {
@@ -566,14 +578,16 @@ public class ConcesionarioControlador implements ActionListener {
      */
     private void modificarModelo() {
         ModeloVehiculo modelo = pModificarModelo.getModelo();
-        int res = modeloVehiculoDAO.update(modelo);
-        if (res > 0) {
-            Avisos.info(v, "Modelo modificado correctamente.");
-            v.cargarPanel(pNuevoModelo);
-            pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
-            actualizarModoClaroOscuro(modoClaro);
-        } else {
-            Avisos.error(v, "Error al modificar el modelo.");
+        if(modelo != null) {
+            int res = modeloVehiculoDAO.update(modelo);
+            if (res > 0) {
+                Avisos.info(v, "Modelo modificado correctamente.");
+                v.cargarPanel(pNuevoModelo);
+                pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
+                actualizarModoClaroOscuro(modoClaro);
+            } else {
+                Avisos.error(v, "Error al modificar el modelo.");
+            }
         }
     }
 
@@ -633,6 +647,7 @@ public class ConcesionarioControlador implements ActionListener {
         String marca = pNuevoVehiculo.getMarca();
         ArrayList<ModeloVehiculo> modelos = modeloVehiculoDAO.selectModeloPorMarca(marca);
         pNuevoVehiculo.actualizarModelos(modelos);
+        pNuevoVehiculo.setFormularioHabilitado(true);
     }
 
     /**
@@ -643,6 +658,7 @@ public class ConcesionarioControlador implements ActionListener {
         String marca = pModificarVehiculo.getMarca();
         ArrayList<ModeloVehiculo> modelos = modeloVehiculoDAO.selectModeloPorMarca(marca);
         pModificarVehiculo.actualizarModelos(modelos);
+        pModificarVehiculo.setFormularioHabilitado(true);
     }
 
     /**
@@ -704,7 +720,7 @@ public class ConcesionarioControlador implements ActionListener {
             return;
         }
 
-        int res = trabajadorDAO.delete(seleccionado.getNombreTrabajador());
+        int res = trabajadorDAO.delete(seleccionado.getIdTrabajador());
         if (res > 0) {
             Avisos.info(v, "Trabajador eliminado correctamente.");
             consultarTrabajadores();

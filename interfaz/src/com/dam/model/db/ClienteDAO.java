@@ -36,7 +36,7 @@ public class ClienteDAO {
     public static final String COL_ID_CLIENTE = "id_cliente";
 
     /** Nombre de la columna con el nombre y apellidos del cliente. */
-    public static final String COL_NOMBRE_APELLIDOS = "nombre_apellidos";
+    public static final String COL_NOMBRE_APELLIDOS = "nombre_apellidos_c";
 
     /** Nombre de la columna con el método de pago del cliente. */
     public static final String COL_METODO_PAGO = "metodo_pago";

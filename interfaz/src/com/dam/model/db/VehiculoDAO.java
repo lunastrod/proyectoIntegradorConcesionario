@@ -206,6 +206,7 @@ public class VehiculoDAO {
      * @return lista con el vehículo encontrado; lista vacía si no existe
      *         ninguno con ese ID o si ocurrió un error.
      */
+    /*
     public ArrayList<Vehiculo> selectVehiculoPorId(int id) {
         String sentencia = "SELECT * FROM " + NOM_TABLA + " JOIN " + ModeloVehiculoDAO.NOM_TABLA
                 + " ON " + NOM_TABLA + "." + COL_MODELO + " = " + ModeloVehiculoDAO.NOM_TABLA
@@ -232,6 +233,7 @@ public class VehiculoDAO {
         }
         return vehiculo;
     }
+    */
     /**
      * Recupera todos los vehículos registrados en la base de datos.
      * <p>
@@ -278,7 +280,7 @@ public class VehiculoDAO {
                 + " ON " + NOM_TABLA + "." + COL_MODELO + " = "
                 + ModeloVehiculoDAO.NOM_TABLA + "." + ModeloVehiculoDAO.COL_ID_MODELO
                 + " WHERE " + NOM_TABLA + "." + COL_ID_VEHICULO
-                + " NOT IN (SELECT vehiculo FROM Venta)";
+                + " NOT IN (SELECT " + VentaDAO.COL_ID_VEHICULO + " FROM " + VentaDAO.NOM_TABLA + ")";
 
         Connection con = null;
         Statement stmt = null;

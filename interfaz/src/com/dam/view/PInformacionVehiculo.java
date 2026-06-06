@@ -20,8 +20,6 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import java.util.ArrayList;
-
 /**
  * Panel que muestra la información detallada de un vehículo
  * y permite al usuario iniciar el proceso de compra del mismo.
@@ -37,19 +35,16 @@ import java.util.ArrayList;
  * @see IPanel
  * @see ConcesionarioControlador
  */
+@SuppressWarnings("serial")
 public class PInformacionVehiculo extends JPanel implements IPanel {
-
-    /** Ancho del panel en píxeles. */
-    private static final int ANCHO = 1000;
-
-    /** Alto del panel en píxeles. */
-    private static final int ALTO = 1000;
-
     /** Comando de acción del botón que muestra u oculta el panel de compra. */
     public static final String COMPRAR_BTN = "Comprar";
 
     /** Comando de acción del botón que confirma y registra la compra. */
     public static final String REALIZAR_COMPRA_BTN = "Realizar Compra";
+
+    /** Comando de acción del botón que vuelve al catálogo. */
+    public static final String VOLVER_CATALOGO_BTN = "Volver Catalogo";
 
     /** Etiqueta que muestra el nombre del modelo y la marca del vehículo. */
     JLabel lblPrecio;
@@ -62,6 +57,9 @@ public class PInformacionVehiculo extends JPanel implements IPanel {
 
     /** Botón que alterna la visibilidad del panel de compra. */
     private JButton btnComprar;
+
+    /** Botón que vuelve al catálogo de vehículos. */
+    private JButton btnVolver;
 
     /** Vehículo cuya información se está mostrando actualmente. */
     Vehiculo vehiculoActual;
@@ -91,7 +89,7 @@ public class PInformacionVehiculo extends JPanel implements IPanel {
      */
     public PInformacionVehiculo() {
         crearComponentes();
-        setSize(ANCHO, ALTO);
+        setSize(VPrincipal.ANCHO, VPrincipal.ALTO);
     }
 
     /**
@@ -135,6 +133,11 @@ public class PInformacionVehiculo extends JPanel implements IPanel {
         btnComprar.setActionCommand(COMPRAR_BTN);
         btnComprar.setBounds(245, 58, 89, 23);
         add(btnComprar);
+
+        btnVolver = new JButton("Volver al catálogo");
+        btnVolver.setActionCommand(VOLVER_CATALOGO_BTN);
+        btnVolver.setBounds(245, 88, 150, 23);
+        add(btnVolver);
 
         panelCompra = new JPanel(null);
         panelCompra.setBounds(580, 40, 380, 200);
@@ -264,6 +267,7 @@ public class PInformacionVehiculo extends JPanel implements IPanel {
      */
     public void setControlador(ConcesionarioControlador c) {
         btnComprar.addActionListener(c);
+        btnVolver.addActionListener(c);
         btnRealizarCompra.addActionListener(c);
     }
 }

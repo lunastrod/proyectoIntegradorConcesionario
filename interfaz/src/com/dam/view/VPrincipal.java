@@ -20,37 +20,35 @@ import com.dam.control.ConcesionarioControlador;
  * @see IVentana
  * @see ConcesionarioControlador
  */
+@SuppressWarnings("serial")
 public class VPrincipal extends JFrame implements IVentana {
 
     /** Título de la ventana principal. */
-    private static final String TITULO = "CONCESIONARIO";
+    private static final String TITULO = "AUTOGESTIÓN: autogestionando automóviles desde 1886";
 
     /** Ancho predeterminado de la ventana en píxeles. */
-    private static final int ANCHO = 1000;
+    public static final int ANCHO = 1000;
 
     /** Alto predeterminado de la ventana en píxeles. */
-    private static final int ALTO = 1000;
+    public static final int ALTO = 1000;
 
     /** Texto del ítem de menú para añadir un nuevo vehículo. */
-    public static final String NUEVO_VEHICULO_MENU = "Nuevo Vehiculo";
+    public static final String NUEVO_VEHICULO_MENU = "Administrar Vehículos";
 
     /** Texto del ítem de menú para visualizar el catálogo de vehículos. */
     public static final String VER_CATALOGO_MENU = "Ver Catalogo";
 
     /** Texto del ítem de menú para crear un nuevo modelo de vehículo. */
-    public static final String NUEVO_MODELO_MENU = "Nuevo Modelo";
-
-    /** Texto de comando para registrar un trabajador. */
-    public static final String REGISTRAR_TRABAJADOR_MENU = "Registrar Trabajador";
+    public static final String NUEVO_MODELO_MENU = "Administrar Modelos";
 
     /** Texto del ítem de menú para acceder al formulario de inicio de sesión. */
-    public static final String LOGIN_MENU = "Login";
+    public static final String LOGIN_MENU = "Login trabajadores";
 
     /** Texto del ítem de menú para alternar entre el modo claro y oscuro. */
     public static final String MODO_CLARO_OSCURO_MENU = "Modo claro-oscuro";
 
     /** Texto del ítem de menú para añadir un nuevo trabajador al sistema. */
-    public static final String NUEVO_EMPLEADO = "Nuevo trabajador";
+    public static final String NUEVO_EMPLEADO = "Administrar Trabajadores";
     
     /** Texto del ítem de menú para ver las tablas de clientes y ventas. */
     public static final String VER_TABLAS = "Ver ventas y clientes";
@@ -103,7 +101,7 @@ public class VPrincipal extends JFrame implements IVentana {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (Avisos.confirmar(VPrincipal.this, "Â¿EstÃ¡s seguro de que deseas salir de la aplicaciÃ³n?")) {
+                if (Avisos.confirmar(VPrincipal.this, "¿Desea salir de la aplicación?")) {
                     System.exit(0);
                 }
             }

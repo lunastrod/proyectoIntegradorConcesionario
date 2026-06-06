@@ -29,6 +29,7 @@ import javax.swing.JButton;
  * @see PVerCatalogo
  * @see IPanel
  */
+@SuppressWarnings("serial")
 public class PVehiculo extends JPanel implements IPanel {
 
     /** Comando de acción y texto del botón de más información. */

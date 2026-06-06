@@ -18,14 +18,8 @@ import com.dam.model.data.ModeloVehiculo;
  * @see IPanel
  * @see ConcesionarioControlador
  */
+@SuppressWarnings("serial")
 public class PModificarModelo extends JPanel implements IPanel {
-
-    /** Ancho del panel en píxeles. */
-    private static final int ANCHO = 1000;
-
-    /** Alto del panel en píxeles. */
-    private static final int ALTO = 1000;
-
     /** Comando de acción del botón que guarda los cambios del modelo. */
     public static final String GUARDAR_MODIFICACION_MODELO_BTN = "Guardar Modificación Modelo";
 
@@ -85,7 +79,7 @@ public class PModificarModelo extends JPanel implements IPanel {
      */
     public PModificarModelo() {
         setLayout(null);
-        setSize(ANCHO, ALTO);
+        setSize(VPrincipal.ANCHO, VPrincipal.ALTO);
         crearComponentes();
     }
 
@@ -200,18 +194,24 @@ public class PModificarModelo extends JPanel implements IPanel {
      * @return modelo con los datos modificados del formulario.
      */
     public ModeloVehiculo getModelo() {
-        int id = modeloActual != null ? modeloActual.getIdModelo() : -1;
-        return new ModeloVehiculo(
-            id,
-            tfNombreModelo.getText().trim(),
-            (int) spinnerPlazas.getValue(),
-            (int) spinnerPuertas.getValue(),
-            comboBoxVehiculo.getSelectedItem().toString(),
-            comboBoxPropulsion.getSelectedItem().toString(),
-            comboBoxTraccion.getSelectedItem().toString(),
-            tfNombreMarca.getText().trim(),
-            comboBoxTransmision.getSelectedItem().toString()
-        );
+        String nombreModelo = tfNombreModelo.getText().trim();
+        String nombreMarca = tfNombreMarca.getText().trim();
+
+        if (nombreModelo.isEmpty() || nombreMarca.isEmpty()) {
+            Avisos.error(this, "La marca y el modelo no pueden estar vacíos.");
+            return null;
+        }
+
+        String propulsion = comboBoxPropulsion.getSelectedItem().toString();
+        String traccion = comboBoxTraccion.getSelectedItem().toString();
+        String transmision = comboBoxTransmision.getSelectedItem().toString();
+        String vehiculo = comboBoxVehiculo.getSelectedItem().toString();
+        int plazas = (int) spinnerPlazas.getValue();
+        int puertas = (int) spinnerPuertas.getValue();
+        
+        int id = (modeloActual != null) ? modeloActual.getIdModelo() : -1;
+        
+        return new ModeloVehiculo(id, nombreModelo, plazas, puertas, vehiculo, propulsion, traccion, nombreMarca, transmision);
     }
 
     /**

@@ -29,14 +29,8 @@ import com.dam.model.data.Vehiculo;
  * @see IPanel
  * @see ConcesionarioControlador
  */
+@SuppressWarnings("serial")
 public class PModificarVehiculo extends JPanel implements IPanel {
-
-    /** Ancho del panel en píxeles. */
-    private static final int ANCHO = 1000;
-
-    /** Alto del panel en píxeles. */
-    private static final int ALTO = 1000;
-
     /** Comando de acción del botón que guarda los cambios del vehículo. */
     public static final String GUARDAR_MODIFICACION_BTN = "Guardar Modificación";
 
@@ -117,7 +111,7 @@ public class PModificarVehiculo extends JPanel implements IPanel {
      */
     public PModificarVehiculo() {
         setLayout(null);
-        setSize(ANCHO, ALTO);
+        setSize(VPrincipal.ANCHO, VPrincipal.ALTO);
         crearComponentes();
     }
 
@@ -337,6 +331,7 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         add(btnBuscarMarca);
 
         actualizarColor();
+        setFormularioHabilitado(false);
     }
 
     /**
@@ -364,6 +359,7 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         spCilindrada.setValue(0);
         spPeso.setValue(0);
         actualizarColor();
+        setFormularioHabilitado(false);
     }
 
     /**
@@ -476,5 +472,22 @@ public class PModificarVehiculo extends JPanel implements IPanel {
             spVerde.setValue(0);
             spAzul.setValue(0);
         }
+    }
+
+    public void setFormularioHabilitado(boolean b) {
+        cbModelo.setEnabled(b);
+        spPrecio.setEnabled(b);
+        txtMatricula.setEnabled(b);
+        spRojo.setEnabled(b);
+        spVerde.setEnabled(b);
+        spAzul.setEnabled(b);
+        spYear.setEnabled(b);
+        spKilometraje.setEnabled(b);
+        spPotencia.setEnabled(b);
+        spCilindrada.setEnabled(b);
+        spPeso.setEnabled(b);
+        btnVerColor.setEnabled(b);
+        btnModificar.setEnabled(b);
+        btnLimpiar.setEnabled(b);
     }
 }

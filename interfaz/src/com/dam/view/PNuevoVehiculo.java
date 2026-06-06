@@ -33,14 +33,8 @@ import javax.swing.JList;
  * @see IPanel
  * @see ConcesionarioControlador
  */
+@SuppressWarnings("serial")
 public class PNuevoVehiculo extends JPanel implements IPanel {
-
-    /** Ancho del panel en píxeles. */
-    private static final int ANCHO = 1000;
-
-    /** Alto del panel en píxeles. */
-    private static final int ALTO = 1000;
-
     /** Comando de acción del botón que guarda el nuevo vehículo. */
     public static final String GUARDAR_VEHICULO_BTN = "Guardar Vehiculo";
 
@@ -145,7 +139,7 @@ public class PNuevoVehiculo extends JPanel implements IPanel {
      */
     public PNuevoVehiculo() {
         setLayout(null);
-        setSize(ANCHO, ALTO);
+        setSize(VPrincipal.ANCHO, VPrincipal.ALTO);
         crearComponentes();
     }
 
@@ -381,6 +375,24 @@ public class PNuevoVehiculo extends JPanel implements IPanel {
         add(btnModificarVehiculo);
 
         actualizarColor();
+        setFormularioHabilitado(false);
+    }
+
+    public void setFormularioHabilitado(boolean habilitado) {
+        cbModelo.setEnabled(habilitado);
+        spPrecio.setEnabled(habilitado);
+        txtMatricula.setEnabled(habilitado);
+        spRojo.setEnabled(habilitado);
+        spVerde.setEnabled(habilitado);
+        spAzul.setEnabled(habilitado);
+        spYear.setEnabled(habilitado);
+        spKilometraje.setEnabled(habilitado);
+        spPotencia.setEnabled(habilitado);
+        spCilindrada.setEnabled(habilitado);
+        spPeso.setEnabled(habilitado);
+        btnVerColor.setEnabled(habilitado);
+        btnGuardar.setEnabled(habilitado);
+        btnLimpiar.setEnabled(habilitado);
     }
 
     /**
@@ -408,6 +420,7 @@ public class PNuevoVehiculo extends JPanel implements IPanel {
         spCilindrada.setValue(0);
         spPeso.setValue(0);
         actualizarColor();
+        setFormularioHabilitado(false);
     }
 
     /**

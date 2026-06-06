@@ -5,18 +5,40 @@ import static org.junit.Assert.*;
 import java.awt.Color;
 
 import org.junit.Test;
+
+import com.dam.model.data.Trabajador;
 import com.dam.model.data.Vehiculo;
 
 public class ConcesionarioFuncionalTest {
     @Test
-    public void testMatriculaValida() {
+    public void testMatriculaValidaCorrectas() {
         assertTrue(Vehiculo.matriculaValida("4521 BKR"));
         assertTrue(Vehiculo.matriculaValida("0000 AAA"));
+    }
+
+    @Test
+    public void testMatriculaInvalidaPorLongitud() {
         assertFalse(Vehiculo.matriculaValida("452 BKR"));
         assertFalse(Vehiculo.matriculaValida("4521 BK"));
+    }
+
+    @Test
+    public void testMatriculaInvalidaPorFaltaDeEspacio() {
         assertFalse(Vehiculo.matriculaValida("4521BKR"));
+    }
+
+    @Test
+    public void testMatriculaInvalidaPorMinusculas() {
         assertFalse(Vehiculo.matriculaValida("4521 bkr"));
+    }
+
+    @Test
+    public void testMatriculaInvalidaPorCaracteresIncorrectos() {
         assertFalse(Vehiculo.matriculaValida("ABCD EFG"));
+    }
+
+    @Test
+    public void testMatriculaInvalidaBordesYNulos() {
         assertFalse(Vehiculo.matriculaValida(""));
         assertFalse(Vehiculo.matriculaValida(null));
     }
@@ -68,5 +90,47 @@ public class ConcesionarioFuncionalTest {
         // Valor nulo (provoca NullPointerException capturado de forma segura por tu catch)
         Vehiculo v2 = crearVehiculoConColor(null);
         assertEquals(Color.WHITE, v2.getColorParsed());
+    }
+
+    @Test
+    public void testcontrasenaValidaCorrectas() {
+        assertTrue(Trabajador.contrasenaValida("Abcdefg1!"));
+        assertTrue(Trabajador.contrasenaValida("P@ssw0rdDificil"));
+        assertTrue(Trabajador.contrasenaValida("L3trasYSimbolo#"));
+    }
+
+    @Test
+    public void testContrasenaInvalidaFaltaMayuscula() {
+        assertFalse(Trabajador.contrasenaValida("sinmayusculas1!"));
+    }
+
+    @Test
+    public void testContrasenaInvalidaFaltaMinuscula() {
+        assertFalse(Trabajador.contrasenaValida("SINMINUSCULAS1!"));
+    }
+
+    @Test
+    public void testContrasenaInvalidaFaltaSimbolo() {
+        assertFalse(Trabajador.contrasenaValida("SinSimbolos1234"));
+    }
+
+    @Test
+    public void testContrasenaInvalidaFaltaNumero() {
+        assertFalse(Trabajador.contrasenaValida("FaltanNumeros$$"));
+    }
+
+    @Test
+    public void testContrasenaInvalidaBordesYNulos() {
+        assertFalse(Trabajador.contrasenaValida(""));
+        assertFalse(Trabajador.contrasenaValida(null));
+        
+        assertFalse(Trabajador.contrasenaValida("aB!4567"));
+        assertTrue(Trabajador.contrasenaValida("aB!45678"));
+        
+        String limiteMaximoValido = "aB!1" + "a".repeat(86);
+        assertTrue(Trabajador.contrasenaValida(limiteMaximoValido));
+
+        String limiteMaximoInvalido = "aB!1" + "a".repeat(87);
+        assertFalse(Trabajador.contrasenaValida(limiteMaximoInvalido));
     }
 }
