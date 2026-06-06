@@ -1,7 +1,7 @@
 package com.dam.model.data;
-
 /*
-CREATE TABLE IF NOT EXISTS "Modelo" (
+DROP TABLE IF EXISTS "Modelo";
+CREATE TABLE "Modelo" (
 	"id_modelo"	INTEGER,
 	"nombre_modelo"	varchar(80),
 	"numero_plazas"	INTEGER,
@@ -14,71 +14,169 @@ CREATE TABLE IF NOT EXISTS "Modelo" (
 	CONSTRAINT "pk_id" PRIMARY KEY("id_modelo" AUTOINCREMENT)
 );
 */
-
+/**
+ * Representa el modelo de un vehículo del concesionario.
+ * <p>
+ * Contiene las características técnicas comunes a todos los vehículos
+ * que partan de un modelo en concreto.
+ * De un solo modelo pueden salir uno o muchos vehículos.
+ * @see Vehiculo
+ */
 public class ModeloVehiculo {
-	public static String[] TIPOS_TRANSMISION={"Manual","Automático"};
-    public static String[] TIPOS_PROPULSION={"Diesel","Gasolina","Eléctrico","Híbrido","Híbrido enchufable"};
-    public static String[] TIPOS_TRACCION={"Delantera","Trasera","4x4","AWD"};
-	public static String[] TIPOS_VEHICULOS={"Autobús","Berlina","Camión articulado","Camión rígido","Camioneta","Ciclomotor","Compacto","Deportivo","Descapotable","Familiar","Furgoneta","Motocicleta","SUV","Todoterreno"};
 
+    /**
+     * Tipos de transmisión disponibles para un modelo de vehículo.
+     * Usado para los desplegables de la interfaz.
+     */
+    public static String[] TIPOS_TRANSMISION = {"Manual", "Automático"};
+
+    /**
+     * Tipos de propulsión disponibles para un modelo de vehículo.
+     * Usado para los desplegables de la interfaz.
+     */
+    public static String[] TIPOS_PROPULSION = {"Diesel", "Gasolina", "Eléctrico", "Híbrido", "Híbrido enchufable"};
+
+    /**
+     * Tipos de tracción disponibles para un modelo de vehículo.
+     * Usado para los desplegables de la interfaz.
+     */
+    public static String[] TIPOS_TRACCION = {"Delantera", "Trasera", "4x4", "AWD"};
+
+    /**
+     * Tipos de vehículo disponibles para clasificar un modelo.
+     * Usado para los desplegables de la interfaz.
+     */
+    public static String[] TIPOS_VEHICULOS = {
+        "Autobús", "Berlina", "Camión articulado", "Camión rígido", "Camioneta",
+        "Ciclomotor", "Compacto", "Deportivo", "Descapotable", "Familiar",
+        "Furgoneta", "Motocicleta", "SUV", "Todoterreno"
+    };
+
+    /** Identificador único del modelo en la base de datos. */
     private int idModelo;
+
+    /** Nombre comercial del modelo (p. ej. "Corolla", "Corsa"). */
     private String nombreModelo;
+
+    /** Número de plazas del modelo. */
     private int numeroPlazas;
+
+    /** Número de puertas del modelo. */
     private int numeroPuertas;
+
+    /** Categoría del vehículo (p. ej. "SUV", "Deportivo"). */
     private String tipoModelo;
+
+    /** Tipo de propulsión del modelo (p. ej. "Gasolina", "Eléctrico"). */
     private String tipoPropulsion;
+
+    /** Tipo de tracción del modelo (p. ej. "Delantera", "4x4"). */
     private String traccion;
+
+    /** Nombre de la marca a la que pertenece el modelo (p. ej. "Marussia"). */
     private String marca;
+
+    /** Tipo de transmisión del modelo (p. ej. "Manual", "Automático"). */
     private String tipoTransmision;
 
-    public ModeloVehiculo(int idModelo, String nombreModelo, int numeroPlazas, int numeroPuertas, String tipoModelo, String tipoPropulsion,
-			String traccion, String marca, String tipoTransmision) {
-		this.idModelo = idModelo;
-		this.nombreModelo = nombreModelo;
-		this.numeroPlazas = numeroPlazas;
-		this.numeroPuertas = numeroPuertas;
-		this.tipoModelo = tipoModelo;
-		this.tipoPropulsion = tipoPropulsion;
-		this.traccion = traccion;
-		this.marca = marca;
-		this.tipoTransmision = tipoTransmision;
-	}
-    
-	public int getIdModelo() {
-		return idModelo;
-	}
+    /**
+     * Crea un nuevo ModeloVehiculo con todos sus atributos.
+     *
+     * @param idModelo        identificador único del modelo.
+     * @param nombreModelo    nombre comercial del modelo.
+     * @param numeroPlazas    número de plazas.
+     * @param numeroPuertas   número de puertas.
+     * @param tipoModelo      categoría del vehículo.
+     * @param tipoPropulsion  tipo de propulsión.
+     * @param traccion        tipo de tracción.
+     * @param marca           nombre de la marca.
+     * @param tipoTransmision tipo de transmisión.
+     */
+    public ModeloVehiculo(int idModelo, String nombreModelo, int numeroPlazas, int numeroPuertas,
+            String tipoModelo, String tipoPropulsion, String traccion,
+            String marca, String tipoTransmision) {
+        this.idModelo = idModelo;
+        this.nombreModelo = nombreModelo;
+        this.numeroPlazas = numeroPlazas;
+        this.numeroPuertas = numeroPuertas;
+        this.tipoModelo = tipoModelo;
+        this.tipoPropulsion = tipoPropulsion;
+        this.traccion = traccion;
+        this.marca = marca;
+        this.tipoTransmision = tipoTransmision;
+    }
 
-	public String getNombreModelo() {
-		return nombreModelo;
-	}
+    /**
+     * Devuelve el identificador único del modelo.
+     * @return id del modelo
+     */
+    public int getIdModelo() {
+        return idModelo;
+    }
 
-	public int getNumeroPlazas() {
-		return numeroPlazas;
-	}
+    /**
+     * Devuelve el nombre comercial del modelo.
+     * @return nombre del modelo
+     */
+    public String getNombreModelo() {
+        return nombreModelo;
+    }
 
-	public int getNumeroPuertas() {
-		return numeroPuertas;
-	}
-	
-	public String getTipoModelo() {
-		return tipoModelo;
-	}
+    /**
+     * Devuelve el número de plazas del modelo.
+     * @return número de plazas
+     */
+    public int getNumeroPlazas() {
+        return numeroPlazas;
+    }
 
-	public String getTipoPropulsion() {
-		return tipoPropulsion;
-	}
+    /**
+     * Devuelve el número de puertas del modelo.
+     * @return número de puertas
+     */
+    public int getNumeroPuertas() {
+        return numeroPuertas;
+    }
 
-	public String getTraccion() {
-		return traccion;
-	}
+    /**
+     * Devuelve la categoría del vehículo (p. ej. "SUV", "Berlina").
+     * @return tipo de vehículo
+     */
+    public String getTipoModelo() {
+        return tipoModelo;
+    }
 
-	public String getMarca() {
-		return marca;
-	}
+    /**
+     * Devuelve el tipo de propulsión del modelo.
+     * @return tipo de propulsión
+     */
+    public String getTipoPropulsion() {
+        return tipoPropulsion;
+    }
 
-	public String getTipoTransmision() {
-		return tipoTransmision;
-	}
+    /**
+     * Devuelve el tipo de tracción del modelo.
+     * @return tipo de tracción
+     */
+    public String getTraccion() {
+        return traccion;
+    }
+
+    /**
+     * Devuelve el nombre de la marca a la que pertenece el modelo.
+     * @return nombre de la marca
+     */
+    public String getMarca() {
+        return marca;
+    }
+
+    /**
+     * Devuelve el tipo de transmisión del modelo.
+     * @return tipo de transmisión
+     */
+    public String getTipoTransmision() {
+        return tipoTransmision;
+    }
 	/*
 	@Override
     public String toString() {
@@ -88,8 +186,14 @@ public class ModeloVehiculo {
         .append(" - Tracción: ").append(traccion).append(" - Marca: ").append(marca).append(" - Tipo de transmisión: ").append(tipoTransmision);
         return sb.toString();
     }
-		*/
-	public String toString() {
-		return marca+" "+ nombreModelo;
-	}
+	*/
+    /**
+     * Devuelve una representación resumida del modelo formada
+     * por la marca y el nombre del modelo.
+     * @return cadena con el formato "{marca} {nombreModelo}"
+     */
+    @Override
+    public String toString() {
+        return marca + " " + nombreModelo;
+    }
 }

@@ -4,12 +4,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.ModeloVehiculo;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -52,11 +49,13 @@ public class PNuevoModelo extends JPanel implements IPanel{
         crearComponentes();
     }
 
-    /*    public ModeloVehiculo(int idModelo, String nombreModelo, int numeroPlazas, int numeroPuertas, String tipoModelo, String tipoPropulsion,
-			String traccion, String marca, String tipoTransmision) { */
+    /*
+    public ModeloVehiculo(int idModelo, String nombreModelo,
+     int numeroPlazas, int numeroPuertas, String tipoModelo, String tipoPropulsion,
+		String traccion, String marca, String tipoTransmision) { 
+    */
 
-            /*
-
+    /*
     private String nombreModelo;
     private int numeroPlazas;
     private int numeroPuertas;
@@ -65,8 +64,7 @@ public class PNuevoModelo extends JPanel implements IPanel{
     private String traccion;
     private String marca;
     private String tipoTransmision;
-
-            */
+    */
 
     public ModeloVehiculo getModeloVehiculo(){
         String nombreModelo=tfNombreModelo.getText();
