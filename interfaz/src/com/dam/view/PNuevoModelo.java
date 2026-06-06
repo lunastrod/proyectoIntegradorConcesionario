@@ -4,6 +4,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+
 import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.ModeloVehiculo;
 import java.util.ArrayList;
@@ -205,12 +208,13 @@ public class PNuevoModelo extends JPanel implements IPanel {
         comboBoxVehiculo.setModel(modelVehiculo);
         comboBoxVehiculo.setBounds(195, 238, 150, 22);
         add(comboBoxVehiculo);
+        
+        spinnerPlazas = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
 
-        spinnerPlazas = new JSpinner();
         spinnerPlazas.setBounds(195, 282, 150, 20);
         add(spinnerPlazas);
-
-        spinnerPuertas = new JSpinner();
+        
+        spinnerPuertas = new JSpinner(new SpinnerNumberModel(0, 0, 1000, 1));
         spinnerPuertas.setBounds(195, 320, 150, 20);
         add(spinnerPuertas);
 

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 /**
@@ -67,6 +68,9 @@ public class AccesoBD {
     public Connection getConexion() throws ClassNotFoundException, SQLException {
         Class.forName(driver);
         Connection con = DriverManager.getConnection(url);
+        try (Statement stmt = con.createStatement()) {
+            stmt.executeUpdate("PRAGMA foreign_keys = ON");
+        }
         return con;
     }
 }
