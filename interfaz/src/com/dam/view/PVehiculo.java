@@ -54,7 +54,6 @@ public class PVehiculo extends JPanel implements IPanel {
     /**
      * Asigna el vehículo que representa este panel y actualiza
      * las etiquetas de modelo y precio con sus datos.
-     *
      * @param vehiculo vehículo cuyos datos se mostrarán en el panel
      */
     public void setVehiculo(Vehiculo vehiculo) {
@@ -68,7 +67,6 @@ public class PVehiculo extends JPanel implements IPanel {
      * <p>
      * Es usado por el controlador para identificar el vehículo
      * cuyo botón de información ha sido pulsado.
-     *
      * @return vehículo actual del panel
      */
     public Vehiculo getVehiculoActual() {
@@ -99,7 +97,6 @@ public class PVehiculo extends JPanel implements IPanel {
 
     /**
      * Registra el controlador como ActionListener del botón de más información.
-     *
      * @param c controlador principal de la aplicación
      */
     public void setControlador(ConcesionarioControlador c) {

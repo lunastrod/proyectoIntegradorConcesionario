@@ -10,7 +10,7 @@ import com.dam.control.ConcesionarioControlador;
 /**
  * Ventana principal de la aplicación del concesionario.
  * <p>
- * Actúa como el marco contenedor principal (JFrame) de la interfaz gráfica y
+ * Actúa como el contendor principal (que es el JFrame) de la interfaz gráfica y
  * proporciona una barra de menú superior (JMenuBar) para la navegación entre
  * las diferentes secciones de la aplicación, como ver el catálogo, añadir
  * vehículos, modelos, gestionar trabajadores, iniciar sesión y cambiar el tema.
@@ -107,7 +107,7 @@ public class VPrincipal extends JFrame implements IVentana {
     /**
      * Crea e inicializa todos los componentes de la barra de menús superior.
      * <p>
-     * Construye los elementos interactivos del menú e ítemes de navegación
+     * Construye los elementos interactivos del menú e ítems de navegación
      * y los organiza dentro de la barra de menús principal de la aplicación.
      */
     @Override

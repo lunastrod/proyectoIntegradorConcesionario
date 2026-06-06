@@ -28,7 +28,7 @@ CREATE TABLE "Vehiculo" (
  */
 public class Vehiculo {
 
-    /** Identificador único del vehículo en la base de datos. */
+    /** ID único del vehículo en la base de datos. */
     private int idVehiculo;
 
     /**
@@ -72,7 +72,7 @@ public class Vehiculo {
      * Se usa tanto al recuperar vehículos de la base de datos como al
      * construir uno nuevo antes de persistirlo (en ese caso idVehiculo
      * debe ser -1, ya que la base de datos lo asigna automáticamente).
-     * @param idVehiculo  identificador único del vehículo (-1 si es nuevo).
+     * @param idVehiculo  ID único del vehículo (-1 si es nuevo).
      * @param modelo      modelo al que pertenece el vehículo.
      * @param precio      precio de venta en euros.
      * @param matricula   matrícula del vehículo.
@@ -98,7 +98,7 @@ public class Vehiculo {
     }
 
     /**
-     * Devuelve el identificador único del vehículo.
+     * Devuelve el ID único del vehículo.
      * @return id del vehículo
      */
     public int getIdVehiculo() {

@@ -19,7 +19,7 @@ CREATE TABLE "Trabajador" (
  */
 public class Trabajador {
 
-    /** Identificador único del trabajador en la base de datos. */
+    /** ID único del trabajador en la base de datos. */
     private int idTrabajador;
 
     /** Nombre y apellidos del trabajador. */
@@ -38,9 +38,9 @@ public class Trabajador {
     private int esAdmin;
 
     /**
-     * Crea un trabajador con todos sus atributos, incluyendo el identificador
+     * Crea un trabajador con todos sus atributos, incluyendo el ID
      * de base de datos. Usado al recuperar registros existentes.
-     * @param idTrabajador       identificador único del trabajador
+     * @param idTrabajador       ID único del trabajador
      * @param nombreApellidos    nombre y apellidos del trabajador
      * @param passwordTrabajador contraseña del trabajador
      * @param esAdmin            1 si es administrador, 0 si es empleado común
@@ -53,7 +53,7 @@ public class Trabajador {
     }
 
     /**
-     * Crea un trabajador sin identificador, usado al registrar
+     * Crea un trabajador sin ID, usado al registrar
      * un nuevo trabajador antes de que tenga persistencia en la base de datos.
      * @param nombreApellidos    nombre y apellidos del trabajador
      * @param passwordTrabajador contraseña del trabajador
@@ -66,7 +66,7 @@ public class Trabajador {
     }
 
     /**
-     * Devuelve el identificador único del trabajador.
+     * Devuelve el ID único del trabajador.
      * @return id del trabajador
      */
     public int getIdTrabajador() {

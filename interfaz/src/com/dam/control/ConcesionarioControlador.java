@@ -229,8 +229,7 @@ public class ConcesionarioControlador implements ActionListener {
      * <p>
      * Identifica el botón pulsado mediante su comando de acción y delega
      * la lógica en el método privado correspondiente.
-     *
-     * @param e evento de acción generado por un botón de la interfaz
+     * @param e evento de acción generado por un botón de la interfaz.
      */
     private void controlBotones(ActionEvent e) {
         Vehiculo vehiculo;
@@ -437,8 +436,7 @@ public class ConcesionarioControlador implements ActionListener {
      * <p>
      * Si FlatLaf no está disponible en el classpath, registra el fallo
      * por consola sin interrumpir la ejecución.
-     *
-     * @param modoClaro true para aplicar el tema claro, false para el oscuro
+     * @param modoClaro true para aplicar el tema claro, false para el oscuro.
      */
     private void actualizarModoClaroOscuro(boolean modoClaro) {
         try {
@@ -633,7 +631,7 @@ public class ConcesionarioControlador implements ActionListener {
     /**
      * Elimina el trabajador seleccionado en la tabla tras solicitar confirmación.
      * <p>
-     * Busca el trabajador por su identificador entre todos los registrados,
+     * Busca el trabajador por su ID entre todos los registrados,
      * y lo elimina por nombre y apellidos. Si no hay ningún trabajador
      * seleccionado o no se encuentra en la base de datos, muestra un aviso
      * o un mensaje de error según corresponda.

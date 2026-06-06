@@ -2,7 +2,6 @@ package com.dam.view;
 
 import java.awt.Color;
 import java.util.ArrayList;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,45 +10,115 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextField;
-
 import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.ModeloVehiculo;
 import com.dam.model.data.Vehiculo;
 
+/**
+ * Panel para modificar los datos de un vehículo existente en el catálogo.
+ * <p>
+ * Presenta un formulario pre-rellenado con los datos actuales del vehículo
+ * seleccionado, permitiendo editar la marca, el modelo, el precio, la matrícula,
+ * el color, el año, el kilometraje, la potencia, la cilindrada y el peso.
+ * Los cambios se persisten al pulsar el botón de guardar modificación.
+ * <p>
+ * El vehículo a editar se carga mediante {@link #cargarVehiculo(Vehiculo)}
+ * y los datos modificados se obtienen con {@link #getVehiculo()}.
+ * @see Vehiculo
+ * @see ModeloVehiculo
+ * @see IPanel
+ * @see ConcesionarioControlador
+ */
 public class PModificarVehiculo extends JPanel implements IPanel {
+
+    /** Ancho del panel en píxeles. */
     private static final int ANCHO = 1000;
+
+    /** Alto del panel en píxeles. */
     private static final int ALTO = 1000;
 
+    /** Comando de acción del botón que guarda los cambios del vehículo. */
     public static final String GUARDAR_MODIFICACION_BTN = "Guardar Modificación";
+
+    /** Comando de acción del botón que actualiza el color de fondo del botón de vista previa. */
     public static final String VER_COLOR_MODIFICAR_BTN = "Ver color modificar";
+
+    /** Comando de acción del botón que carga los modelos de la marca seleccionada. */
     public static final String BUSCAR_MARCA_MODIFICAR_BTN = "Buscar Marca Modificar";
 
+    /** Botón que guarda los cambios realizados sobre el vehículo. */
     private JButton btnModificar;
+
+    /** Modelo del desplegable de marcas disponibles. */
     private DefaultComboBoxModel<String> modelMarcas;
+
+    /** Desplegable para seleccionar la marca del vehículo. */
     private JComboBox<String> cbMarca;
+
+    /** Modelo del desplegable de modelos disponibles para la marca seleccionada. */
     private DefaultComboBoxModel<String> modelModelos;
+
+    /** Desplegable para seleccionar el modelo del vehículo. */
     private JComboBox<String> cbModelo;
+
+    /** Spinner para editar el precio del vehículo en euros. */
     private JSpinner spPrecio;
+
+    /** Campo de texto para editar la matrícula del vehículo. */
     private JTextField txtMatricula;
+
+    /** Spinner para editar el componente rojo del color (0-255). */
     private JSpinner spRojo;
+
+    /** Spinner para editar el componente verde del color (0-255). */
     private JSpinner spVerde;
+
+    /** Spinner para editar el componente azul del color (0-255). */
     private JSpinner spAzul;
+
+    /** Spinner para editar el año de fabricación del vehículo. */
     private JSpinner spYear;
+
+    /** Spinner para editar el kilometraje del vehículo en kilómetros. */
     private JSpinner spKilometraje;
+
+    /** Spinner para editar la potencia del motor en CV. */
     private JSpinner spPotencia;
+
+    /** Spinner para editar la cilindrada del motor en cc. */
     private JSpinner spCilindrada;
+
+    /** Spinner para editar el peso del vehículo en kg. */
     private JSpinner spPeso;
+
+    /** Botón cuyo fondo muestra una vista previa del color RGB seleccionado. */
     private JButton btnVerColor;
+
+    /** Botón que carga los modelos disponibles para la marca seleccionada. */
     private JButton btnBuscarMarca;
+
+    /** Lista de modelos cargados para la marca actualmente seleccionada. */
     private ArrayList<ModeloVehiculo> modelos;
+
+    /**
+     * Vehículo que se está editando actualmente.
+     * Se usa para conservar el ID al construir el objeto modificado.
+     */
     private Vehiculo vehiculoActual;
 
+    /**
+     * Crea el panel de modificación de vehículo e inicializa sus componentes.
+     */
     public PModificarVehiculo() {
         setLayout(null);
         setSize(ANCHO, ALTO);
         crearComponentes();
     }
 
+    /**
+     * Actualiza el desplegable de marcas con la lista proporcionada de marcas.
+     * @param marcas lista de nombres de marcas a mostrar en el desplegable.
+     */
     public void actualizarMarcas(ArrayList<String> marcas) {
         modelMarcas.removeAllElements();
         for (String marca : marcas) {
@@ -57,6 +126,13 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         }
     }
 
+    /**
+     * Actualiza el desplegable de modelos con la lista proporcionada.
+     * <p>
+     * También actualiza la lista interna de modelos usada para construir
+     * el objeto {@link Vehiculo} al recuperar los datos del formulario.
+     * @param modelos lista de modelos a mostrar en el desplegable.
+     */
     public void actualizarModelos(ArrayList<ModeloVehiculo> modelos) {
         this.modelos = modelos;
         modelModelos.removeAllElements();
@@ -65,11 +141,25 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         }
     }
 
+    /**
+     * Devuelve el nombre de la marca actualmente seleccionada en el desplegable.
+     * @return nombre de la marca seleccionada.
+     */
     public String getMarca() {
         int indexMarca = cbMarca.getSelectedIndex();
         return modelMarcas.getElementAt(indexMarca);
     }
 
+    /**
+     * Construye y devuelve un objeto {@link Vehiculo} con los datos
+     * introducidos actualmente en el formulario.
+     * <p>
+     * El ID del vehículo se toma del vehículo cargado con
+     * {@link #cargarVehiculo(Vehiculo)}, o -1 si no se ha cargado ninguno.
+     * El color se construye en formato RGB a partir de los spinners
+     * de los componentes rojo, verde y azul.
+     * @return vehículo con los datos modificados del formulario.
+     */
     public Vehiculo getVehiculo() {
         int idVehiculo = vehiculoActual != null ? vehiculoActual.getIdVehiculo() : -1;
         int precio = (int) spPrecio.getValue();
@@ -88,6 +178,15 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         return new Vehiculo(idVehiculo, modelo, precio, matricula, color, year, kilometraje, potencia, cilindrada, peso);
     }
 
+    /**
+     * Carga los datos del vehículo indicado en los campos del formulario.
+     * <p>
+     * Asegura que la marca y el modelo del vehículo estén presentes en
+     * los desplegables aunque no hayan sido cargados previamente, los selecciona
+     * y rellena el resto de campos con los valores actuales del vehículo.
+     * Actualiza también la vista previa del color.
+     * @param vehiculo vehículo cuyos datos se cargarán en el formulario.
+     */
     public void cargarVehiculo(Vehiculo vehiculo) {
         vehiculoActual = vehiculo;
         ModeloVehiculo modelo = vehiculo.getModelo();
@@ -109,6 +208,12 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         actualizarColor();
     }
 
+    /**
+     * Crea e inicializa todos los componentes visuales del formulario:
+     * desplegables de marca y modelo, spinners de precio, año, kilometraje,
+     * potencia, cilindrada y peso, campo de matrícula, spinners RGB de color,
+     * botón de vista previa de color, botón de buscar marca y botón de guardar.
+     */
     public void crearComponentes() {
         JLabel lblTitulo = new JLabel("Modificar Vehiculo");
         lblTitulo.setBounds(80, 26, 160, 20);
@@ -223,6 +328,10 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         actualizarColor();
     }
 
+    /**
+     * Actualiza el color de fondo del botón de vista previa con los valores
+     * RGB actualmente seleccionados en los spinners de color.
+     */
     public void actualizarColor() {
         int rojo = (int) spRojo.getValue();
         int verde = (int) spVerde.getValue();
@@ -230,18 +339,38 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         btnVerColor.setBackground(new Color(rojo, verde, azul));
     }
 
+    /**
+     * Registra el controlador como ActionListener de los botones
+     * de guardar modificación, ver color y buscar marca.
+     * @param c controlador principal de la aplicación.
+     */
     public void setControlador(ConcesionarioControlador c) {
         btnModificar.addActionListener(c);
         btnVerColor.addActionListener(c);
         btnBuscarMarca.addActionListener(c);
     }
 
+    /**
+     * Añade la marca al desplegable si no está ya presente.
+     * <p>
+     * Se usa al cargar un vehículo para garantizar que su marca
+     * esté disponible para su selección aunque no haya sido cargada
+     * previamente desde la base de datos.
+     * @param marca nombre de la marca a asegurar en el desplegable
+     */
     private void asegurarMarca(String marca) {
         if (buscarMarca(marca) == -1) {
             modelMarcas.addElement(marca);
         }
     }
 
+    /**
+     * Añade el modelo a la lista interna y al desplegable si no está ya presente.
+     * <p>
+     * Se usa al cargar un vehículo para garantizar que su modelo
+     * esté disponible para su selección aunque no haya sido cargado previamente.
+     * @param modelo modelo a asegurar en el desplegable
+     */
     private void asegurarModelo(ModeloVehiculo modelo) {
         if (modelos == null) {
             modelos = new ArrayList<ModeloVehiculo>();
@@ -255,6 +384,11 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         modelModelos.addElement(modelo.getNombreModelo());
     }
 
+    /**
+     * Selecciona en el desplegable de marcas el elemento cuyo texto
+     * coincide con la marca indicada.
+     * @param marca nombre de la marca a seleccionar.
+     */
     private void seleccionarMarca(String marca) {
         int index = buscarMarca(marca);
         if (index != -1) {
@@ -262,6 +396,11 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         }
     }
 
+    /**
+     * Selecciona en el desplegable de modelos el elemento cuyo ID
+     * coincide con el del modelo indicado.
+     * @param modelo modelo a seleccionar en el desplegable.
+     */
     private void seleccionarModelo(ModeloVehiculo modelo) {
         if (modelos == null) return;
         for (int i = 0; i < modelos.size(); i++) {
@@ -272,6 +411,11 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         }
     }
 
+    /**
+     * Busca la posición de una marca en el modelo del desplegable de marcas.
+     * @param marca nombre de la marca a buscar.
+     * @return índice de la marca en el desplegable, o -1 si no se encuentra.
+     */
     private int buscarMarca(String marca) {
         for (int i = 0; i < modelMarcas.getSize(); i++) {
             if (modelMarcas.getElementAt(i).equals(marca)) {
@@ -281,6 +425,14 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         return -1;
     }
 
+    /**
+     * Descompone la cadena de color en formato RGB y carga
+     * los valores resultantes en los spinners de los componentes RGB.
+     * <p>
+     * Si el formato no es válido o se produce un error al parsear,
+     * los tres spinners se establecen a 0.
+     * @param color cadena de color en formato RGB.
+     */
     private void cargarColor(String color) {
         try {
             int indiceG = color.indexOf("G");

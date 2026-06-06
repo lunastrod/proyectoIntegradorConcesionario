@@ -29,7 +29,7 @@ CREATE TABLE "Venta" (
  */
 public class Venta {
 
-    /** Identificador único de la venta en la base de datos. */
+    /** ID único de la venta en la base de datos. */
     private int idVenta;
 
     /** Cliente que ha adquirido el vehículo. */
@@ -58,7 +58,7 @@ public class Venta {
      * ya que la base de datos lo asigna automáticamente, y fecha
      * puede ser una cadena vacía, pues la base de datos aplica
      * CURRENT_TIMESTAMP por defecto.
-     * @param idVenta    identificador único de la venta (-1 si es nueva)
+     * @param idVenta    ID único de la venta (-1 si es nueva)
      * @param cliente    cliente que adquiere el vehículo
      * @param trabajador trabajador que atiende la venta
      * @param vehiculo   vehículo vendido
@@ -73,7 +73,7 @@ public class Venta {
     }
 
     /**
-     * Devuelve el identificador único de la venta.
+     * Devuelve el ID único de la venta.
      * @return id de la venta
      */
     public int getIdVenta() {
@@ -118,7 +118,7 @@ public class Venta {
 
     /**
      * Devuelve una representación textual completa de la venta,
-     * incluyendo el identificador, el cliente, el trabajador,
+     * incluyendo el ID, el cliente, el trabajador,
      * el vehículo y la fecha.
      * <p>
      * Se usa principalmente para depuración y trazas en consola
