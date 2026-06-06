@@ -84,7 +84,7 @@ public class ClienteDAO {
      * @return lista con todos los clientes; lista vacía si no hay ninguno
      *         o si ocurrió un error
      */
-    public ArrayList<Cliente> selectAllTrabajadores() {
+    public ArrayList<Cliente> selectAllClientes() {
         String sentencia = "SELECT * FROM " + NOM_TABLA + " ORDER BY " + COL_ID_CLIENTE;
         Connection con = null;
         Statement stmt = null;

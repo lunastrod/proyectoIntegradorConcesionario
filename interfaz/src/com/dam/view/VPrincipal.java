@@ -97,7 +97,7 @@ public class VPrincipal extends JFrame implements IVentana {
         getContentPane().setLayout(null);
     }
 
-      public void cargarPanel(JPanel panel) {
+    public void cargarPanel(JPanel panel) {
         getContentPane().removeAll();
         getContentPane().add(panel);
         getContentPane().revalidate();
@@ -164,7 +164,6 @@ public class VPrincipal extends JFrame implements IVentana {
         itemNuevoTra.addActionListener(c);
         itemLogin.addActionListener(c);
         mntmNewMenuItem.addActionListener(c);
-        itemNuevoTra.addActionListener(c);
     }
     public void hacerVisible() {
         this.setVisible(true);

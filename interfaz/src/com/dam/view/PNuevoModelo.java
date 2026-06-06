@@ -182,7 +182,6 @@ public class PNuevoModelo extends JPanel implements IPanel{
         add(btnEliminarModelo);
         
         btnModificarModelo = new JButton(MODIFICAR_MODELO_BTN);
-        btnModificarModelo.setActionCommand(MODIFICAR_MODELO_BTN);
         btnModificarModelo.setBounds(591, 353, 150, 25);
         add(btnModificarModelo);
 
