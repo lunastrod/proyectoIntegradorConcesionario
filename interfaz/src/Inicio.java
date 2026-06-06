@@ -24,7 +24,36 @@ import com.dam.view.VPrincipal;
 //limpiar paneles cuando sea necesario
 //indicar que el vehiculo está vendido
 //boton de volver en algunos paneles???
+/**
+ * Clase de arranque de la aplicación de concesionario (Autogestión).
+ * <p>
+ * Contiene el método main que actúa como punto de entrada del programa.
+ * Se encarga de instanciar todos los componentes de la arquitectura MVC (Modelo, Vista, Control):
+ * las vistas, los objetos de acceso a datos y el controlador principal,
+ * conectarlos entre sí y lanzar la interfaz gráfica.
+ * <p>
+ * La inicialización se ejecuta dentro del hilo de despacho de eventos
+ * de Swing mediante {@link EventQueue#invokeLater(Runnable)}, garantizando
+ * que todos los componentes gráficos se creen y manipulen desde el hilo
+ * correcto.
+ * @see ConcesionarioControlador
+ * @see VPrincipal
+ * @see AccesoBD
+ */
 public class Inicio {
+    /**
+     * Punto de entrada de la aplicación.
+     * <p>
+     * Programa la inicialización completa de la interfaz en el hilo de
+     * despacho de eventos de Swing. El proceso sigue estos pasos:
+     * - Crea la ventana principal y todos los paneles de la vista.
+     * - Crea la conexión a la base de datos y todos los DAOs necesarios.
+     * - Crea el controlador inyectando las vistas y los DAOs.
+     * - Registra el controlador en cada vista mediante setControlador.
+     * - Carga el panel del catálogo como vista inicial.
+     * - Hace visible la ventana principal.
+     * @param args argumentos de línea de comandos; no se utilizan en esta aplicación.
+     */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {

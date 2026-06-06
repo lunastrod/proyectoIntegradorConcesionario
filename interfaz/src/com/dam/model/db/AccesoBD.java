@@ -54,7 +54,6 @@ public class AccesoBD {
             System.out.println("No se ha podido leer el fichero");
         }
     }
-
     /**
      * Crea y devuelve una nueva conexión a la base de datos.
      * <p>
@@ -62,9 +61,9 @@ public class AccesoBD {
      * y abre una conexión con la URL configurada.
      * Es responsabilidad del llamante cerrar la conexión cuando ya no
      * sea necesaria para liberar los recursos.
-     * @return conexión activa a la base de datos
-     * @throws ClassNotFoundException si el driver JDBC no se encuentra en el classpath
-     * @throws SQLException           si ocurre un error al establecer la conexión
+     * @return conexión activa a la base de datos.
+     * @throws ClassNotFoundException si el driver JDBC no se encuentra en el classpath.
+     * @throws SQLException si ocurre un error al establecer la conexión.
      */
     public Connection getConexion() throws ClassNotFoundException, SQLException {
         Class.forName(driver);

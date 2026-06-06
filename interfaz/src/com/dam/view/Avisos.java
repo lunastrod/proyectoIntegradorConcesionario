@@ -22,9 +22,7 @@ public class Avisos {
      * Muestra un diálogo modal con un mensaje personalizable en tipo e icono.
      * <p>
      * Permite especificar manualmente el tipo de icono usando las constantes
-     * de {@link JOptionPane}, como ERROR_MESSAGE, WARNING_MESSAGE,
-     * INFORMATION_MESSAGE o PLAIN_MESSAGE.
-     *
+     * de {@link JOptionPane}, como ERROR_MESSAGE, WARNING_MESSAGE o INFORMATION_MESSAGE.
      * @param c      componente padre sobre el que se centra el diálogo; puede ser null
      * @param msg    texto del mensaje a mostrar
      * @param titulo título de la ventana del diálogo
@@ -39,7 +37,6 @@ public class Avisos {
      * <p>
      * El título del diálogo es siempre "Error" y se muestra el icono
      * de error de JOptionPane.
-     *
      * @param c   componente padre sobre el que se centra el diálogo; puede ser null
      * @param msg texto del mensaje de error a mostrar
      */
@@ -52,7 +49,6 @@ public class Avisos {
      * <p>
      * El título del diálogo es siempre "Aviso" y se muestra el icono
      * de advertencia de JOptionPane.
-     *
      * @param c   componente padre sobre el que se centra el diálogo; puede ser null
      * @param msg texto del mensaje de advertencia a mostrar
      */
@@ -65,7 +61,6 @@ public class Avisos {
      * <p>
      * El título del diálogo es siempre "Info" y se muestra el icono
      * informativo de JOptionPane.
-     *
      * @param c   componente padre sobre el que se centra el diálogo; puede ser null
      * @param msg texto del mensaje informativo a mostrar
      */
@@ -77,7 +72,6 @@ public class Avisos {
      * Muestra un diálogo de confirmación con opciones Sí y No.
      * <p>
      * El título del diálogo es siempre "Confirmar".
-     *
      * @param c   componente padre sobre el que se centra el diálogo; puede ser null
      * @param msg texto de la pregunta a confirmar
      * @return true si el usuario pulsa Sí, false si pulsa No o cierra el diálogo

@@ -114,10 +114,9 @@ public class TrabajadorDAO {
         return res;
     }
     /**
-     * Busca un trabajador por su nombre y apellidos.
-     * @param nombre nombre y apellidos exactos del trabajador a buscar.
-     * @return trabajador encontrado, o null si no existe ninguno
-     *         con ese nombre o si ocurrió un error.
+     * Nos retorna un todos los trabajadores que se encuentran en la base de datos con el ID,
+     * nombres, apellidos, contraseñas y tipo de trabajador.
+     * @return Todos los trabajadores en la base de datos, null si no hay nada.
      */
     public ArrayList<Trabajador> selectAllTrabajadores() {
         String sentencia = "SELECT * FROM " + NOM_TABLA + " ORDER BY " + COL_ID_TRABAJADOR;
@@ -145,7 +144,7 @@ public class TrabajadorDAO {
      * Busca un trabajador por su nombre y apellidos.
      * @param nombre nombre y apellidos exactos del trabajador a buscar
      * @return trabajador encontrado, o null si no existe ninguno
-     *         con ese nombre o si ocurrió un error
+     *         con ese nombre o si ocurrió un error.
      */
     public Trabajador getTrabajadorPorNombre(String nombre) {
         String sentencia = "SELECT * FROM " + NOM_TABLA + " WHERE " + COL_NOMBRE_TRABAJADOR + " = ?";
@@ -156,7 +155,7 @@ public class TrabajadorDAO {
      * <p>
      * Se usa en el proceso de inicio de sesión para autenticar al trabajador
      * y determinar si tiene permisos de administrador.
-     * @param nombre   nombre y apellidos del trabajador
+     * @param nombre   nombre y apellidos del trabajador.
      * @param password contraseña introducida en el formulario de login.
      * @return trabajador cuyas credenciales coinciden, o null si
      *         el nombre o la contraseña son incorrectos.
@@ -229,7 +228,7 @@ public class TrabajadorDAO {
      * duplicar la lógica de mapeo.
      * @param rs ResultSet posicionado en la fila a mapear.
      * @return objeto Trabajador con los datos de la fila.
-     * @throws Exception si ocurre un error al leer alguna columna del ResultSet
+     * @throws Exception si ocurre un error al leer alguna columna del ResultSet.
      */
     private Trabajador extraeTrabajador(ResultSet rs) throws Exception {
         int idTrabajador = rs.getInt(COL_ID_TRABAJADOR);

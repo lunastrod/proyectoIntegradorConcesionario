@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS "Cliente" (
  * Representa un cliente del concesionario.
  */
 public class Cliente {
-    /** Identificador único del cliente. */
+    /** ID único del cliente. */
     private int idCliente;
 
     /** Nombre y apellidos del cliente. */
@@ -21,7 +21,9 @@ public class Cliente {
     private String metodoPago;
 
     /**
-     * @param idCliente        identificador único del cliente.
+     * Datos del cliente que se ingrresan a la hora de querer
+     *  comnprar un vehículo.
+     * @param idCliente        ID único del cliente.
      * @param nombreApellidos  nombre y apellidos.
      * @param metodoPago       método de pago (ej: "tarjeta", "efectivo").
      */
@@ -32,13 +34,15 @@ public class Cliente {
     }
 
     /**
-     * @return identificador del cliente.
+     * nos retorna el ID del cliente.
+     * @return ID del cliente.
      */
     public int getIdCliente() {
         return idCliente;
     }
 
     /**
+     * Nos retorna los nombre y apellidos del cliente.
      * @return nombre y apellidos del cliente.
      */
     public String getNombreApellidos() {
@@ -46,6 +50,7 @@ public class Cliente {
     }
 
     /**
+     * Nos retorna el método de pago del cliente.
      * @return método de pago del cliente.
      */
     public String getMetodoPago() {
@@ -53,6 +58,7 @@ public class Cliente {
     }
 
     /**
+     * toString que nos devuelve en forma de String los datos del cliente.
      * @return cadena con el id, nombre y método de pago del cliente.
      */
     @Override
