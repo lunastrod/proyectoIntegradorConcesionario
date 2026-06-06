@@ -23,7 +23,7 @@ public class Trabajador {
     private int idTrabajador;
 
     /** Nombre y apellidos del trabajador. */
-    private String nombreApellidos;
+    private String nombreTrabajador;
 
     /** Contraseña del trabajador para iniciar sesión en la aplicación. */
     private String passwordTrabajador;
@@ -41,13 +41,13 @@ public class Trabajador {
      * Crea un trabajador con todos sus atributos, incluyendo el ID
      * de base de datos. Usado al recuperar registros existentes.
      * @param idTrabajador       ID único del trabajador
-     * @param nombreApellidos    nombre y apellidos del trabajador
+     * @param nombreTrabajador    nombre y apellidos del trabajador
      * @param passwordTrabajador contraseña del trabajador
      * @param esAdmin            1 si es administrador, 0 si es empleado común
      */
-    public Trabajador(int idTrabajador, String nombreApellidos, String passwordTrabajador, int esAdmin) {
+    public Trabajador(int idTrabajador, String nombreTrabajador, String passwordTrabajador, int esAdmin) {
         this.idTrabajador = idTrabajador;
-        this.nombreApellidos = nombreApellidos;
+        this.nombreTrabajador = nombreTrabajador;
         this.passwordTrabajador = passwordTrabajador;
         this.esAdmin = esAdmin;
     }
@@ -55,12 +55,12 @@ public class Trabajador {
     /**
      * Crea un trabajador sin ID, usado al registrar
      * un nuevo trabajador antes de que tenga persistencia en la base de datos.
-     * @param nombreApellidos    nombre y apellidos del trabajador
+     * @param nombreTrabajador    nombre y apellidos del trabajador
      * @param passwordTrabajador contraseña del trabajador
      * @param esAdmin            1 si es administrador, 0 si es empleado común
      */
-    public Trabajador(String nombreApellidos, String passwordTrabajador, int esAdmin) {
-        this.nombreApellidos = nombreApellidos;
+    public Trabajador(String nombreTrabajador, String passwordTrabajador, int esAdmin) {
+        this.nombreTrabajador = nombreTrabajador;
         this.passwordTrabajador = passwordTrabajador;
         this.esAdmin = esAdmin;
     }
@@ -77,8 +77,8 @@ public class Trabajador {
      * Devuelve el nombre y apellidos del trabajador.
      * @return nombre y apellidos
      */
-    public String getNombreApellidos() {
-        return nombreApellidos;
+    public String getNombreTrabajador() {
+        return nombreTrabajador;
     }
 
     /**
@@ -137,6 +137,6 @@ public class Trabajador {
      */
     @Override
     public String toString() {
-        return nombreApellidos;
+        return "[" + idTrabajador + "] " + nombreTrabajador;
     }
 }
