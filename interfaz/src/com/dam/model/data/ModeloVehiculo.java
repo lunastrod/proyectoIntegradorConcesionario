@@ -177,16 +177,6 @@ public class ModeloVehiculo {
     public String getTipoTransmision() {
         return tipoTransmision;
     }
-	/*
-	@Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Modelo ").append(idModelo).append(" ").append(nombreModelo).append(" - Número de plazas: ")
-        .append(numeroPlazas).append(" - Número de puertas: ").append(numeroPuertas).append(" - Tipo de propulsión: ").append(tipoPropulsion)
-        .append(" - Tracción: ").append(traccion).append(" - Marca: ").append(marca).append(" - Tipo de transmisión: ").append(tipoTransmision);
-        return sb.toString();
-    }
-	*/
     /**
      * Devuelve una representación resumida del modelo formada
      * por la marca y el nombre del modelo.
