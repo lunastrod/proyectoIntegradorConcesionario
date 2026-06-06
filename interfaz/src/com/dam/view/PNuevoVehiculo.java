@@ -228,6 +228,8 @@ public class PNuevoVehiculo extends JPanel implements IPanel {
         int peso=(int)spPeso.getValue();
 
         return new Vehiculo(-1,m,precio,matricula,color,year,kilometraje,potencia,cilindrada,peso);
+        
+    }
 
     /**
      * Crea e inicializa todos los componentes visuales del formulario:
