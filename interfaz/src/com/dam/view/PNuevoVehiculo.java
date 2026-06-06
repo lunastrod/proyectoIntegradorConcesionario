@@ -56,8 +56,14 @@ public class PNuevoVehiculo extends JPanel implements IPanel {
     /** Comando de acción del botón que carga el vehículo seleccionado en el panel de modificación. */
     public static final String MODIFICAR_VEHICULO_BTN = "Modificar Vehiculo";
 
+    /** Comando de acción del botón que limpia el formulario de vehículo. */
+    public static final String LIMPIAR_VEHICULO_BTN = "Limpiar Vehiculo";
+
     /** Botón que guarda el nuevo vehículo en la base de datos. */
     private JButton btnGuardar;
+
+    /** Botón que limpia los datos introducidos en el formulario. */
+    private JButton btnLimpiar;
 
     /** Modelo del desplegable de marcas disponibles. */
     private DefaultComboBoxModel<String> modelMarcas;
@@ -228,6 +234,7 @@ public class PNuevoVehiculo extends JPanel implements IPanel {
         int peso=(int)spPeso.getValue();
 
         return new Vehiculo(-1,m,precio,matricula,color,year,kilometraje,potencia,cilindrada,peso);
+    }
 
     /**
      * Crea e inicializa todos los componentes visuales del formulario:
@@ -259,6 +266,11 @@ public class PNuevoVehiculo extends JPanel implements IPanel {
         btnGuardar.setActionCommand(GUARDAR_VEHICULO_BTN);
         btnGuardar.setBounds(80, 436, 150, 25);
         add(btnGuardar);
+
+        btnLimpiar = new JButton("Limpiar");
+        btnLimpiar.setActionCommand(LIMPIAR_VEHICULO_BTN);
+        btnLimpiar.setBounds(245, 436, 150, 25);
+        add(btnLimpiar);
 
         txtMatricula = new JTextField();
         txtMatricula.setBounds(185, 219, 86, 20);
@@ -382,6 +394,22 @@ public class PNuevoVehiculo extends JPanel implements IPanel {
         btnVerColor.setBackground(new Color(rojo, verde, azul));
     }
 
+    public void limpiarDatos() {
+        if (cbMarca.getItemCount() > 0) cbMarca.setSelectedIndex(0);
+        if (cbModelo.getItemCount() > 0) cbModelo.setSelectedIndex(0);
+        spPrecio.setValue(20000);
+        txtMatricula.setText("");
+        spRojo.setValue(0);
+        spVerde.setValue(0);
+        spAzul.setValue(0);
+        spYear.setValue(2000);
+        spKilometraje.setValue(0);
+        spPotencia.setValue(0);
+        spCilindrada.setValue(0);
+        spPeso.setValue(0);
+        actualizarColor();
+    }
+
     /**
      * Registra el controlador como ActionListener de los botones
      * de guardar, ver color, buscar marca, eliminar vehículo y modificar vehículo.
@@ -389,6 +417,7 @@ public class PNuevoVehiculo extends JPanel implements IPanel {
      */
     public void setControlador(ConcesionarioControlador c) {
         btnGuardar.addActionListener(c);
+        btnLimpiar.addActionListener(c);
         btnVerColor.addActionListener(c);
         btnBuscarMarca.addActionListener(c);
         btnEliminarVehiculo.addActionListener(c);

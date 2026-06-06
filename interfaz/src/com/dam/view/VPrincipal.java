@@ -93,7 +93,15 @@ public class VPrincipal extends JFrame implements IVentana {
         setTitle(TITULO);
         setSize(ANCHO, ALTO);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (Avisos.confirmar(VPrincipal.this, "Â¿EstÃ¡s seguro de que deseas salir de la aplicaciÃ³n?")) {
+                    System.exit(0);
+                }
+            }
+        });
         getContentPane().setLayout(null);
     }
 

@@ -244,8 +244,14 @@ public class ConcesionarioControlador implements ActionListener {
             case PNuevoVehiculo.GUARDAR_VEHICULO_BTN:
                 guardarVehiculo();
                 break;
+            case PNuevoVehiculo.LIMPIAR_VEHICULO_BTN:
+                pNuevoVehiculo.limpiarDatos();
+                break;
             case PNuevoModelo.GUARDAR_MODELO_BTN:
                 guardarModelo();
+                break;
+            case PNuevoModelo.LIMPIAR_MODELO_BTN:
+                pNuevoModelo.limpiarDatos();
                 break;
             case PNuevoModelo.ELIMINAR_MODELO_BTN:
                 eliminarModelo();
@@ -256,6 +262,9 @@ public class ConcesionarioControlador implements ActionListener {
             case PModificarModelo.GUARDAR_MODIFICACION_MODELO_BTN:
                 modificarModelo();
                 break;
+            case PModificarModelo.LIMPIAR_MOD_MODELO_BTN:
+                pModificarModelo.limpiarDatos();
+                break;
             case PLogin.LOGIN_BTN:
                 login();
                 break;
@@ -264,6 +273,9 @@ public class ConcesionarioControlador implements ActionListener {
                 break;
             case PInformacionVehiculo.REALIZAR_COMPRA_BTN:
                 comprarVehiculo();
+                break;
+            case PInformacionVehiculo.VOLVER_CATALOGO_BTN:
+                cargarPanelCatalogo();
                 break;
             case PNuevoVehiculo.BUSCAR_MARCA_BTN:
                 buscarMarca();
@@ -279,6 +291,9 @@ public class ConcesionarioControlador implements ActionListener {
                 break;
             case PModificarVehiculo.GUARDAR_MODIFICACION_BTN:
                 modificarVehiculo();
+                break;
+            case PModificarVehiculo.LIMPIAR_MOD_VEHICULO_BTN:
+                pModificarVehiculo.limpiarDatos();
                 break;
             case PModificarVehiculo.VER_COLOR_MODIFICAR_BTN:
                 pModificarVehiculo.actualizarColor();
@@ -359,7 +374,7 @@ public class ConcesionarioControlador implements ActionListener {
      * actualiza los paneles del catálogo y aplica el modo claro u oscuro activo.
      */
     public void cargarPanelCatalogo() {
-        pVerCatalogo.actualizarPanelesVehiculo(vehiculoDAO.selectTodos());
+        pVerCatalogo.actualizarPanelesVehiculo(vehiculoDAO.selectDisponibles());
         v.cargarPanel(pVerCatalogo);
         actualizarModoClaroOscuro(modoClaro);
     }

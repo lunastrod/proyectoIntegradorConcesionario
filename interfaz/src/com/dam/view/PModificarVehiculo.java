@@ -46,8 +46,14 @@ public class PModificarVehiculo extends JPanel implements IPanel {
     /** Comando de acción del botón que carga los modelos de la marca seleccionada. */
     public static final String BUSCAR_MARCA_MODIFICAR_BTN = "Buscar Marca Modificar";
 
+    /** Comando de acción del botón que limpia el formulario de modificación de vehículo. */
+    public static final String LIMPIAR_MOD_VEHICULO_BTN = "Limpiar Mod Vehiculo";
+
     /** Botón que guarda los cambios realizados sobre el vehículo. */
     private JButton btnModificar;
+
+    /** Botón que limpia los datos del formulario. */
+    private JButton btnLimpiar;
 
     /** Modelo del desplegable de marcas disponibles. */
     private DefaultComboBoxModel<String> modelMarcas;
@@ -238,6 +244,11 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         btnModificar.setBounds(80, 436, 150, 25);
         add(btnModificar);
 
+        btnLimpiar = new JButton("Limpiar");
+        btnLimpiar.setActionCommand(LIMPIAR_MOD_VEHICULO_BTN);
+        btnLimpiar.setBounds(245, 436, 150, 25);
+        add(btnLimpiar);
+
         txtMatricula = new JTextField();
         txtMatricula.setBounds(185, 219, 86, 20);
         add(txtMatricula);
@@ -339,6 +350,22 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         btnVerColor.setBackground(new Color(rojo, verde, azul));
     }
 
+    public void limpiarDatos() {
+        if (cbMarca.getItemCount() > 0) cbMarca.setSelectedIndex(0);
+        if (cbModelo.getItemCount() > 0) cbModelo.setSelectedIndex(0);
+        spPrecio.setValue(20000);
+        txtMatricula.setText("");
+        spRojo.setValue(0);
+        spVerde.setValue(0);
+        spAzul.setValue(0);
+        spYear.setValue(2000);
+        spKilometraje.setValue(0);
+        spPotencia.setValue(0);
+        spCilindrada.setValue(0);
+        spPeso.setValue(0);
+        actualizarColor();
+    }
+
     /**
      * Registra el controlador como ActionListener de los botones
      * de guardar modificación, ver color y buscar marca.
@@ -346,6 +373,7 @@ public class PModificarVehiculo extends JPanel implements IPanel {
      */
     public void setControlador(ConcesionarioControlador c) {
         btnModificar.addActionListener(c);
+        btnLimpiar.addActionListener(c);
         btnVerColor.addActionListener(c);
         btnBuscarMarca.addActionListener(c);
     }

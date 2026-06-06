@@ -29,6 +29,9 @@ public class PModificarModelo extends JPanel implements IPanel {
     /** Comando de acción del botón que guarda los cambios del modelo. */
     public static final String GUARDAR_MODIFICACION_MODELO_BTN = "Guardar Modificación Modelo";
 
+    /** Comando de acción del botón que limpia el formulario de modificación de modelo. */
+    public static final String LIMPIAR_MOD_MODELO_BTN = "Limpiar Mod Modelo";
+
     /** Campo de texto para editar el nombre del modelo. */
     private JTextField tfNombreModelo;
 
@@ -67,6 +70,9 @@ public class PModificarModelo extends JPanel implements IPanel {
 
     /** Botón que guarda los cambios realizados sobre el modelo. */
     private JButton btnGuardar;
+
+    /** Botón que limpia los datos del formulario. */
+    private JButton btnLimpiar;
 
     /**
      * Modelo que se está editando actualmente.
@@ -157,6 +163,11 @@ public class PModificarModelo extends JPanel implements IPanel {
         btnGuardar.setActionCommand(GUARDAR_MODIFICACION_MODELO_BTN);
         btnGuardar.setBounds(25, 370, 150, 25);
         add(btnGuardar);
+
+        btnLimpiar = new JButton("Limpiar");
+        btnLimpiar.setActionCommand(LIMPIAR_MOD_MODELO_BTN);
+        btnLimpiar.setBounds(195, 370, 150, 25);
+        add(btnLimpiar);
     }
 
     /**
@@ -228,5 +239,17 @@ public class PModificarModelo extends JPanel implements IPanel {
     @Override
     public void setControlador(ConcesionarioControlador c) {
         btnGuardar.addActionListener(c);
+        btnLimpiar.addActionListener(c);
+    }
+
+    public void limpiarDatos() {
+        tfNombreModelo.setText("");
+        tfNombreMarca.setText("");
+        comboBoxPropulsion.setSelectedIndex(0);
+        comboBoxTraccion.setSelectedIndex(0);
+        comboBoxTransmision.setSelectedIndex(0);
+        comboBoxVehiculo.setSelectedIndex(0);
+        spinnerPlazas.setValue(1);
+        spinnerPuertas.setValue(0);
     }
 }
