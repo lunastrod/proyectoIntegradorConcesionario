@@ -200,19 +200,7 @@ public class Vehiculo {
         sb.append("Tipo de transmisión: ").append(modelo.getTipoTransmision()).append("\n");
         return sb.toString();
     }
-	/*
-	@Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Vehiculo ").append(idVehiculo).append(" ").append(modelo);
-        sb.append(" - Precio: ").append(precio).append(" euros").append(" - Matrícula: ").append(matricula)
-        .append(" - Color: ").append(color).append(" - Año: ").append(year).append(" - Kilometraje: ").append(kilometraje)
-        .append(" - Potencia (CV): ").append(potenciaCV).append(" - Cilindros: ").append(cilindrada).append(" - Peso (KG): ")
-        .append(pesoKG);
 
-        return sb.toString();
-    }
-	*/
     /**
      * Devuelve una representación resumida del vehículo formada por
      * la matrícula, el nombre del modelo y la marca.

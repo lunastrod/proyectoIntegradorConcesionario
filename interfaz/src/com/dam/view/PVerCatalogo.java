@@ -43,7 +43,7 @@ public class PVerCatalogo extends JPanel implements IPanel {
     private JScrollPane scrollPane;
 
     /** Referencia al controlador, necesaria para asignarlo a cada PVehiculo creado. */
-    ConcesionarioControlador controlador;
+    private ConcesionarioControlador controlador;
 
     /**
      * Crea el panel del catálogo configurando su tamaño y creando sus componentes.
