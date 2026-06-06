@@ -11,8 +11,14 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class PInformacionVehiculo extends JPanel implements IPanel {
     private static final int ANCHO = 1000;
@@ -31,6 +37,8 @@ public class PInformacionVehiculo extends JPanel implements IPanel {
     private JButton btnRealizarCompra;
     private JTextField txtMetodoPago;
     private JPanel panelCompra;
+    private BufferedImage iconoVehiculo;
+    private JLabel lblIcono;
 
     public PInformacionVehiculo() {
         crearComponentes();
@@ -47,6 +55,18 @@ public class PInformacionVehiculo extends JPanel implements IPanel {
         lblPrecio = new JLabel("Precio");
         lblPrecio.setBounds(54, 83, 116, 14);
         add(lblPrecio);
+
+        lblIcono = new JLabel();
+        lblIcono.setHorizontalAlignment(SwingConstants.CENTER);
+        lblIcono.setBounds(342, 58, 205, 45);
+        add(lblIcono);
+
+        URL imgURL = getClass().getResource(PVehiculo.RUTA_ICONO);
+        try {
+            iconoVehiculo = ImageIO.read(imgURL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         JLabel lblEspecificaciones = new JLabel("Especificaciones Técnicas");
         lblEspecificaciones.setBounds(54, 158, 205, 14);
@@ -109,9 +129,14 @@ public class PInformacionVehiculo extends JPanel implements IPanel {
         vehiculoActual = v;
         lblModelo.setText(v.getModelo().getMarca() + " " + v.getModelo().getNombreModelo());
         lblPrecio.setText(v.getPrecio() + " €");
+        setIconoVehiculo(v);
         textAreaEspecificaciones.setText(v.getEspecificacionesTecnicas());
         panelCompra.setVisible(false);
         limpiarFormularioCompra();
+    }
+
+    private void setIconoVehiculo(Vehiculo vehiculo) {
+        lblIcono.setIcon(PVehiculo.teñirIcono(iconoVehiculo, vehiculo.getColorParsed()));
     }
 
     private void limpiarFormularioCompra() {

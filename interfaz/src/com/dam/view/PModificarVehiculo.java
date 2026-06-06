@@ -77,8 +77,8 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         int indexModelo = cbModelo.getSelectedIndex();
         ModeloVehiculo modelo = modelos.get(indexModelo);
 
-        String matricula = txtMatricula.getText();
-        String color = "R" + spRojo.getValue() + "G" + spVerde.getValue() + "B" + spAzul.getValue();
+        String matricula = txtMatricula.getText().trim();
+        String color = "#" + Integer.toHexString(new java.awt.Color((int)spRojo.getValue(), (int)spVerde.getValue(), (int)spAzul.getValue()).getRGB()).substring(2).toUpperCase();
         int year = (int) spYear.getValue();
         int kilometraje = (int) spKilometraje.getValue();
         int potencia = (int) spPotencia.getValue();
@@ -146,15 +146,15 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         spKilometraje.setBounds(185, 312, 86, 20);
         add(spKilometraje);
 
-        spPotencia = new JSpinner();
+        spPotencia = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         spPotencia.setBounds(185, 343, 86, 20);
         add(spPotencia);
 
-        spCilindrada = new JSpinner();
+        spCilindrada = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         spCilindrada.setBounds(185, 374, 86, 20);
         add(spCilindrada);
 
-        spPeso = new JSpinner();
+        spPeso = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         spPeso.setBounds(185, 405, 86, 20);
         add(spPeso);
 

@@ -87,14 +87,14 @@ public class PModificarModelo extends JPanel implements IPanel {
         JLabel lblPlazas = new JLabel("Número de plazas:");
         lblPlazas.setBounds(25, 278, 160, 20);
         add(lblPlazas);
-        spinnerPlazas = new JSpinner(new SpinnerNumberModel(5, 1, 100, 1));
+        spinnerPlazas = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
         spinnerPlazas.setBounds(195, 278, 150, 22);
         add(spinnerPlazas);
 
         JLabel lblPuertas = new JLabel("Número de puertas:");
         lblPuertas.setBounds(25, 316, 160, 20);
         add(lblPuertas);
-        spinnerPuertas = new JSpinner(new SpinnerNumberModel(4, 1, 10, 1));
+        spinnerPuertas = new JSpinner(new SpinnerNumberModel(0, 0, 1000, 1));
         spinnerPuertas.setBounds(195, 315, 150, 22);
         add(spinnerPuertas);
 

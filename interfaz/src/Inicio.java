@@ -4,6 +4,7 @@ import com.dam.control.ConcesionarioControlador;
 import com.dam.model.db.AccesoBD;
 import com.dam.model.db.ClienteDAO;
 import com.dam.model.db.ModeloVehiculoDAO;
+import com.dam.model.db.SetupBD;
 import com.dam.model.db.TrabajadorDAO;
 import com.dam.model.db.VehiculoDAO;
 import com.dam.model.db.VentaDAO;
@@ -17,14 +18,11 @@ import com.dam.view.PRegistrarTrabajador;
 import com.dam.view.PVerCatalogo;
 import com.dam.view.VPrincipal;
 
-//TODO: ver que pasa si se elimina un vehiculo o modelo cuando tienen fK en venta
-//validaciones de los campos, como la matricula
 //filtros en el catalogo
 //constantes de tamaño duplicadas, podrian ir en la interface
 //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)  podriamos poner una confirmacion para salir
 //limpiar paneles cuando sea necesario
 //indicar que el vehiculo está vendido
-//spinner de PNuevoVehiculo para potencia debería tener limites
 //boton de volver en algunos paneles???
 public class Inicio {
     public static void main(String[] args) {
@@ -41,6 +39,8 @@ public class Inicio {
                 PInformacionVehiculo pInformacionVehiculo = new PInformacionVehiculo();
 
                 AccesoBD bd = new AccesoBD();
+                SetupBD setup = new SetupBD(bd);
+                setup.crearEsquema();
                 ClienteDAO clienteDAO = new ClienteDAO(bd);
                 ModeloVehiculoDAO modeloVehiculoDAO = new ModeloVehiculoDAO(bd);
                 TrabajadorDAO trabajadorDAO = new TrabajadorDAO(bd);
