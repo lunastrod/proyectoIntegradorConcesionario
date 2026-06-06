@@ -31,12 +31,12 @@ public class PNuevoVehiculo extends JPanel implements IPanel{
     public static final String ELIMINAR_VEHICULO_BTN="Eliminar Vehiculo";
     public static final String MODIFICAR_VEHICULO_BTN="Modificar Vehiculo";
 
-    JButton btnGuardar;
-    DefaultComboBoxModel<String> modelMarcas;
-    JComboBox<String> cbMarca;
-    DefaultComboBoxModel<String> modelModelos;
-    JComboBox<String> cbModelo;
-    JSpinner spPrecio;
+    private JButton btnGuardar;
+    private DefaultComboBoxModel<String> modelMarcas;
+    private JComboBox<String> cbMarca;
+    private DefaultComboBoxModel<String> modelModelos;
+    private JComboBox<String> cbModelo;
+    private JSpinner spPrecio;
     private JTextField txtMatricula;
     private JSpinner spRojo;
     private JSpinner spVerde;

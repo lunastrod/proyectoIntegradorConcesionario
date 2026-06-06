@@ -23,9 +23,9 @@ public class PNuevoModelo extends JPanel implements IPanel{
     JButton btnGuardar;
     JTextField tfNombreModelo;
     JTextField tfNombreMarca;
-    private JLabel lblNombreMarca_1;
-    private JLabel lblNombreMarca_2;
-    private JLabel lblNombreMarca_3;
+    private JLabel lblPropulsion;
+    private JLabel lblTraccion;
+    private JLabel lblTipoTransmision;
     private JComboBox<String> comboBoxPropulsion;
     private JComboBox<String> comboBoxTraccion;
     private JComboBox<String> comboBoxTransmision;
@@ -109,17 +109,17 @@ public class PNuevoModelo extends JPanel implements IPanel{
         btnGuardar.setBounds(25, 425, 150, 25);
         add(btnGuardar);
         
-        lblNombreMarca_1 = new JLabel("Tipo de propulsión");
-        lblNombreMarca_1.setBounds(25, 136, 160, 20);
-        add(lblNombreMarca_1);
+        lblPropulsion = new JLabel("Tipo de propulsión");
+        lblPropulsion.setBounds(25, 136, 160, 20);
+        add(lblPropulsion);
         
-        lblNombreMarca_2 = new JLabel("Tracción");
-        lblNombreMarca_2.setBounds(25, 172, 160, 20);
-        add(lblNombreMarca_2);
+        lblTraccion = new JLabel("Tracción");
+        lblTraccion.setBounds(25, 172, 160, 20);
+        add(lblTraccion);
         
-        lblNombreMarca_3 = new JLabel("Tipo de transmisión");
-        lblNombreMarca_3.setBounds(25, 208, 160, 20);
-        add(lblNombreMarca_3);
+        lblTipoTransmision = new JLabel("Tipo de transmisión");
+        lblTipoTransmision.setBounds(25, 208, 160, 20);
+        add(lblTipoTransmision);
         
         comboBoxPropulsion = new JComboBox<String>();
         modelPropulsion= new DefaultComboBoxModel<String>(ModeloVehiculo.TIPOS_PROPULSION);
@@ -139,9 +139,9 @@ public class PNuevoModelo extends JPanel implements IPanel{
         comboBoxTraccion.setBounds(195, 171, 150, 22);
         add(comboBoxTraccion);
         
-        JLabel lblNombreMarca_3_1 = new JLabel("Tipo de vehículo");
-        lblNombreMarca_3_1.setBounds(25, 239, 160, 20);
-        add(lblNombreMarca_3_1);
+        JLabel lblTipoVehiculo = new JLabel("Tipo de vehículo");
+        lblTipoVehiculo.setBounds(25, 239, 160, 20);
+        add(lblTipoVehiculo);
         
         comboBoxVehiculo = new JComboBox<String>();
         modelVehiculo= new DefaultComboBoxModel<String>(ModeloVehiculo.TIPOS_VEHICULOS);
@@ -157,13 +157,13 @@ public class PNuevoModelo extends JPanel implements IPanel{
         spinnerPuertas.setBounds(195, 320, 150, 20);
         add(spinnerPuertas);
         
-        JLabel lblNombreMarca_3_1_1 = new JLabel("Número de plazas");
-        lblNombreMarca_3_1_1.setBounds(25, 282, 160, 20);
-        add(lblNombreMarca_3_1_1);
+        JLabel lblNumeroPlazas = new JLabel("Número de plazas");
+        lblNumeroPlazas.setBounds(25, 282, 160, 20);
+        add(lblNumeroPlazas);
         
-        JLabel lblNombreMarca_3_1_1_1 = new JLabel("Número de puertas");
-        lblNombreMarca_3_1_1_1.setBounds(25, 320, 160, 20);
-        add(lblNombreMarca_3_1_1_1);
+        JLabel lblNumeroPuertas = new JLabel("Número de puertas");
+        lblNumeroPuertas.setBounds(25, 320, 160, 20);
+        add(lblNumeroPuertas);
         
         scrollPane = new JScrollPane();
         scrollPane.setBounds(591, 85, 189, 194);
@@ -182,7 +182,6 @@ public class PNuevoModelo extends JPanel implements IPanel{
         add(btnEliminarModelo);
         
         btnModificarModelo = new JButton(MODIFICAR_MODELO_BTN);
-        btnModificarModelo.setActionCommand(MODIFICAR_MODELO_BTN);
         btnModificarModelo.setBounds(591, 353, 150, 25);
         add(btnModificarModelo);
 
