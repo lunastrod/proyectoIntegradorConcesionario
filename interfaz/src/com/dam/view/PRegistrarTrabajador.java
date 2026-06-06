@@ -185,7 +185,7 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
         for (Trabajador trabajador : listaTrabajadores) {
             dtmTrabajadores.addRow(new Object[]{
                 trabajador.getIdTrabajador(),
-                trabajador.getNombreApellidos(),
+                trabajador.getNombreTrabajador(),
                 trabajador.getPasswordTrabajador(),
                 trabajador.traducirAdmin(trabajador.getEsAdmin())
             });
@@ -209,7 +209,7 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
      * @param t el objeto que contiene las propiedades a reflejar en la interfaz
      */
     public void cargarTrabajador(Trabajador t) {
-        tfEmpleado.setText(t.getNombreApellidos());
+        tfEmpleado.setText(t.getNombreTrabajador());
         tfPasswd.setText(t.getPasswordTrabajador());
         tfConfirmPasswd.setText(t.getPasswordTrabajador());
         chckbxAdmin.setSelected(t.getEsAdmin() == 1);

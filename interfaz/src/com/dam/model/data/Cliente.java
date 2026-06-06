@@ -64,8 +64,7 @@ public class Cliente {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Cliente: ").append(idCliente).append(" ")
-          .append(nombreApellidos).append(", método de pago: ").append(metodoPago);
+        sb.append("[").append(idCliente).append("] ").append(nombreApellidos);
         return sb.toString();
     }
 }

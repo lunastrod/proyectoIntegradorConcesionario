@@ -74,7 +74,7 @@ public class TrabajadorDAO {
         try {
             con = bd.getConexion();
             stmt = con.prepareStatement(sentencia);
-            stmt.setString(1, t.getNombreApellidos());
+            stmt.setString(1, t.getNombreTrabajador());
             stmt.setString(2, t.getPasswordTrabajador());
             stmt.setInt(3, t.getEsAdmin());
             res = stmt.executeUpdate();
