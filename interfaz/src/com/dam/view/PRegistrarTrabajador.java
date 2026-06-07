@@ -25,12 +25,8 @@ import javax.swing.JTable;
  * @see ConcesionarioControlador
  * @see Trabajador
  */
+@SuppressWarnings("serial")
 public class PRegistrarTrabajador extends JPanel implements IPanel {
-    /** Ancho estático predefinido para el panel en píxeles. */
-    private static final int ANCHO = 1000;
-    /** Alto estático predefinido para el panel en píxeles. */
-    private static final int ALTO = 1000;
-
     /** Comando de acción asignado al botón para dar de alta un nuevo trabajador. */
     public static final String REGISTRAR_TRABAJADOR_BTN = "Registrar Trabajador";
     /** Comando de acción asignado al botón para dar de baja un trabajador. */
@@ -82,7 +78,7 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
      */
     public void configurarPanel() {
         setLayout(null);
-        setSize(ANCHO, ALTO);
+        setSize(VPrincipal.ANCHO, VPrincipal.ALTO);
     }
 
     /**
@@ -204,18 +200,6 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
     }
 
     /**
-     * Vuelca la información de un objeto Trabajador concreto sobre los cuadros de entrada
-     * y la casilla de control del panel.
-     * @param t el objeto que contiene las propiedades a reflejar en la interfaz
-     */
-    public void cargarTrabajador(Trabajador t) {
-        tfEmpleado.setText(t.getNombreTrabajador());
-        tfPasswd.setText(t.getPasswordTrabajador());
-        tfConfirmPasswd.setText(t.getPasswordTrabajador());
-        chckbxAdmin.setSelected(t.getEsAdmin() == 1);
-    }
-
-    /**
      * Limpia por completo las cajas de texto de contraseña y nombre, devuelve el
      * checkbox de administrador a su estado inicial desactivado y borra la selección de la tabla.
      */
@@ -244,8 +228,8 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
         String passwd = new String(tfPasswd.getPassword());
         String confirm = new String(tfConfirmPasswd.getPassword());
 
-        if (passwd.isEmpty()) {
-            Avisos.error(this, "La contraseña no puede estar vacía.");
+        if (!Trabajador.contrasenaValida(passwd)) {
+            Avisos.error(this, "La contraseña debe tener entre 8 y 90 caracteres, una minúscula, una mayúscula, un número y un símbolo.");
             return null;
         }
         if (!passwd.equals(confirm)) {
@@ -267,21 +251,5 @@ public class PRegistrarTrabajador extends JPanel implements IPanel {
         btnRegistro.addActionListener(c);
         btnEliminarTrabajador.addActionListener(c);
         btnLimpiarDatos.addActionListener(c);
-    }
-
-    /**
-     * Proporciona acceso directo al botón encargado de disparar el registro de datos.
-     * @return el objeto JButton de registro
-     */
-    public JButton getBtnRegistro() {
-        return btnRegistro; 
-    }
-    
-    /**
-     * Proporciona acceso directo al botón encargado de disparar la baja de datos.
-     * @return el objeto JButton de eliminación
-     */
-    public JButton getBtnEliminarTrabajador() {
-        return btnEliminarTrabajador;
     }
 }
