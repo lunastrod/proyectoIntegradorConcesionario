@@ -18,16 +18,13 @@ import com.dam.model.data.ModeloVehiculo;
  * @see IPanel
  * @see ConcesionarioControlador
  */
+@SuppressWarnings("serial")
 public class PModificarModelo extends JPanel implements IPanel {
-
-    /** Ancho del panel en píxeles. */
-    private static final int ANCHO = 1000;
-
-    /** Alto del panel en píxeles. */
-    private static final int ALTO = 1000;
-
     /** Comando de acción del botón que guarda los cambios del modelo. */
     public static final String GUARDAR_MODIFICACION_MODELO_BTN = "Guardar Modificación Modelo";
+
+    /** Comando de acción del botón que limpia el formulario de modificación de modelo. */
+    public static final String LIMPIAR_MOD_MODELO_BTN = "Limpiar Mod Modelo";
 
     /** Campo de texto para editar el nombre del modelo. */
     private JTextField tfNombreModelo;
@@ -68,6 +65,9 @@ public class PModificarModelo extends JPanel implements IPanel {
     /** Botón que guarda los cambios realizados sobre el modelo. */
     private JButton btnGuardar;
 
+    /** Botón que limpia los datos del formulario. */
+    private JButton btnLimpiar;
+
     /**
      * Modelo que se está editando actualmente.
      * Se usa para conservar el ID al construir el objeto modificado.
@@ -79,7 +79,7 @@ public class PModificarModelo extends JPanel implements IPanel {
      */
     public PModificarModelo() {
         setLayout(null);
-        setSize(ANCHO, ALTO);
+        setSize(VPrincipal.ANCHO, VPrincipal.ALTO);
         crearComponentes();
     }
 
@@ -157,6 +157,11 @@ public class PModificarModelo extends JPanel implements IPanel {
         btnGuardar.setActionCommand(GUARDAR_MODIFICACION_MODELO_BTN);
         btnGuardar.setBounds(25, 370, 150, 25);
         add(btnGuardar);
+
+        btnLimpiar = new JButton("Limpiar");
+        btnLimpiar.setActionCommand(LIMPIAR_MOD_MODELO_BTN);
+        btnLimpiar.setBounds(195, 370, 150, 25);
+        add(btnLimpiar);
     }
 
     /**
@@ -189,18 +194,24 @@ public class PModificarModelo extends JPanel implements IPanel {
      * @return modelo con los datos modificados del formulario.
      */
     public ModeloVehiculo getModelo() {
-        int id = modeloActual != null ? modeloActual.getIdModelo() : -1;
-        return new ModeloVehiculo(
-            id,
-            tfNombreModelo.getText().trim(),
-            (int) spinnerPlazas.getValue(),
-            (int) spinnerPuertas.getValue(),
-            comboBoxVehiculo.getSelectedItem().toString(),
-            comboBoxPropulsion.getSelectedItem().toString(),
-            comboBoxTraccion.getSelectedItem().toString(),
-            tfNombreMarca.getText().trim(),
-            comboBoxTransmision.getSelectedItem().toString()
-        );
+        String nombreModelo = tfNombreModelo.getText().trim();
+        String nombreMarca = tfNombreMarca.getText().trim();
+
+        if (nombreModelo.isEmpty() || nombreMarca.isEmpty()) {
+            Avisos.error(this, "La marca y el modelo no pueden estar vacíos.");
+            return null;
+        }
+
+        String propulsion = comboBoxPropulsion.getSelectedItem().toString();
+        String traccion = comboBoxTraccion.getSelectedItem().toString();
+        String transmision = comboBoxTransmision.getSelectedItem().toString();
+        String vehiculo = comboBoxVehiculo.getSelectedItem().toString();
+        int plazas = (int) spinnerPlazas.getValue();
+        int puertas = (int) spinnerPuertas.getValue();
+        
+        int id = (modeloActual != null) ? modeloActual.getIdModelo() : -1;
+        
+        return new ModeloVehiculo(id, nombreModelo, plazas, puertas, vehiculo, propulsion, traccion, nombreMarca, transmision);
     }
 
     /**
@@ -228,5 +239,17 @@ public class PModificarModelo extends JPanel implements IPanel {
     @Override
     public void setControlador(ConcesionarioControlador c) {
         btnGuardar.addActionListener(c);
+        btnLimpiar.addActionListener(c);
+    }
+
+    public void limpiarDatos() {
+        tfNombreModelo.setText("");
+        tfNombreMarca.setText("");
+        comboBoxPropulsion.setSelectedIndex(0);
+        comboBoxTraccion.setSelectedIndex(0);
+        comboBoxTransmision.setSelectedIndex(0);
+        comboBoxVehiculo.setSelectedIndex(0);
+        spinnerPlazas.setValue(1);
+        spinnerPuertas.setValue(0);
     }
 }

@@ -39,7 +39,7 @@ public class TrabajadorDAO {
     public static final String COL_ID_TRABAJADOR = "id_trabajador";
 
     /** Nombre de la columna con el nombre y apellidos del trabajador. */
-    public static final String COL_NOMBRE_TRABAJADOR = "nombre_apellidos";
+    public static final String COL_NOMBRE_TRABAJADOR = "nombre_apellidos_t";
 
     /** Nombre de la columna con la contraseña del trabajador. */
     public static final String COL_PASSWORD_TRABAJADOR = "password_trabajador";
@@ -91,19 +91,19 @@ public class TrabajadorDAO {
      * <p>
      * Si el trabajador tiene ventas asociadas mediante clave foránea,
      * la base de datos impedirá la eliminación y el método devolverá -1.
-     * @param nombreApellidos nombre y apellidos exactos del trabajador a eliminar.
+     * @param id ID del trabajador a eliminar.
      * @return número de filas afectadas; 1 si se eliminó correctamente,
      *         -1 si ocurrió un error o el trabajador tiene ventas asociadas.
      */
-    public int delete(String nombreApellidos) {
-        String sentencia = "DELETE FROM " + NOM_TABLA + " WHERE " + COL_NOMBRE_TRABAJADOR + " = ?";
+    public int delete(int id) {
+        String sentencia = "DELETE FROM " + NOM_TABLA + " WHERE " + COL_ID_TRABAJADOR + " = ?";
         Connection con = null;
         PreparedStatement stmt = null;
         int res = -1;
         try {
             con = bd.getConexion();
             stmt = con.prepareStatement(sentencia);
-            stmt.setString(1, nombreApellidos);
+            stmt.setInt(1, id);
             res = stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -150,6 +150,18 @@ public class TrabajadorDAO {
         String sentencia = "SELECT * FROM " + NOM_TABLA + " WHERE " + COL_NOMBRE_TRABAJADOR + " = ?";
         return ejecutarConsultaUnico(sentencia, nombre);
     }
+
+    /**
+     * Busca un trabajador por su nombre y apellidos.
+     * @param nombre nombre y apellidos exactos del trabajador a buscar
+     * @return trabajador encontrado, o null si no existe ninguno
+     *         con ese nombre o si ocurrió un error.
+     */
+    public Trabajador getTrabajadorPorId(int id) {
+        String sentencia = "SELECT * FROM " + NOM_TABLA + " WHERE " + COL_ID_TRABAJADOR + " = ?";
+        return ejecutarConsultaUnico(sentencia, Integer.toString(id));
+    }
+
     /**
      * Valida las credenciales de un trabajador y lo devuelve si son correctas.
      * <p>

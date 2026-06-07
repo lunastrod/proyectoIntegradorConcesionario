@@ -19,14 +19,8 @@ import com.dam.model.data.Login;
  * @see IPanel
  * @see ConcesionarioControlador
  */
+@SuppressWarnings("serial")
 public class PLogin extends JPanel implements IPanel {
-
-    /** Ancho del panel en píxeles. */
-    private static final int ANCHO = 600;
-
-    /** Alto del panel en píxeles. */
-    private static final int ALTO = 400;
-
     /** Comando de acción y texto del botón de acceso. */
     public static final String LOGIN_BTN = "Acceder";
 
@@ -52,7 +46,7 @@ public class PLogin extends JPanel implements IPanel {
      */
     public void configurarPanel() {
         setLayout(null);
-        setSize(ANCHO, ALTO);
+        setSize(VPrincipal.ANCHO, VPrincipal.ALTO);
     }
 
     /**
@@ -60,7 +54,8 @@ public class PLogin extends JPanel implements IPanel {
      * introducidos en el formulario en el momento de la llamada.
      * @return objeto Login con el nombre de usuario y la contraseña introducidos
      */
-    public Login getLogin() {
+    @SuppressWarnings("deprecation")
+	public Login getLogin() {
         return new Login(tfEmpleado.getText(), tfPasswd.getText());
     }
 

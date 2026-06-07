@@ -19,6 +19,7 @@ import com.dam.model.data.Vehiculo;
  * @see IPanel
  * @see ConcesionarioControlador
  */
+@SuppressWarnings("serial")
 public class PVerCatalogo extends JPanel implements IPanel {
 
     /** Ancho del panel en píxeles. */

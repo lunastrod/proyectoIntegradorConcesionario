@@ -118,16 +118,48 @@ public class Trabajador {
 
         return estado;
     }
-    /*
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Trabajador ").append(idTrabajador).append(" ")
-        .append(nombreApellidos).append(" - contraseña: ").append(passwordTrabajador)
-        .append(" - Estado: ").append(traducirAdmin(esAdmin));
-        return sb.toString();
+
+    /**
+     * Valida si una contraseña cumple con los requisitos de seguridad.
+     * <p>
+     * Comprueba que la longitud sea de al menos 8 caracteres y menor de 90, 
+     * y que contenga al menos una mayúscula, una minúscula, un número y un símbolo.
+     * @param contrasena contraseña a comprobar
+     * @return true si la contraseña es válida, false en caso contrario
+     */
+    public static boolean contrasenaValida(String contrasena) {
+        boolean valida = false;
+
+        if (contrasena != null) {
+            int longitud = contrasena.length();
+            
+            if (longitud >= 8 && longitud <= 90) {
+                boolean tieneMayuscula = false;
+                boolean tieneMinuscula = false;
+                boolean tieneNumero = false;
+                boolean tieneSimbolo = false;
+
+                for (int i = 0; i < longitud && !(tieneMayuscula && tieneMinuscula && tieneNumero && tieneSimbolo); i++) {
+                    char c = contrasena.charAt(i);
+
+                    if (Character.isUpperCase(c)) {
+                        tieneMayuscula = true;
+                    } else if (Character.isLowerCase(c)) {
+                        tieneMinuscula = true;
+                    } else if (Character.isDigit(c)) {
+                        tieneNumero = true;
+                    } else if (!Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
+                        tieneSimbolo = true;
+                    }
+                }
+
+                valida = tieneMayuscula && tieneMinuscula && tieneNumero && tieneSimbolo;
+            }
+        }
+
+        return valida;
     }
-    */
+
     /**
      * Devuelve el nombre y apellidos del trabajador como representación textual.
      * <p>
@@ -137,6 +169,6 @@ public class Trabajador {
      */
     @Override
     public String toString() {
-        return "[" + idTrabajador + "] " + nombreTrabajador;
+        return nombreTrabajador;
     }
 }

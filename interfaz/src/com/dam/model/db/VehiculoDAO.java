@@ -206,6 +206,7 @@ public class VehiculoDAO {
      * @return lista con el vehículo encontrado; lista vacía si no existe
      *         ninguno con ese ID o si ocurrió un error.
      */
+    /*
     public ArrayList<Vehiculo> selectVehiculoPorId(int id) {
         String sentencia = "SELECT * FROM " + NOM_TABLA + " JOIN " + ModeloVehiculoDAO.NOM_TABLA
                 + " ON " + NOM_TABLA + "." + COL_MODELO + " = " + ModeloVehiculoDAO.NOM_TABLA
@@ -232,6 +233,7 @@ public class VehiculoDAO {
         }
         return vehiculo;
     }
+    */
     /**
      * Recupera todos los vehículos registrados en la base de datos.
      * <p>
@@ -265,6 +267,42 @@ public class VehiculoDAO {
         }
         return vehiculos;
     }
+
+    /**
+     * Recupera los vehÃ­culos que no tienen una venta asociada.
+     * <p>
+     * Realiza un JOIN con la tabla Modelo para devolver cada vehÃ­culo
+     * disponible con su modelo completamente lleno.
+     * @return lista con los vehÃ­culos disponibles.
+     */
+    public ArrayList<Vehiculo> selectDisponibles() {
+        String sentencia = "SELECT * FROM " + NOM_TABLA + " JOIN " + ModeloVehiculoDAO.NOM_TABLA
+                + " ON " + NOM_TABLA + "." + COL_MODELO + " = "
+                + ModeloVehiculoDAO.NOM_TABLA + "." + ModeloVehiculoDAO.COL_ID_MODELO
+                + " WHERE " + NOM_TABLA + "." + COL_ID_VEHICULO
+                + " NOT IN (SELECT " + VentaDAO.COL_ID_VEHICULO + " FROM " + VentaDAO.NOM_TABLA + ")";
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
+        try {
+            con = bd.getConexion();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(sentencia);
+            while (rs.next()) {
+                vehiculos.add(extraeVehiculo(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) { e.printStackTrace(); }
+            try { if (stmt != null) stmt.close(); } catch (Exception e) { e.printStackTrace(); }
+            try { if (con != null) con.close(); } catch (Exception e) { e.printStackTrace(); }
+        }
+        return vehiculos;
+    }
+
     /**
      * Construye un objeto {@link Vehiculo} a partir de la fila actual
      * del ResultSet, incluyendo su {@link ModeloVehiculo} asociado.

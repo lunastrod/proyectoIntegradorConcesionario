@@ -6,7 +6,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import com.dam.control.ConcesionarioControlador;
 import com.dam.model.data.Cliente;
-import com.dam.model.data.Trabajador;
 import com.dam.model.data.Venta;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -21,12 +20,8 @@ import javax.swing.JTable;
  * @see Cliente
  * @see Venta
  */
+@SuppressWarnings("serial")
 public class PVerVentasClientes extends JPanel implements IPanel {
-    /** Ancho estático predefinido para el panel en píxeles. */
-    private static final int ANCHO = 1000;
-    /** Alto estático predefinido para el panel en píxeles. */
-    private static final int ALTO = 1000;
-
     /** 1ra Tabla interactiva que despliega los trabajadores almacenados en la base de datos. */
     private JTable table;
     
@@ -76,7 +71,7 @@ public class PVerVentasClientes extends JPanel implements IPanel {
      */
     public void configurarPanel() {
         setLayout(null);
-        setSize(ANCHO, ALTO);
+        setSize(VPrincipal.ANCHO, VPrincipal.ALTO);
     }
 
     /**

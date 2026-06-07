@@ -95,21 +95,22 @@ public class ConcesionarioControlador implements ActionListener {
      * Indica si la interfaz está en modo claro (true) u oscuro (false).
      * Se alterna desde el menú principal.
      */
-    private boolean modoClaro = true;
+    private boolean modoClaro = false;
 
     /**
      * Indica si hay una sesión de trabajador activa.
      * Controla la visibilidad de las opciones del menú restringidas.
-     * NOTA: En la versión final estará por defecto en false.
      */
-    private boolean sesionIniciada = true;
+    private boolean sesionIniciada = false;
 
     /**
      * Indica si el trabajador con sesión activa tiene permisos de administrador.
      * Controla la visibilidad de las opciones exclusivas de administrador.
-     * NOTA: En la versión final estará por defecto en false.
      */
-    private boolean admin = true;
+    private boolean admin = false;
+
+    public static final boolean DEBUG_ADMIN = false;
+
 
     /**
      * Crea el controlador inyectando todas las vistas y DAOs necesarios.
@@ -165,6 +166,10 @@ public class ConcesionarioControlador implements ActionListener {
         this.ventaDAO = ventaDAO;
         actualizarModoClaroOscuro(modoClaro);
         v.actualizarMenu(sesionIniciada, admin);
+        if(DEBUG_ADMIN) {
+            sesionIniciada = true;
+            admin = true;
+        }
     }
 
     /**
@@ -203,13 +208,16 @@ public class ConcesionarioControlador implements ActionListener {
                 pNuevoVehiculo.actualizarVehiculos(vehiculoDAO.selectTodos());
                 v.cargarPanel(pNuevoVehiculo);
                 actualizarModoClaroOscuro(modoClaro);
+                pNuevoVehiculo.limpiarDatos();
                 break;
             case VPrincipal.VER_CATALOGO_MENU:
                 cargarPanelCatalogo();
+                actualizarModoClaroOscuro(modoClaro);
                 break;
             case VPrincipal.NUEVO_MODELO_MENU:
                 pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
                 v.cargarPanel(pNuevoModelo);
+                pNuevoModelo.limpiarDatos();
                 actualizarModoClaroOscuro(modoClaro);
                 break;
             case VPrincipal.LOGIN_MENU:
@@ -224,6 +232,7 @@ public class ConcesionarioControlador implements ActionListener {
                 v.cargarPanel(pRegistrarTrabajador);
                 actualizarModoClaroOscuro(modoClaro);
                 consultarTrabajadores();
+                pRegistrarTrabajador.limpiarDatos();
                 break;
             case VPrincipal.VER_TABLAS:
             	v.cargarPanel(pVerVentasClientes);
@@ -264,8 +273,14 @@ public class ConcesionarioControlador implements ActionListener {
             case PNuevoVehiculo.GUARDAR_VEHICULO_BTN:
                 guardarVehiculo();
                 break;
+            case PNuevoVehiculo.LIMPIAR_VEHICULO_BTN:
+                pNuevoVehiculo.limpiarDatos();
+                break;
             case PNuevoModelo.GUARDAR_MODELO_BTN:
                 guardarModelo();
+                break;
+            case PNuevoModelo.LIMPIAR_MODELO_BTN:
+                pNuevoModelo.limpiarDatos();
                 break;
             case PNuevoModelo.ELIMINAR_MODELO_BTN:
                 eliminarModelo();
@@ -276,6 +291,9 @@ public class ConcesionarioControlador implements ActionListener {
             case PModificarModelo.GUARDAR_MODIFICACION_MODELO_BTN:
                 modificarModelo();
                 break;
+            case PModificarModelo.LIMPIAR_MOD_MODELO_BTN:
+                pModificarModelo.limpiarDatos();
+                break;
             case PLogin.LOGIN_BTN:
                 login();
                 break;
@@ -284,6 +302,9 @@ public class ConcesionarioControlador implements ActionListener {
                 break;
             case PInformacionVehiculo.REALIZAR_COMPRA_BTN:
                 comprarVehiculo();
+                break;
+            case PInformacionVehiculo.VOLVER_CATALOGO_BTN:
+                cargarPanelCatalogo();
                 break;
             case PNuevoVehiculo.BUSCAR_MARCA_BTN:
                 buscarMarca();
@@ -299,6 +320,9 @@ public class ConcesionarioControlador implements ActionListener {
                 break;
             case PModificarVehiculo.GUARDAR_MODIFICACION_BTN:
                 modificarVehiculo();
+                break;
+            case PModificarVehiculo.LIMPIAR_MOD_VEHICULO_BTN:
+                pModificarVehiculo.limpiarDatos();
                 break;
             case PModificarVehiculo.VER_COLOR_MODIFICAR_BTN:
                 pModificarVehiculo.actualizarColor();
@@ -379,7 +403,7 @@ public class ConcesionarioControlador implements ActionListener {
      * actualiza los paneles del catálogo y aplica el modo claro u oscuro activo.
      */
     public void cargarPanelCatalogo() {
-        pVerCatalogo.actualizarPanelesVehiculo(vehiculoDAO.selectTodos());
+        pVerCatalogo.actualizarPanelesVehiculo(vehiculoDAO.selectDisponibles());
         v.cargarPanel(pVerCatalogo);
         actualizarModoClaroOscuro(modoClaro);
     }
@@ -424,6 +448,8 @@ public class ConcesionarioControlador implements ActionListener {
         int res = vehiculoDAO.update(vehiculo);
         if (res > 0) {
             Avisos.info(v, "Vehículo modificado correctamente.");
+            pNuevoVehiculo.actualizarVehiculos(vehiculoDAO.selectTodos());
+            v.cargarPanel(pNuevoVehiculo);
         } else {
             Avisos.error(v, "Error al modificar el vehículo.");
         }
@@ -506,14 +532,15 @@ public class ConcesionarioControlador implements ActionListener {
      */
     private void guardarModelo() {
         ModeloVehiculo m = pNuevoModelo.getModeloVehiculo();
-        int res = modeloVehiculoDAO.insert(m);
-        if (res > 0) {
-            pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
-            Avisos.info(v, "Modelo guardado correctamente.");
-        } else {
-            Avisos.error(v, "Error al guardar el modelo.");
+        if(m != null){
+            int res = modeloVehiculoDAO.insert(m);
+            if (res > 0) {
+                pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
+                Avisos.info(v, "Modelo guardado correctamente.");
+            } else {
+                Avisos.error(v, "Error al guardar el modelo.");
+            }
         }
-        System.out.println(m);
     }
 
     private boolean validarMatriculaVehiculo(Vehiculo vehiculo) {
@@ -551,14 +578,16 @@ public class ConcesionarioControlador implements ActionListener {
      */
     private void modificarModelo() {
         ModeloVehiculo modelo = pModificarModelo.getModelo();
-        int res = modeloVehiculoDAO.update(modelo);
-        if (res > 0) {
-            Avisos.info(v, "Modelo modificado correctamente.");
-            v.cargarPanel(pNuevoModelo);
-            pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
-            actualizarModoClaroOscuro(modoClaro);
-        } else {
-            Avisos.error(v, "Error al modificar el modelo.");
+        if(modelo != null) {
+            int res = modeloVehiculoDAO.update(modelo);
+            if (res > 0) {
+                Avisos.info(v, "Modelo modificado correctamente.");
+                v.cargarPanel(pNuevoModelo);
+                pNuevoModelo.actualizarListaModelos(modeloVehiculoDAO.selectTodos());
+                actualizarModoClaroOscuro(modoClaro);
+            } else {
+                Avisos.error(v, "Error al modificar el modelo.");
+            }
         }
     }
 
@@ -618,6 +647,7 @@ public class ConcesionarioControlador implements ActionListener {
         String marca = pNuevoVehiculo.getMarca();
         ArrayList<ModeloVehiculo> modelos = modeloVehiculoDAO.selectModeloPorMarca(marca);
         pNuevoVehiculo.actualizarModelos(modelos);
+        pNuevoVehiculo.setFormularioHabilitado(true);
     }
 
     /**
@@ -628,6 +658,7 @@ public class ConcesionarioControlador implements ActionListener {
         String marca = pModificarVehiculo.getMarca();
         ArrayList<ModeloVehiculo> modelos = modeloVehiculoDAO.selectModeloPorMarca(marca);
         pModificarVehiculo.actualizarModelos(modelos);
+        pModificarVehiculo.setFormularioHabilitado(true);
     }
 
     /**
@@ -689,7 +720,7 @@ public class ConcesionarioControlador implements ActionListener {
             return;
         }
 
-        int res = trabajadorDAO.delete(seleccionado.getNombreTrabajador());
+        int res = trabajadorDAO.delete(seleccionado.getIdTrabajador());
         if (res > 0) {
             Avisos.info(v, "Trabajador eliminado correctamente.");
             consultarTrabajadores();

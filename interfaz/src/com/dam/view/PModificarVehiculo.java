@@ -29,14 +29,8 @@ import com.dam.model.data.Vehiculo;
  * @see IPanel
  * @see ConcesionarioControlador
  */
+@SuppressWarnings("serial")
 public class PModificarVehiculo extends JPanel implements IPanel {
-
-    /** Ancho del panel en píxeles. */
-    private static final int ANCHO = 1000;
-
-    /** Alto del panel en píxeles. */
-    private static final int ALTO = 1000;
-
     /** Comando de acción del botón que guarda los cambios del vehículo. */
     public static final String GUARDAR_MODIFICACION_BTN = "Guardar Modificación";
 
@@ -46,8 +40,14 @@ public class PModificarVehiculo extends JPanel implements IPanel {
     /** Comando de acción del botón que carga los modelos de la marca seleccionada. */
     public static final String BUSCAR_MARCA_MODIFICAR_BTN = "Buscar Marca Modificar";
 
+    /** Comando de acción del botón que limpia el formulario de modificación de vehículo. */
+    public static final String LIMPIAR_MOD_VEHICULO_BTN = "Limpiar Mod Vehiculo";
+
     /** Botón que guarda los cambios realizados sobre el vehículo. */
     private JButton btnModificar;
+
+    /** Botón que limpia los datos del formulario. */
+    private JButton btnLimpiar;
 
     /** Modelo del desplegable de marcas disponibles. */
     private DefaultComboBoxModel<String> modelMarcas;
@@ -111,7 +111,7 @@ public class PModificarVehiculo extends JPanel implements IPanel {
      */
     public PModificarVehiculo() {
         setLayout(null);
-        setSize(ANCHO, ALTO);
+        setSize(VPrincipal.ANCHO, VPrincipal.ALTO);
         crearComponentes();
     }
 
@@ -238,6 +238,11 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         btnModificar.setBounds(80, 436, 150, 25);
         add(btnModificar);
 
+        btnLimpiar = new JButton("Limpiar");
+        btnLimpiar.setActionCommand(LIMPIAR_MOD_VEHICULO_BTN);
+        btnLimpiar.setBounds(245, 436, 150, 25);
+        add(btnLimpiar);
+
         txtMatricula = new JTextField();
         txtMatricula.setBounds(185, 219, 86, 20);
         add(txtMatricula);
@@ -326,6 +331,7 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         add(btnBuscarMarca);
 
         actualizarColor();
+        setFormularioHabilitado(false);
     }
 
     /**
@@ -339,6 +345,23 @@ public class PModificarVehiculo extends JPanel implements IPanel {
         btnVerColor.setBackground(new Color(rojo, verde, azul));
     }
 
+    public void limpiarDatos() {
+        if (cbMarca.getItemCount() > 0) cbMarca.setSelectedIndex(0);
+        if (cbModelo.getItemCount() > 0) cbModelo.setSelectedIndex(0);
+        spPrecio.setValue(20000);
+        txtMatricula.setText("");
+        spRojo.setValue(0);
+        spVerde.setValue(0);
+        spAzul.setValue(0);
+        spYear.setValue(2000);
+        spKilometraje.setValue(0);
+        spPotencia.setValue(0);
+        spCilindrada.setValue(0);
+        spPeso.setValue(0);
+        actualizarColor();
+        setFormularioHabilitado(false);
+    }
+
     /**
      * Registra el controlador como ActionListener de los botones
      * de guardar modificación, ver color y buscar marca.
@@ -346,6 +369,7 @@ public class PModificarVehiculo extends JPanel implements IPanel {
      */
     public void setControlador(ConcesionarioControlador c) {
         btnModificar.addActionListener(c);
+        btnLimpiar.addActionListener(c);
         btnVerColor.addActionListener(c);
         btnBuscarMarca.addActionListener(c);
     }
@@ -448,5 +472,22 @@ public class PModificarVehiculo extends JPanel implements IPanel {
             spVerde.setValue(0);
             spAzul.setValue(0);
         }
+    }
+
+    public void setFormularioHabilitado(boolean b) {
+        cbModelo.setEnabled(b);
+        spPrecio.setEnabled(b);
+        txtMatricula.setEnabled(b);
+        spRojo.setEnabled(b);
+        spVerde.setEnabled(b);
+        spAzul.setEnabled(b);
+        spYear.setEnabled(b);
+        spKilometraje.setEnabled(b);
+        spPotencia.setEnabled(b);
+        spCilindrada.setEnabled(b);
+        spPeso.setEnabled(b);
+        btnVerColor.setEnabled(b);
+        btnModificar.setEnabled(b);
+        btnLimpiar.setEnabled(b);
     }
 }

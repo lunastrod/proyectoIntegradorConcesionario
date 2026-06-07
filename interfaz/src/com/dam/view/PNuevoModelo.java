@@ -4,7 +4,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import com.dam.control.ConcesionarioControlador;
@@ -31,14 +30,8 @@ import javax.swing.JList;
  * @see IPanel
  * @see ConcesionarioControlador
  */
+@SuppressWarnings("serial")
 public class PNuevoModelo extends JPanel implements IPanel {
-
-    /** Ancho del panel en píxeles. */
-    private static final int ANCHO = 1000;
-
-    /** Alto del panel en píxeles. */
-    private static final int ALTO = 1000;
-
     /** Comando de acción del botón que guarda el nuevo modelo. */
     public static final String GUARDAR_MODELO_BTN = "Guardar Modelo";
 
@@ -48,14 +41,20 @@ public class PNuevoModelo extends JPanel implements IPanel {
     /** Comando de acción del botón que carga el modelo seleccionado en el panel de modificación. */
     public static final String MODIFICAR_MODELO_BTN = "Modificar Modelo";
 
+    /** Comando de acción del botón que limpia el formulario de modelo. */
+    public static final String LIMPIAR_MODELO_BTN = "Limpiar Modelo";
+
     /** Botón que guarda el nuevo modelo en la base de datos. */
-    JButton btnGuardar;
+    private JButton btnGuardar;
+
+    /** Botón que limpia los datos introducidos en el formulario. */
+    private JButton btnLimpiar;
 
     /** Campo de texto para introducir el nombre del modelo. */
-    JTextField tfNombreModelo;
+    private JTextField tfNombreModelo;
 
     /** Campo de texto para introducir el nombre de la marca. */
-    JTextField tfNombreMarca;
+    private JTextField tfNombreMarca;
 
     /** Etiqueta del campo de tipo de propulsión. */
     private JLabel lblPropulsion;
@@ -116,7 +115,7 @@ public class PNuevoModelo extends JPanel implements IPanel {
      */
     public PNuevoModelo() {
         setLayout(null);
-        setSize(ANCHO, ALTO);
+        setSize(VPrincipal.ANCHO, VPrincipal.ALTO);
         crearComponentes();
     }
 
@@ -129,14 +128,21 @@ public class PNuevoModelo extends JPanel implements IPanel {
      * @return modelo con los datos del formulario listo para insertar
      */
     public ModeloVehiculo getModeloVehiculo() {
-        String nombreModelo = tfNombreModelo.getText();
-        String nombreMarca = tfNombreMarca.getText();
+        String nombreModelo = tfNombreModelo.getText().trim();
+        String nombreMarca = tfNombreMarca.getText().trim();
+
+        if (nombreModelo.isEmpty() || nombreMarca.isEmpty()) {
+            Avisos.error(this, "La marca y el modelo no pueden estar vacíos.");
+            return null;
+        }
+
         String propulsion = comboBoxPropulsion.getSelectedItem().toString();
         String traccion = comboBoxTraccion.getSelectedItem().toString();
         String transmision = comboBoxTransmision.getSelectedItem().toString();
         String vehiculo = comboBoxVehiculo.getSelectedItem().toString();
         int plazas = (int) spinnerPlazas.getValue();
         int puertas = (int) spinnerPuertas.getValue();
+        
         return new ModeloVehiculo(-1, nombreModelo, plazas, puertas, vehiculo, propulsion, traccion, nombreMarca, transmision);
     }
 
@@ -168,6 +174,11 @@ public class PNuevoModelo extends JPanel implements IPanel {
         btnGuardar = new JButton(GUARDAR_MODELO_BTN);
         btnGuardar.setBounds(25, 425, 150, 25);
         add(btnGuardar);
+
+        btnLimpiar = new JButton("Limpiar");
+        btnLimpiar.setActionCommand(LIMPIAR_MODELO_BTN);
+        btnLimpiar.setBounds(195, 425, 150, 25);
+        add(btnLimpiar);
 
         lblPropulsion = new JLabel("Tipo de propulsión");
         lblPropulsion.setBounds(25, 136, 160, 20);
@@ -254,8 +265,20 @@ public class PNuevoModelo extends JPanel implements IPanel {
      */
     public void setControlador(ConcesionarioControlador c) {
         btnGuardar.addActionListener(c);
+        btnLimpiar.addActionListener(c);
         btnEliminarModelo.addActionListener(c);
         btnModificarModelo.addActionListener(c);
+    }
+
+    public void limpiarDatos() {
+        tfNombreModelo.setText("");
+        tfNombreMarca.setText("");
+        comboBoxPropulsion.setSelectedIndex(0);
+        comboBoxTraccion.setSelectedIndex(0);
+        comboBoxTransmision.setSelectedIndex(0);
+        comboBoxVehiculo.setSelectedIndex(0);
+        spinnerPlazas.setValue(1);
+        spinnerPuertas.setValue(0);
     }
 
     /**

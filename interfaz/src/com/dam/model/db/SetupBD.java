@@ -2,7 +2,6 @@ package com.dam.model.db;
 
 import java.sql.Connection;
 import java.sql.Statement;
-import com.dam.model.db.AccesoBD;
 
 public class SetupBD {
     private AccesoBD bd;
@@ -17,7 +16,7 @@ public class SetupBD {
 
             CREATE TABLE "Cliente" (
                 "id_cliente"	INTEGER,
-                "nombre_apellidos"	varchar(100),
+                "nombre_apellidos_c"	varchar(100),
                 "metodo_pago"	varchar(50),
                 CONSTRAINT "pk_id_cli" PRIMARY KEY("id_cliente" AUTOINCREMENT)
             );
@@ -37,7 +36,7 @@ public class SetupBD {
             
             CREATE TABLE "Trabajador" (
                 "id_trabajador"	INTEGER,
-                "nombre_apellidos"	varchar(100),
+                "nombre_apellidos_t"	varchar(100),
                 "password_trabajador"	varchar(100),
                 "es_admin"	INTEGER,
                 CONSTRAINT "pk_id_trabajo" PRIMARY KEY("id_trabajador" AUTOINCREMENT)
@@ -69,7 +68,7 @@ public class SetupBD {
                 CONSTRAINT "fk_id_trabajo" FOREIGN KEY("id_trabajador") REFERENCES "Trabajador"("id_trabajador"),
                 CONSTRAINT "fk_id_car" FOREIGN KEY("id_vehiculo") REFERENCES "Vehiculo"("id_vehiculo")
             );
-            INSERT INTO "Cliente" ("id_cliente","nombre_apellidos","metodo_pago") VALUES (2,'Ana Ruiz López','Tarjeta de crédito'),
+            INSERT INTO "Cliente" ("id_cliente","nombre_apellidos_c","metodo_pago") VALUES (2,'Ana Ruiz López','Tarjeta de crédito'),
             (3,'Pedro Infante Rivera','Transferencia bancaria');
             INSERT INTO "Modelo" ("id_modelo","nombre_modelo","numero_plazas","numero_puertas","tipo_vehiculo","tipo_propulsion","traccion","marca","tipo_transmision") VALUES (17,'Clase A',5,4,'Compacto','Gasolina','Delantera','Mercedes-Benz','Automático'),
             (18,'Golf',5,4,'Compacto','Diesel','Delantera','Volkswagen','Manual'),
@@ -86,7 +85,7 @@ public class SetupBD {
             (29,'Ibiza',5,4,'Compacto','Gasolina','Delantera','SEAT','Manual'),
             (30,'Clase S',5,4,'Berlina','Híbrido enchufable','AWD','Mercedes-Benz','Automático'),
             (31,'Sprinter',2,4,'Furgoneta','Diesel','Delantera','Mercedes-Benz','Manual');
-            INSERT INTO "Trabajador" ("id_trabajador","nombre_apellidos","password_trabajador","es_admin") VALUES (85,'Daniel','admin',1),
+            INSERT INTO "Trabajador" ("id_trabajador","nombre_apellidos_t","password_trabajador","es_admin") VALUES (85,'Daniel','admin',1),
             (86,'Luis','admin',1),
             (87,'Empleado','empleado',0);
             INSERT INTO "Vehiculo" ("id_vehiculo","modelo","precio","matricula","color","year","kilometraje","potencia_cv","cilindrada","peso_kg") VALUES 
@@ -108,8 +107,6 @@ public class SetupBD {
             COMMIT;
             """;
     
-    
-
     public SetupBD(AccesoBD bd) {
         this.bd = bd;
     }
