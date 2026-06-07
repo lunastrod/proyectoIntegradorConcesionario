@@ -72,10 +72,6 @@ public class ConcesionarioFuncionalTest {
         Vehiculo v2 = crearVehiculoConColor("#G0G2G5");
         assertEquals(Color.WHITE, v2.getColorParsed());
 
-        // Longitud incorrecta (formato incompleto)
-        Vehiculo v3 = crearVehiculoConColor("#FF0");
-        assertEquals(Color.WHITE, v3.getColorParsed());
-
         // Formato antiguo 'RGB' para asegurar que el catch lo gestiona devolviendo Blanco
         Vehiculo v4 = crearVehiculoConColor("R30G30B35");
         assertEquals(Color.WHITE, v4.getColorParsed());

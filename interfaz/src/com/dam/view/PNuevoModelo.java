@@ -45,16 +45,16 @@ public class PNuevoModelo extends JPanel implements IPanel {
     public static final String LIMPIAR_MODELO_BTN = "Limpiar Modelo";
 
     /** Botón que guarda el nuevo modelo en la base de datos. */
-    JButton btnGuardar;
+    private JButton btnGuardar;
 
     /** Botón que limpia los datos introducidos en el formulario. */
     private JButton btnLimpiar;
 
     /** Campo de texto para introducir el nombre del modelo. */
-    JTextField tfNombreModelo;
+    private JTextField tfNombreModelo;
 
     /** Campo de texto para introducir el nombre de la marca. */
-    JTextField tfNombreMarca;
+    private JTextField tfNombreMarca;
 
     /** Etiqueta del campo de tipo de propulsión. */
     private JLabel lblPropulsion;

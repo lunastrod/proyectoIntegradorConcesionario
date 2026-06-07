@@ -49,7 +49,7 @@ public class Inicio {
      * - Hace visible la ventana principal.
      * @param args argumentos de línea de comandos; no se utilizan en esta aplicación.
      */
-    public static boolean REGENERAR_BD = true;
+    public static boolean REGENERAR_BD = false;
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
