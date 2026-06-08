@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.dam.control"},{"l":"com.dam.model.data"},{"l":"com.dam.model.db"},{"l":"com.dam.test"},{"l":"com.dam.view"}];updateSearchResults();
