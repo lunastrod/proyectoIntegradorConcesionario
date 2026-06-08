@@ -1,4 +1,4 @@
 *.class
 *.vscode
-interfaz/.gitignore
-interfaz/.settings/org.eclipse.core.resources.prefs
+AutoGestion/.gitignore
+AutoGestion/.settings/org.eclipse.core.resources.prefs
